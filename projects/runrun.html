@@ -1,1 +1,45 @@
-<!-- runrun.html placeholder content -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>RunRun – DevSecOps</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <header>
+    <a href="../index.html">← Back</a>
+    <h2>RunRun – DevSecOps Automation</h2>
+  </header>
+
+  <main>
+    <div class="tabs">
+      <button onclick="showTab('history')">History</button>
+      <button onclick="showTab('arch')">Architecture</button>
+      <button onclick="showTab('dev')">Development</button>
+      <button onclick="showTab('prod')">Productionization</button>
+    </div>
+
+    <div id="history" class="tab-content">
+      <h3>History</h3>
+      <p>Unified fragmented DevSecOps across infra ops, CI/CD, backups, observability.</p>
+    </div>
+
+    <div id="arch" class="tab-content hidden">
+      <h3>Architecture</h3>
+      <p>Used Camunda, OpenTofu, Vault, Argo. Modular and resilient.</p>
+    </div>
+
+    <div id="dev" class="tab-content hidden">
+      <h3>Development</h3>
+      <p>Micro frontends, alert-to-action playbooks, AI dashboards.</p>
+    </div>
+
+    <div id="prod" class="tab-content hidden">
+      <h3>Productionization</h3>
+      <p>Regression/perf tested, scaled to planetary ops. Led to ₹100Cr Railtel deal.</p>
+    </div>
+  </main>
+
+  <script src="../script.js"></script>
+</body>
+</html>
