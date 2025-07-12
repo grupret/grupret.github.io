@@ -1,0 +1,41 @@
+body {
+    font-family: sans-serif;
+    margin: 0; padding: 0;
+    background: #f8f9fa;
+    color: #333;
+  }
+  
+  header {
+    background: #1f77b4;
+    color: white;
+    padding: 1em;
+    text-align: center;
+  }
+  
+  nav a {
+    color: white;
+    margin: 0 1em;
+    text-decoration: none;
+  }
+  
+  .tabs {
+    display: flex;
+    gap: 10px;
+    margin: 1em;
+  }
+  
+  button {
+    padding: 0.5em 1em;
+    border: none;
+    background: #0077cc;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .tab-content {
+    padding: 1em;
+    border-top: 1px solid #ccc;
+  }
+  
+  .hidden { display: none; }
+  
