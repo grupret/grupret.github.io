@@ -38,4 +38,94 @@ body {
   }
   
   .hidden { display: none; }
+
+
+  /* Container for center alignment */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  /* Header and footer alignment */
+  header, footer {
+    text-align: center;
+  }
+  
+  /* Tech icon strips */
+  .tech-strip {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    animation: floatIcons 10s linear infinite alternate;
+  }
+  
+  .left-strip {
+    left: 0;
+  }
+  
+  .right-strip {
+    right: 0;
+  }
+  
+  /* Icon styling */
+  .tech-strip img {
+    width: 30px;
+    height: 30px;
+    opacity: 0.8;
+    transition: transform 0.3s ease;
+  }
+  .tech-strip img:hover {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  
+  /* Float animation */
+  @keyframes floatIcons {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-20px); }
+  }
+  
+  /* Responsive handling */
+  @media (max-width: 768px) {
+    .tech-strip {
+      display: none;
+    }
+  }
+  
+  /* Bounding box for each tech icon */
+.tech-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.05); /* Optional: subtle background */
+    border: 1px solid rgba(200, 200, 200, 0.2);  /* Optional: subtle boundary */
+    padding: 4px;
+    box-sizing: border-box;
+  }
+  
+  /* Icon image styling */
+  .tech-icon img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0.8;
+  }
+  
+  .tech-icon img:hover {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  
   
