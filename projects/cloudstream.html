@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Data Stream - Ultra-Low Latency Platform | Gurpreet Gandhi</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Gurpreet Gandhi</span>
+                <span class="logo-title">Software Architect</span>
+            </div>
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link">← Back to Portfolio</a>
+                <a href="../index.html#projects" class="nav-link">Other Projects</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-hero">
+        <div class="container">
+            <div class="project-header">
+                <div class="project-title-section">
+                    <h1 class="project-title">Cloud Data Stream</h1>
+                    <p class="project-tagline">Ultra-Low Latency Microservice Communication Platform</p>
+                    <div class="project-impact">
+                        <div class="impact-stat">
+                            <span class="impact-number">&lt;1ms</span>
+                            <span class="impact-label">Average Latency</span>
+                        </div>
+                        <div class="impact-stat">
+                            <span class="impact-number">1M+</span>
+                            <span class="impact-label">Messages/Second</span>
+                        </div>
+                        <div class="impact-stat">
+                            <span class="impact-number">99.99%</span>
+                            <span class="impact-label">Message Delivery</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-image-section">
+                    <div class="project-architecture-diagram">
+                        <div class="arch-component">
+                            <i class="fas fa-bolt"></i>
+                            <span>RSocket TCP</span>
+                        </div>
+                        <div class="arch-component">
+                            <i class="fas fa-stream"></i>
+                            <span>Apache Kafka</span>
+                        </div>
+                        <div class="arch-component">
+                            <i class="fas fa-water"></i>
+                            <span>Apache Flink</span>
+                        </div>
+                        <div class="arch-component">
+                            <i class="fas fa-dharmachakra"></i>
+                            <span>Kubernetes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Navigation -->
+    <section class="project-nav">
+        <div class="container">
+            <div class="tabs">
+                <button class="tab-button active" onclick="showTab('overview')">
+                    <i class="fas fa-info-circle"></i> Overview
+                </button>
+                <button class="tab-button" onclick="showTab('architecture')">
+                    <i class="fas fa-sitemap"></i> Architecture
+                </button>
+                <button class="tab-button" onclick="showTab('technical')">
+                    <i class="fas fa-code"></i> Technical Implementation
+                </button>
+                <button class="tab-button" onclick="showTab('performance')">
+                    <i class="fas fa-tachometer-alt"></i> Performance
+                </button>
+                <button class="tab-button" onclick="showTab('realtime')">
+                    <i class="fas fa-clock"></i> Real-time Features
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tab Contents -->
+    <section class="project-content">
+        <div class="container">
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <div class="content-section">
+                    <h2>Project Overview</h2>
+                    <div class="overview-grid">
+                        <div class="overview-text">
+                            <h3>Challenge</h3>
+                            <p>
+                                Traditional microservice communication patterns introduce significant latency overhead, 
+                                especially in high-frequency trading and real-time analytics scenarios. HTTP-based 
+                                REST APIs and standard messaging systems couldn't meet our sub-millisecond latency 
+                                requirements for streaming workloads processing millions of events per second.
+                            </p>
+                            
+                            <h3>Solution</h3>
+                            <p>
+                                Cloud Data Stream (CDS) is a revolutionary communication platform built on RSocket TCP 
+                                protocol, designed for ultra-low latency microservice communication. It combines 
+                                reactive streaming with binary protocols to achieve sub-millisecond message delivery 
+                                while maintaining high throughput and reliability.
+                            </p>
+                        </div>
+                        <div class="overview-features">
+                            <h3>Key Capabilities</h3>
+                            <div class="feature-list">
+                                <div class="feature-item">
+                                    <i class="fas fa-lightning-bolt"></i>
+                                    <div>
+                                        <h4>Sub-millisecond Latency</h4>
+                                        <p>P99 latency under 1ms with binary protocol optimization</p>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-expand-arrows-alt"></i>
+                                    <div>
+                                        <h4>Massive Scalability</h4>
+                                        <p>1M+ concurrent connections with horizontal scaling</p>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <div>
+                                        <h4>Fault Tolerance</h4>
+                                        <p>Circuit breakers, retries, and graceful degradation</p>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-chart-line"></i>
+                                    <div>
+                                        <h4>Real-time Analytics</h4>
+                                        <p>Stream processing with Apache Flink integration</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Architecture Tab -->
+            <div id="architecture" class="tab-content hidden">
+                <div class="content-section">
+                    <h2>System Architecture</h2>
+                    <div class="architecture-details">
+                        <div class="arch-layer">
+                            <h3><i class="fas fa-network-wired"></i> Communication Layer</h3>
+                            <div class="layer-content">
+                                <div class="component-card">
+                                    <h4>RSocket Protocol</h4>
+                                    <p>Binary protocol for reactive streaming with built-in backpressure</p>
+                                    <div class="tech-specs">
+                                        <span>TCP Transport</span>
+                                        <span>Binary Framing</span>
+                                        <span>Flow Control</span>
+                                    </div>
+                                </div>
+                                <div class="component-card">
+                                    <h4>Connection Manager</h4>
+                                    <p>Intelligent connection pooling and load balancing</p>
+                                    <div class="tech-specs">
+                                        <span>Connection Pool</span>
+                                        <span>Health Checks</span>
+                                        <span>Auto-recovery</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="arch-layer">
+                            <h3><i class="fas fa-stream"></i> Streaming Layer</h3>
+                            <div class="layer-content">
+                                <div class="component-card">
+                                    <h4>Apache Kafka</h4>
+                                    <p>High-throughput event streaming with partition optimization</p>
+                                    <div class="tech-specs">
+                                        <span>Custom Partitioner</span>
+                                        <span>Compression</span>
+                                        <span>Retention Policies</span>
+                                    </div>
+                                </div>
+                                <div class="component-card">
+                                    <h4>Apache Flink</h4>
+                                    <p>Real-time stream processing with low-latency guarantees</p>
+                                    <div class="tech-specs">
+                                        <span>Event Time</span>
+                                        <span>Watermarks</span>
+                                        <span>State Management</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="arch-layer">
+                            <h3><i class="fas fa-layer-group"></i> Service Layer</h3>
+                            <div class="layer-content">
+                                <div class="component-card">
+                                    <h4>Service Registry</h4>
+                                    <p>Dynamic service discovery with health monitoring</p>
+                                    <div class="tech-specs">
+                                        <span>Consul</span>
+                                        <span>Health Checks</span>
+                                        <span>Load Balancing</span>
+                                    </div>
+                                </div>
+                                <div class="component-card">
+                                    <h4>Message Router</h4>
+                                    <p>Intelligent message routing with content-based filtering</p>
+                                    <div class="tech-specs">
+                                        <span>Topic Routing</span>
+                                        <span>Content Filter</span>
+                                        <span>Dead Letter Queue</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Implementation Tab -->
+            <div id="technical" class="tab-content hidden">
+                <div class="content-section">
+                    <h2>Technical Implementation</h2>
+                    <div class="technical-grid">
+                        <div class="tech-section">
+                            <h3><i class="fas fa-code"></i> Core Technologies</h3>
+                            <div class="tech-stack">
+                                <div class="tech-item">
+                                    <div class="tech-icon">
+                                        <i class="fab fa-java"></i>
+                                    </div>
+                                    <div class="tech-details">
+                                        <h4>Java 17 + Project Reactor</h4>
+                                        <p>Reactive programming for non-blocking I/O operations</p>
+                                        <ul>
+                                            <li>Netty for high-performance networking</li>
+                                            <li>Reactor Core for reactive streams</li>
+                                            <li>Custom memory management</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="tech-item">
+                                    <div class="tech-icon">
+                                        <i class="fas fa-bolt"></i>
+                                    </div>
+                                    <div class="tech-details">
+                                        <h4>RSocket Java</h4>
+                                        <p>Production-ready RSocket implementation</p>
+                                        <ul>
+                                            <li>Binary protocol with metadata</li>
+                                            <li>Multiplexed connections</li>
+                                            <li>Backpressure handling</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="tech-item">
+                                    <div class="tech-icon">
+                                        <i class="fas fa-memory"></i>
+                                    </div>
+                                    <div class="tech-details">
+                                        <h4>Memory Optimization</h4>
+                                        <p>Off-heap storage and zero-copy operations</p>
+                                        <ul>
+                                            <li>Chronicle Map for off-heap storage</li>
+                                            <li>Unsafe operations for performance</li>
+                                            <li>Custom serialization protocols</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tech-section">
+                            <h3><i class="fas fa-chart-line"></i> Performance Optimizations</h3>
+                            <div class="optimization-list">
+                                <div class="optimization-item">
+                                    <h4><i class="fas fa-microchip"></i> CPU Optimization</h4>
+                                    <ul>
+                                        <li>CPU affinity for critical threads</li>
+                                        <li>Lock-free data structures</li>
+                                        <li>Branch prediction optimization</li>
+                                        <li>SIMD instructions for batch processing</li>
+                                    </ul>
+                                </div>
+                                <div class="optimization-item">
+                                    <h4><i class="fas fa-network-wired"></i> Network Optimization</h4>
+                                    <ul>
+                                        <li>TCP_NODELAY for immediate sends</li>
+                                        <li>SO_REUSEPORT for load distribution</li>
+                                        <li>Custom buffer management</li>
+                                        <li>Kernel bypass with DPDK</li>
+                                    </ul>
+                                </div>
+                                <div class="optimization-item">
+                                    <h4><i class="fas fa-database"></i> Memory Management</h4>
+                                    <ul>
+                                        <li>Object pooling for frequent allocations</li>
+                                        <li>Off-heap data structures</li>
+                                        <li>Zero-copy serialization</li>
+                                        <li>Garbage collection tuning</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Tab -->
+            <div id="performance" class="tab-content hidden">
+                <div class="content-section">
+                    <h2>Performance Metrics</h2>
+                    <div class="performance-dashboard">
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>Latency</h3>
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="metric-value">
+                                <span class="metric-number">0.8ms</span>
+                                <span class="metric-unit">P99 latency</span>
+                            </div>
+                            <div class="metric-comparison">
+                                <span class="improvement">95% faster</span>
+                                <span class="baseline">than HTTP REST</span>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>Throughput</h3>
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <div class="metric-value">
+                                <span class="metric-number">1.2M</span>
+                                <span class="metric-unit">messages/second</span>
+                            </div>
+                            <div class="metric-comparison">
+                                <span class="improvement">10x higher</span>
+                                <span class="baseline">than traditional messaging</span>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>Scalability</h3>
+                                <i class="fas fa-expand-arrows-alt"></i>
+                            </div>
+                            <div class="metric-value">
+                                <span class="metric-number">100K</span>
+                                <span class="metric-unit">concurrent connections</span>
+                            </div>
+                            <div class="metric-comparison">
+                                <span class="improvement">Per node</span>
+                                <span class="baseline">with linear scaling</span>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>Reliability</h3>
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="metric-value">
+                                <span class="metric-number">99.99%</span>
+                                <span class="metric-unit">message delivery</span>
+                            </div>
+                            <div class="metric-comparison">
+                                <span class="improvement">Zero data loss</span>
+                                <span class="baseline">guaranteed</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="performance-charts">
+                        <h3>Benchmark Results</h3>
+                        <div class="chart-grid">
+                            <div class="chart-section">
+                                <h4>Latency Distribution</h4>
+                                <div class="latency-stats">
+                                    <div class="stat-item">
+                                        <span class="stat-label">P50</span>
+                                        <span class="stat-value">0.3ms</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">P90</span>
+                                        <span class="stat-value">0.6ms</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">P99</span>
+                                        <span class="stat-value">0.8ms</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">P99.9</span>
+                                        <span class="stat-value">1.2ms</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chart-section">
+                                <h4>Throughput Scaling</h4>
+                                <div class="throughput-stats">
+                                    <div class="stat-item">
+                                        <span class="stat-label">1 Core</span>
+                                        <span class="stat-value">250K msg/s</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">4 Cores</span>
+                                        <span class="stat-value">900K msg/s</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">8 Cores</span>
+                                        <span class="stat-value">1.2M msg/s</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">Efficiency</span>
+                                        <span class="stat-value">85%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real-time Features Tab -->
+            <div id="realtime" class="tab-content hidden">
+                <div class="content-section">
+                    <h2>Real-time Features</h2>
+                    <div class="realtime-features">
+                        <div class="feature-category">
+                            <h3><i class="fas fa-stream"></i> Stream Processing</h3>
+                            <div class="feature-grid">
+                                <div class="feature-card">
+                                    <h4>Event Time Processing</h4>
+                                    <p>Handle out-of-order events with watermarks and late data handling</p>
+                                    <div class="feature-metrics">
+                                        <span>Watermark Interval: 100ms</span>
+                                        <span>Late Data Tolerance: 1 second</span>
+                                    </div>
+                                </div>
+                                <div class="feature-card">
+                                    <h4>Windowing Operations</h4>
+                                    <p>Tumbling, sliding, and session windows for time-based aggregations</p>
+                                    <div class="feature-metrics">
+                                        <span>Min Window: 1ms</span>
+                                        <span>Max Window: 24 hours</span>
+                                    </div>
+                                </div>
+                                <div class="feature-card">
+                                    <h4>Complex Event Processing</h4>
+                                    <p>Pattern detection and correlation across multiple event streams</p>
+                                    <div class="feature-metrics">
+                                        <span>Pattern Types: 50+</span>
+                                        <span>Correlation Time: &lt;5ms</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="feature-category">
+                            <h3><i class="fas fa-bolt"></i> Real-time Analytics</h3>
+                            <div class="analytics-features">
+                                <div class="analytics-item">
+                                    <h4>Live Dashboards</h4>
+                                    <p>Real-time visualization of streaming data with sub-second updates</p>
+                                    <ul>
+                                        <li>WebSocket-based live updates</li>
+                                        <li>Interactive charts and graphs</li>
+                                        <li>Drill-down capabilities</li>
+                                        <li>Alert notifications</li>
+                                    </ul>
+                                </div>
+                                <div class="analytics-item">
+                                    <h4>Stream Joins</h4>
+                                    <p>Join multiple streams with configurable time windows</p>
+                                    <ul>
+                                        <li>Inner and outer joins</li>
+                                        <li>Interval joins</li>
+                                        <li>Temporal joins</li>
+                                        <li>Cross-stream correlation</li>
+                                    </ul>
+                                </div>
+                                <div class="analytics-item">
+                                    <h4>Aggregations</h4>
+                                    <p>Real-time aggregations with sliding windows</p>
+                                    <ul>
+                                        <li>Count, sum, avg, min, max</li>
+                                        <li>Percentiles and histograms</li>
+                                        <li>Custom aggregation functions</li>
+                                        <li>Incremental computation</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="feature-category">
+                            <h3><i class="fas fa-shield-alt"></i> Reliability Features</h3>
+                            <div class="reliability-grid">
+                                <div class="reliability-card">
+                                    <h4>Fault Tolerance</h4>
+                                    <p>Automatic failover and recovery mechanisms</p>
+                                    <div class="reliability-metrics">
+                                        <span>Recovery Time: &lt;1 second</span>
+                                        <span>Zero Data Loss</span>
+                                    </div>
+                                </div>
+                                <div class="reliability-card">
+                                    <h4>Backpressure Handling</h4>
+                                    <p>Intelligent flow control to prevent system overload</p>
+                                    <div class="reliability-metrics">
+                                        <span>Dynamic Buffering</span>
+                                        <span>Adaptive Rate Limiting</span>
+                                    </div>
+                                </div>
+                                <div class="reliability-card">
+                                    <h4>Circuit Breakers</h4>
+                                    <p>Prevent cascade failures with intelligent circuit breaking</p>
+                                    <div class="reliability-metrics">
+                                        <span>Failure Threshold: 50%</span>
+                                        <span>Recovery Time: 30 seconds</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <p>&copy; 2025 Gurpreet Gandhi. All rights reserved.</p>
+                    <p>Software Architect | Platform Engineer | CKAD Certified</p>
+                </div>
+                <div class="footer-links">
+                    <a href="../index.html">Portfolio</a>
+                    <a href="../resume.pdf" target="_blank">Resume</a>
+                    <a href="../index.html#contact">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>
