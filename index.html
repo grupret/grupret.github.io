@@ -1,52 +1,579 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gurpreet Gandhi | Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gurpreet Gandhi | Software Architect & Platform Engineer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <!-- Left Icon Strip -->
-  <div class="tech-strip left-strip">
-    <div class="tech-icon"><img src="icons/mongo.svg" alt="MongoDB" /></div>
-    <div class="tech-icon"><img src="icons/kafka.svg" alt="Kafka" /></div>
-    <div class="tech-icon"><img src="icons/redis.svg" alt="Redis" /></div>
-    <div class="tech-icon"><img src="icons/timescale.svg" alt="TimescaleDB" /></div>
-    <div class="tech-icon"><img src="icons/postgis.svg" alt="PostGIS" /></div>
-  </div>
-  
-  <!-- Example inside right-strip -->
-  <div class="tech-strip right-strip">
-    <div class="tech-icon"><img src="icons/Database-postgres.svg" alt="Postgres" /></div>
-    <div class="tech-icon"><img src="icons/influx.svg" alt="InfluxDB" /></div>
-    <div class="tech-icon"><img src="icons/k8s.svg" alt="Kubernetes" /></div>
-    <div class="tech-icon"><img src="icons/kubeflow.svg" alt="Kubeflow" /></div>
-    <div class="tech-icon"><img src="icons/ollama.svg" alt="Ollama" /></div>
-    <div class="tech-icon"><img src="icons/neo4j.svg" alt="Neo4j" /></div>
-  </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Gurpreet Gandhi</span>
+                <span class="logo-title">Software Architect</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
 
-  <div class="container">
-    <header>
-      <h1>👨‍💻 Gurpreet Gandhi</h1>
-      <p>Engineering Manager | Platform Architect</p>
-      <nav>
-        <a href="index.html">About</a>
-        <a href="projects/runrun.html">Projects</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-    </header>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="title-line">Software Architect</span>
+                        <span class="title-line">Platform Engineer</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        11 years of experience building scalable, distributed systems for enterprise-grade applications.
+                        Expert in Kubernetes, Cloud Architecture, and DevSecOps with proven track record of delivering
+                        high-performance solutions at scale.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">11+</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">₹100Cr+</span>
+                            <span class="stat-label">Deal Value Delivered</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">99.9%</span>
+                            <span class="stat-label">System Uptime</span>
+                        </div>
+                    </div>
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn btn-primary">View Projects</a>
+                        <a href="resume.pdf" class="btn btn-secondary" target="_blank">Download Resume</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="profile-card">
+                        <div class="profile-image">
+                            <img src="https://github.com/gurpreet.png" alt="Gurpreet Gandhi" onerror="this.src='assets/placeholder-profile.jpg'">
+                        </div>
+                        <div class="certification-badge">
+                            <i class="fas fa-certificate"></i>
+                            <span>CKAD Certified</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <div class="scroll-indicator">
+                <span>Scroll Down</span>
+                <i class="fas fa-arrow-down"></i>
+            </div>
+        </div>
+    </section>
 
-    <main>
-      <section>
-        <h2>Welcome</h2>
-        <p>I build scalable systems using Kubernetes, DevSecOps, and AI-driven workflows.</p>
-      </section>
-    </main>
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">Innovative Software Architect with Platform Engineering Expertise</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        As an Engineering Manager and Software Architect with 11 years of experience, I specialize in 
+                        building scalable, distributed systems that power enterprise-grade applications. My expertise 
+                        spans across cloud-native architectures, DevSecOps, and AI-driven workflows.
+                    </p>
+                    <p>
+                        I have successfully architected and delivered systems handling millions of requests per day, 
+                        with sub-millisecond latency requirements. My recent work includes building a distributed 
+                        Data-as-a-Service platform that processes 10TB+ daily data volumes with 99.9% uptime.
+                    </p>
+                    <div class="about-highlights">
+                        <div class="highlight-item">
+                            <i class="fas fa-trophy"></i>
+                            <div>
+                                <h4>Technical Leadership</h4>
+                                <p>Led teams of 15+ engineers across multiple high-impact projects</p>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-chart-line"></i>
+                            <div>
+                                <h4>Performance Optimization</h4>
+                                <p>Reduced system latency by 40% and improved throughput by 300%</p>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <h4>Security & Compliance</h4>
+                                <p>Implemented enterprise-grade security with zero security incidents</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="experience-timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">2020-Present</div>
+                            <div class="timeline-content">
+                                <h4>Engineering Manager</h4>
+                                <p>Mobius by Gaian</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2017-2020</div>
+                            <div class="timeline-content">
+                                <h4>Software Engineer</h4>
+                                <p>Planon Software</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2016-2017</div>
+                            <div class="timeline-content">
+                                <h4>Software Engineer</h4>
+                                <p>Tech Mahindra</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2014-2016</div>
+                            <div class="timeline-content">
+                                <h4>Technical Consultant</h4>
+                                <p>IFS Solutions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <footer>
-      <p>© 2025 Gurpreet Gandhi</p>
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Professional Experience</h2>
+                <p class="section-subtitle">Building Enterprise-Grade Solutions at Scale</p>
+            </div>
+            <div class="experience-grid">
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <h3>Engineering Manager</h3>
+                        <div class="experience-meta">
+                            <span class="company">Mobius by Gaian</span>
+                            <span class="period">Apr 2020 – Present</span>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <p>Lead architect for distributed Data-as-a-Service platform serving enterprise clients.</p>
+                        <div class="achievements">
+                            <div class="achievement-item">
+                                <i class="fas fa-database"></i>
+                                <div>
+                                    <h4>Distributed DaaS Platform</h4>
+                                    <p>Architected platform handling 10TB+ daily data with Flink, TiDB, MongoDB, and Apache Hudi</p>
+                                    <div class="metrics">
+                                        <span class="metric">10TB+ Daily Processing</span>
+                                        <span class="metric">99.9% Uptime</span>
+                                        <span class="metric">Sub-second Latency</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="achievement-item">
+                                <i class="fas fa-network-wired"></i>
+                                <div>
+                                    <h4>Kubernetes + Istio Architecture</h4>
+                                    <p>High-availability service mesh with advanced routing and traffic shaping</p>
+                                    <div class="metrics">
+                                        <span class="metric">Auto-scaling</span>
+                                        <span class="metric">Zero-downtime Deployments</span>
+                                        <span class="metric">Multi-region Resilience</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="achievement-item">
+                                <i class="fas fa-rocket"></i>
+                                <div>
+                                    <h4>Cloud Data Stream (CDS)</h4>
+                                    <p>Ultra-low-latency microservice communication using RSocket TCP</p>
+                                    <div class="metrics">
+                                        <span class="metric">&lt;1ms Latency</span>
+                                        <span class="metric">1M+ Messages/sec</span>
+                                        <span class="metric">₹100Cr Deal Impact</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <h3>Software Engineer</h3>
+                        <div class="experience-meta">
+                            <span class="company">Planon Software</span>
+                            <span class="period">Dec 2017 – Apr 2020</span>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <p>Developed enterprise integration solutions and mobile applications for asset management.</p>
+                        <div class="achievements">
+                            <div class="achievement-item">
+                                <i class="fas fa-mobile-alt"></i>
+                                <div>
+                                    <h4>RFID Enterprise Integration</h4>
+                                    <p>Cordova plugin for RFD8500 scanners with Bluetooth-SSI integration</p>
+                                    <div class="metrics">
+                                        <span class="metric">Cross-platform</span>
+                                        <span class="metric">Real-time Scanning</span>
+                                        <span class="metric">Enterprise Ready</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="achievement-item">
+                                <i class="fas fa-cloud"></i>
+                                <div>
+                                    <h4>Cloud Connectors</h4>
+                                    <p>Azure, SAP, and Leverton integration using Retrofit and JAX-RS</p>
+                                    <div class="metrics">
+                                        <span class="metric">Multi-cloud</span>
+                                        <span class="metric">Async Processing</span>
+                                        <span class="metric">High Throughput</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <h3>Software Engineer</h3>
+                        <div class="experience-meta">
+                            <span class="company">Tech Mahindra</span>
+                            <span class="period">Jun 2016 – Dec 2017</span>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <p>Delivered tax compliance solutions and performance optimization for enterprise systems.</p>
+                        <div class="achievements">
+                            <div class="achievement-item">
+                                <i class="fas fa-chart-bar"></i>
+                                <div>
+                                    <h4>Performance Optimization</h4>
+                                    <p>Reduced report run-times by 40% through PL/SQL optimization and BULK COLLECTs</p>
+                                    <div class="metrics">
+                                        <span class="metric">40% Faster</span>
+                                        <span class="metric">SQL Optimization</span>
+                                        <span class="metric">Bulk Processing</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-subtitle">Enterprise-Grade Solutions with Proven Impact</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card" data-project="runrun">
+                    <div class="project-image">
+                        <div class="project-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>RunRun - DevSecOps Platform</h3>
+                        <p>Infrastructure-as-Code pipeline using Camunda + Terraform for automated deployments</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Camunda</span>
+                            <span class="tech-tag">Terraform</span>
+                            <span class="tech-tag">Vault</span>
+                            <span class="tech-tag">ArgoCD</span>
+                        </div>
+                        <div class="project-metrics">
+                            <span class="metric">₹100Cr Deal</span>
+                            <span class="metric">Zero-downtime</span>
+                            <span class="metric">Multi-cloud</span>
+                        </div>
+                        <a href="projects/runrun.html" class="project-link">View Details</a>
+                    </div>
+                </div>
+
+                <div class="project-card" data-project="cloudstream">
+                    <div class="project-image">
+                        <div class="project-icon">
+                            <i class="fas fa-stream"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Cloud Data Stream (CDS)</h3>
+                        <p>Ultra-low-latency microservice communication platform using RSocket TCP</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">RSocket</span>
+                            <span class="tech-tag">Kafka</span>
+                            <span class="tech-tag">Flink</span>
+                            <span class="tech-tag">Kubernetes</span>
+                        </div>
+                        <div class="project-metrics">
+                            <span class="metric">&lt;1ms Latency</span>
+                            <span class="metric">1M+ Msg/sec</span>
+                            <span class="metric">Real-time</span>
+                        </div>
+                        <a href="projects/cloudstream.html" class="project-link">View Details</a>
+                    </div>
+                </div>
+
+                <div class="project-card" data-project="daas">
+                    <div class="project-image">
+                        <div class="project-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Distributed DaaS Platform</h3>
+                        <p>Data-as-a-Service platform combining HTAP and OLAP workloads for enterprise clients</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Apache Flink</span>
+                            <span class="tech-tag">TiDB</span>
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">Hudi</span>
+                        </div>
+                        <div class="project-metrics">
+                            <span class="metric">10TB+ Daily</span>
+                            <span class="metric">99.9% Uptime</span>
+                            <span class="metric">Auto-scaling</span>
+                        </div>
+                        <a href="projects/daas.html" class="project-link">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Technical Expertise</h2>
+                <p class="section-subtitle">Enterprise-Grade Technologies & Tools</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3><i class="fas fa-code"></i> Languages & Frameworks</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span class="skill-name">Java</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                            <span class="skill-desc">Enterprise applications, Spring Boot, 11+ years</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Node.js</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                            <span class="skill-desc">Microservices, APIs, Real-time systems</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Python</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                            <span class="skill-desc">Data processing, ML pipelines, Automation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3><i class="fas fa-cloud"></i> Cloud & Infrastructure</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span class="skill-name">Kubernetes</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                            <span class="skill-desc">CKAD Certified, Service Mesh, Auto-scaling</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">AWS/Azure</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                            <span class="skill-desc">Multi-cloud architecture, Serverless, DevOps</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Terraform</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 88%"></div>
+                            </div>
+                            <span class="skill-desc">Infrastructure as Code, Multi-cloud deployment</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3><i class="fas fa-database"></i> Databases & Streaming</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span class="skill-name">Apache Kafka</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 92%"></div>
+                            </div>
+                            <span class="skill-desc">Stream processing, Real-time analytics</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">MongoDB/PostgreSQL</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                            <span class="skill-desc">Distributed databases, Performance tuning</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Apache Flink</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                            <span class="skill-desc">Stream processing, Complex event processing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3><i class="fas fa-robot"></i> AI & ML Engineering</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span class="skill-name">Kubeflow</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                            <span class="skill-desc">ML pipelines, Model deployment, Katib</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Ollama/HuggingFace</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 75%"></div>
+                            </div>
+                            <span class="skill-desc">LLM inference, Model serving on K8s</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Ray.io</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 70%"></div>
+                            </div>
+                            <span class="skill-desc">Distributed computing, ML workloads</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Let's discuss your next big project</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Ready to build something amazing?</h3>
+                    <p>I'm always interested in challenging projects and opportunities to work with innovative teams.</p>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email</h4>
+                                <p>gurpreet.gandhi@email.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fab fa-linkedin"></i>
+                            <div>
+                                <h4>LinkedIn</h4>
+                                <p>linkedin.com/in/gurpreetgandhi</p>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fab fa-github"></i>
+                            <div>
+                                <h4>GitHub</h4>
+                                <p>github.com/gurpreet</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <p>&copy; 2025 Gurpreet Gandhi. All rights reserved.</p>
+                    <p>Software Architect | Platform Engineer | CKAD Certified</p>
+                </div>
+                <div class="footer-links">
+                    <a href="resume.pdf" target="_blank">Resume</a>
+                    <a href="https://linkedin.com/in/gurpreetgandhi" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/gurpreet" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
     </footer>
-  </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

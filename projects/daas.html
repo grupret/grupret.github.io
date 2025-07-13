@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distributed DaaS Platform | Gurpreet Gandhi</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Gurpreet Gandhi</span>
+                <span class="logo-title">Software Architect</span>
+            </div>
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link">← Back to Portfolio</a>
+                <a href="../index.html#projects" class="nav-link">Other Projects</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-hero">
+        <div class="container">
+            <div class="project-header">
+                <div class="project-title-section">
+                    <h1 class="project-title">Distributed DaaS Platform</h1>
+                    <p class="project-tagline">Enterprise Data-as-a-Service Platform for HTAP & OLAP Workloads</p>
+                    <div class="project-impact">
+                        <div class="impact-stat">
+                            <span class="impact-number">10TB+</span>
+                            <span class="impact-label">Daily Processing</span>
+                        </div>
+                        <div class="impact-stat">
+                            <span class="impact-number">99.9%</span>
+                            <span class="impact-label">System Uptime</span>
+                        </div>
+                        <div class="impact-stat">
+                            <span class="impact-number">5PB+</span>
+                            <span class="impact-label">Data Managed</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-image-section">
+                    <div class="project-architecture-diagram">
+                        <div class="arch-component">
+                            <i class="fas fa-water"></i>
+                            <span>Apache Flink</span>
+                        </div>
+                        <div class="arch-component">
+                            <i class="fas fa-database"></i>
+                            <span>TiDB</span>
+                        </div>
+                        <div class="arch-component">
+                            <i class="fas fa-leaf"></i>
+                            <span>MongoDB</span>
+                        </div>
+                        <div class="arch-component">
+                            <i class="fas fa-layer-group"></i>
+                            <span>Apache Hudi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Navigation -->
+    <section class="project-nav">
+        <div class="container">
+            <div class="tabs">
+                <button class="tab-button active" onclick="showTab('overview')">
+                    <i class="fas fa-info-circle"></i> Overview
+                </button>
+                <button class="tab-button" onclick="showTab('architecture')">
+                    <i class="fas fa-sitemap"></i> Architecture
+                </button>
+                <button class="tab-button" onclick="showTab('htap')">
+                    <i class="fas fa-server"></i> HTAP Engine
+                </button>
+                <button class="tab-button" onclick="showTab('performance')">
+                    <i class="fas fa-chart-line"></i> Performance
+                </button>
+                <button class="tab-button" onclick="showTab('scaling')">
+                    <i class="fas fa-expand-arrows-alt"></i> Auto-scaling
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tab Contents -->
+    <section class="project-content">
+        <div class="container">
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <div class="content-section">
+                    <h2>Project Overview</h2>
+                    <div class="overview-grid">
+                        <div class="overview-text">
+                            <h3>Enterprise Challenge</h3>
+                            <p>
+                                Enterprise clients needed a unified data platform that could handle both 
+                                transactional (OLTP) and analytical (OLAP) workloads efficiently. Traditional 
+                                data warehouses couldn't provide real-time analytics, while OLTP systems 
+                                struggled with complex analytical queries. The need for a hybrid solution 
+                                that could scale to petabytes while maintaining sub-second query performance 
+                                was critical.
+                            </p>
+                            
+                            <h3>Solution Architecture</h3>
+                            <p>
+                                The Distributed DaaS Platform combines Apache Flink for real-time stream 
+                                processing, TiDB for distributed SQL processing, MongoDB for document storage, 
+                                and Apache Hudi for data lake management. This hybrid architecture enables 
+                                HTAP (Hybrid Transactional/Analytical Processing) workloads while maintaining 
+                                ACID compliance and horizontal scalability.
+                            </p>
+                        </div>
+                        <div class="overview-features">
+                            <h3>Platform Capabilities</h3>
+                            <div class="feature-list">
+                                <div class="feature-item">
+                                    <i class="fas fa-sync-alt"></i>
+                                    <div>
+                                        <h4>Real-time HTAP Processing</h4>
+                                        <p>Simultaneous transactional and analytical processing</p>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-expand-arrows-alt"></i>
+                                    <div>
+                                        <h4>Elastic Scaling</h4>
+                                        <p>Auto-scale from GB to PB based on workload patterns</p>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <div>
+                                        <h4>ACID Compliance</h4>
+                                        <p>Strong consistency with distributed transactions</p>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-chart-line"></i>
+                                    <div>
+                                        <h4>Multi-Model Support</h4>
+                                        <p>SQL, NoSQL, and stream processing in one platform</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Architecture Tab -->
+            <div id="architecture" class="tab-content hidden">
+                <div class="content-section">
+                    <h2>System Architecture</h2>
+                    <div class="architecture-details">
+                        <div class="arch-layer">
+                            <h3><i class="fas fa-stream"></i> Stream Processing Layer</h3>
+                            <div class="layer-content">
+                                <div class="component-card">
+                                    <h4>Apache Flink Cluster</h4>
+                                    <p>Real-time stream processing with exactly-once semantics</p>
+                                    <div class="tech-specs">
+                                        <span>Event Time Processing</span>
+                                        <span>Watermarks</span>
+                                        <span>Checkpointing</span>
+                                    </div>
+                                </div>
+                                <div class="component-card">
+                                    <h4>Kafka Streams</h4>
+                                    <p>Event streaming platform for real-time data pipelines</p>
+                                    <div class="tech-specs">
+                                        <span>Multi-partition</span>
+                                        <span>Compression</span>
+                                        <span>Replication</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="arch-layer">
+                            <h3><i class="fas fa-database"></i> Storage Layer</h3>
+                            <div class="layer-content">
+                                <div class="component-card">
+                                    <h4>TiDB Cluster</h4>
+                                    <p>Distributed SQL database with horizontal scaling</p>
+                                    <div class="tech-specs">
+                                        <span>TiKV Storage</span>
+                                        <span>MVCC</span>
+                                        <span>Raft Consensus</span>
+                                    </div>
+                                </div>
+                                <div class="component-card">
+                                    <h4>MongoDB Sharded</h4>
+                                    <p>Document database for semi-structured data</p>
+                                    <div class="tech-specs">
+                                        <span>Sharding</span>
+                                        <span>Replica Sets</span>
+                                        <span>Aggregation</span>
+                                    </div>
+                                </div>
+                                <div class="component-card">
+                                    <h4>Apache Hudi</h4>
+                                    <p>Incremental data lake with ACID transactions</p>
+                                    <div class="tech-specs">
+                                        <span>Copy-on-Write</span>
+                                        <span>Merge-on-Read</span>
+                                        <span>Time Travel</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="arch-layer">
+                            <h3><i class="fas fa-cogs"></i> Service Layer</h3>
+                            <div class="layer-content">
+                                <div class="component-card">
+                                    <h4>Query Engine</h4>
+                                    <p>Distributed query processing with cost-based optimization</p>
+                                    <div class="tech-specs">
+                                        <span>Volcano Model</span>
+                                        <span>Columnar Storage</span>
+                                        <span>Vectorization</span>
+                                    </div>
+                                </div>
+                                <div class="component-card">
+                                    <h4>Metadata Service</h4>
+                                    <p>Schema registry and data catalog management</p>
+                                    <div class="tech-specs">
+                                        <span>Schema Evolution</span>
+                                        <span>Lineage Tracking</span>
+                                        <span>Data Discovery</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HTAP Engine Tab -->
+            <div id="htap" class="tab-content hidden">
+                <div class="content-section">
+                    <h2>HTAP Engine Design</h2>
+                    <div class="htap-details">
+                        <div class="htap-section">
+                            <h3><i class="fas fa-bolt"></i> Transactional Processing (OLTP)</h3>
+                            <div class="processing-features">
+                                <div class="feature-card">
+                                    <h4>Distributed Transactions</h4>
+                                    <p>ACID compliance across multiple nodes with 2PC protocol</p>
+                                    <div class="feature-metrics">
+                                        <span>Isolation: Snapshot</span>
+                                        <span>Durability: WAL</span>
+                                        <span>Consistency: Strong</span>
+                                    </div>
+                                </div>
+                                <div class="feature-card">
+                                    <h4>Row-Store Optimization</h4>
+                                    <p>Optimized for high-frequency write operations</p>
+                                    <div class="feature-metrics">
+                                        <span>Write Latency: &lt;1ms</span>
+                                        <span>TPS: 1M+</span>
+                                        <span>Concurrency: 10K+</span>
+                                    </div>
+                                </div>
+                                <div class="feature-card">
+                                    <h4>Multi-Version Concurrency</h4>
+                                    <p>MVCC for non-blocking reads during writes</p>
+                                    <div class="feature-metrics">
+                                        <span>Read Consistency</span>
+                                        <span>Lock-free Reads</span>
+                                        <span>Version Cleanup</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="htap-section">
+                            <h3><i class="fas fa-chart-bar"></i> Analytical Processing (OLAP)</h3>
+                            <div class="processing-features">
+                                <div class="feature-card">
+                                    <h4>Columnar Storage</h4>
+                                    <p>Column-oriented storage for analytical queries</p>
+                                    <div class="feature-metrics">
+                                        <span>Compression: 10:1</span>
+                                        <span>Scan Speed: 10GB/s</span>
+                                        <span>Vectorization: SIMD</span>
+                                    </div>
+                                </div>
+                                <div class="feature-card">
+                                    <h4>Parallel Query Execution</h4>
+                                    <p>MPP architecture for complex analytical queries</p>
+                                    <div class="feature-metrics">
+                                        <span>Parallelism: 1000+</span>
+                                        <span>Query Latency: &lt;100ms</span>
+                                        <span>Throughput: 100K QPS</span>
+                                    </div>
+                                </div>
+                                <div class="feature-card">
+                                    <h4>Intelligent Caching</h4>
+                                    <p>Multi-layer caching for frequent queries</p>
+                                    <div class="feature-metrics">
+                                        <span>Hit Rate: 95%</span>
+                                        <span>Cache Size: 1TB</span>
+                                        <span>Eviction: LRU</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="htap-section">
+                            <h3><i class="fas fa-sync-alt"></i> Hybrid Workload Management</h3>
+                            <div class="workload-management">
+                                <div class="management-feature">
+                                    <h4>Resource Isolation</h4>
+                                    <p>Separate resource pools for OLTP and OLAP workloads</p>
+                                    <ul>
+                                        <li>CPU allocation: 60% OLTP, 40% OLAP</li>
+                                        <li>Memory isolation with dynamic adjustment</li>
+                                        <li>I/O prioritization for critical transactions</li>
+                                        <li>Network bandwidth management</li>
+                                    </ul>
+                                </div>
+                                <div class="management-feature">
+                                    <h4>Adaptive Query Routing</h4>
+                                    <p>Intelligent routing based on query characteristics</p>
+                                    <ul>
+                                        <li>Point queries → Row store (TiDB)</li>
+                                        <li>Analytical queries → Column store (TiFlash)</li>
+                                        <li>Document queries → MongoDB</li>
+                                        <li>Streaming queries → Flink</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Tab -->
+            <div id="performance" class="tab-content hidden">
+                <div class="content-section">
+                    <h2>Performance Metrics</h2>
+                    <div class="performance-dashboard">
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>Data Processing</h3>
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="metric-value">
+                                <span class="metric-number">12TB</span>
+                                <span class="metric-unit">peak daily processing</span>
+                            </div>
+                            <div class="metric-comparison">
+                                <span class="improvement">3x increase</span>
+                                <span class="baseline">over legacy system</span>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>Query Performance</h3>
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="metric-value">
+                                <span class="metric-number">85ms</span>
+                                <span class="metric-unit">avg query latency</span>
+                            </div>
+                            <div class="metric-comparison">
+                                <span class="improvement">90% faster</span>
+                                <span class="baseline">complex analytics</span>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>System Throughput</h3>
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <div class="metric-value">
+                                <span class="metric-number">1.5M</span>
+                                <span class="metric-unit">transactions/second</span>
+                            </div>
+                            <div class="metric-comparison">
+                                <span class="improvement">Linear scaling</span>
+                                <span class="baseline">with node additions</span>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>Availability</h3>
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="metric-value">
+                                <span class="metric-number">99.95%</span>
+                                <span class="metric-unit">uptime achieved</span>
+                            </div>
+                            <div class="metric-comparison">
+                                <span class="improvement">4.5 min/month</span>
+                                <span class="baseline">downtime</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="performance-breakdown">
+                        <h3>Workload Performance Analysis</h3>
+                        <div class="workload-grid">
+                            <div class="workload-section">
+                                <h4>OLTP Performance</h4>
+                                <div class="perf-metrics">
+                                    <div class="metric-item">
+                                        <span class="metric-label">Point Queries</span>
+                                        <span class="metric-value">0.5ms avg</span>
+                                    </div>
+                                    <div class="metric-item">
+                                        <span class="metric-label">Insert Operations</span>
+                                        <span class="metric-value">1.2ms avg</span>
+                                    </div>
+                                    <div class="metric-item">
+                                        <span class="metric-label">Update Operations</span>
+                                        <span class="metric-value">1.8ms avg</span>
+                                    </div>
+                                    <div class="metric-item">
+                                        <span class="metric-label">Delete Operations</span>
+                                        <span class="metric-value">1.5ms avg</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="workload-section">
+                                <h4>OLAP Performance</h4>
+                                <div class="perf-metrics">
+                                    <div class="metric-item">
+                                        <span class="metric-label">Aggregation Queries</span>
+                                        <span class="metric-value">45ms avg</span>
+                                    </div>
+                                    <div class="metric-item">
+                                        <span class="metric-label">Join Operations</span>
+                                        <span class="metric-value">120ms avg</span>
+                                    </div>
+                                    <div class="metric-item">
+                                        <span class="metric-label">Window Functions</span>
+                                        <span class="metric-value">85ms avg</span>
+                                    </div>
+                                    <div class="metric-item">
+                                        <span class="metric-label">Complex Analytics</span>
+                                        <span class="metric-value">250ms avg</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Auto-scaling Tab -->
+            <div id="scaling" class="tab-content hidden">
+                <div class="content-section">
+                    <h2>Auto-scaling Architecture</h2>
+                    <div class="scaling-features">
+                        <div class="scaling-category">
+                            <h3><i class="fas fa-chart-line"></i> Predictive Scaling</h3>
+                            <div class="scaling-details">
+                                <div class="scaling-card">
+                                    <h4>ML-based Prediction</h4>
+                                    <p>Machine learning models predict workload patterns</p>
+                                    <div class="scaling-metrics">
+                                        <span>Accuracy: 94%</span>
+                                        <span>Prediction Window: 30 minutes</span>
+                                        <span>Model Update: Daily</span>
+                                    </div>
+                                </div>
+                                <div class="scaling-card">
+                                    <h4>Proactive Scaling</h4>
+                                    <p>Scale resources before demand spikes</p>
+                                    <div class="scaling-metrics">
+                                        <span>Scale-up Time: 90 seconds</span>
+                                        <span>Scale-down Time: 5 minutes</span>
+                                        <span>Resource Efficiency: 85%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="scaling-category">
+                            <h3><i class="fas fa-server"></i> Horizontal Scaling</h3>
+                            <div class="scaling-details">
+                                <div class="scaling-card">
+                                    <h4>Compute Nodes</h4>
+                                    <p>Dynamic addition/removal of processing nodes</p>
+                                    <div class="scaling-metrics">
+                                        <span>Min Nodes: 3</span>
+                                        <span>Max Nodes: 1000</span>
+                                        <span>Scale Factor: 2x-10x</span>
+                                    </div>
+                                </div>
+                                <div class="scaling-card">
+                                    <h4>Storage Scaling</h4>
+                                    <p>Automatic storage tier management</p>
+                                    <div class="scaling-metrics">
+                                        <span>Hot Storage: NVMe SSD</span>
+                                        <span>Warm Storage: SATA SSD</span>
+                                        <span>Cold Storage: Object Store</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="scaling-category">
+                            <h3><i class="fas fa-balance-scale"></i> Load Balancing</h3>
+                            <div class="load-balancing">
+                                <div class="lb-feature">
+                                    <h4>Intelligent Request Routing</h4>
+                                    <p>Route requests based on resource availability and query type</p>
+                                    <ul>
+                                        <li>CPU utilization-based routing</li>
+                                        <li>Query complexity assessment</li>
+                                        <li>Geographic proximity routing</li>
+                                        <li>Session affinity management</li>
+                                    </ul>
+                                </div>
+                                <div class="lb-feature">
+                                    <h4>Circuit Breaker Patterns</h4>
+                                    <p>Prevent cascade failures during high load</p>
+                                    <ul>
+                                        <li>Failure threshold monitoring</li>
+                                        <li>Automatic failover mechanisms</li>
+                                        <li>Graceful degradation modes</li>
+                                        <li>Health check integration</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="scaling-metrics-summary">
+                            <h3>Scaling Performance Summary</h3>
+                            <div class="summary-grid">
+                                <div class="summary-item">
+                                    <h4>Cost Optimization</h4>
+                                    <p>35% reduction in infrastructure costs through intelligent scaling</p>
+                                </div>
+                                <div class="summary-item">
+                                    <h4>Performance Consistency</h4>
+                                    <p>99.5% of queries maintain sub-100ms latency during scaling events</p>
+                                </div>
+                                <div class="summary-item">
+                                    <h4>Resource Utilization</h4>
+                                    <p>Average 80% CPU utilization across all nodes with auto-scaling</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <p>&copy; 2025 Gurpreet Gandhi. All rights reserved.</p>
+                    <p>Software Architect | Platform Engineer | CKAD Certified</p>
+                </div>
+                <div class="footer-links">
+                    <a href="../index.html">Portfolio</a>
+                    <a href="../resume.pdf" target="_blank">Resume</a>
+                    <a href="../index.html#contact">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>

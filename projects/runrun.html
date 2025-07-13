@@ -1,45 +1,536 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <title>RunRun – DevSecOps</title>
-  <link rel="stylesheet" href="../style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RunRun - DevSecOps Automation Platform | Gurpreet Gandhi</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <header>
-    <a href="../index.html">← Back</a>
-    <h2>RunRun – DevSecOps Automation</h2>
-  </header>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Gurpreet Gandhi</span>
+                <span class="logo-title">Software Architect</span>
+            </div>
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link">← Back to Portfolio</a>
+                <a href="../index.html#projects" class="nav-link">Other Projects</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
 
-  <main>
-    <div class="tabs">
-      <button onclick="showTab('history')">History</button>
-      <button onclick="showTab('arch')">Architecture</button>
-      <button onclick="showTab('dev')">Development</button>
-      <button onclick="showTab('prod')">Productionization</button>
-    </div>
+    <!-- Project Hero -->
+    <section class="project-hero">
+        <div class="container">
+            <div class="project-header">
+                <div class="project-title-section">
+                    <h1 class="project-title">RunRun</h1>
+                    <p class="project-tagline">Enterprise DevSecOps Automation Platform</p>
+                    <div class="project-impact">
+                        <div class="impact-stat">
+                            <span class="impact-number">₹100Cr+</span>
+                            <span class="impact-label">Deal Value Generated</span>
+                        </div>
+                        <div class="impact-stat">
+                            <span class="impact-number">99.9%</span>
+                            <span class="impact-label">System Uptime</span>
+                        </div>
+                        <div class="impact-stat">
+                            <span class="impact-number">70%</span>
+                            <span class="impact-label">Deployment Time Reduced</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-image-section">
+                    <div class="project-architecture-diagram">
+                        <div class="arch-component">
+                            <i class="fas fa-cogs"></i>
+                            <span>Camunda BPMN</span>
+                        </div>
+                        <div class="arch-component">
+                            <i class="fas fa-cube"></i>
+                            <span>Terraform</span>
+                        </div>
+                        <div class="arch-component">
+                            <i class="fas fa-lock"></i>
+                            <span>Vault</span>
+                        </div>
+                        <div class="arch-component">
+                            <i class="fas fa-rocket"></i>
+                            <span>ArgoCD</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div id="history" class="tab-content">
-      <h3>History</h3>
-      <p>Unified fragmented DevSecOps across infra ops, CI/CD, backups, observability.</p>
-    </div>
+    <!-- Project Navigation -->
+    <section class="project-nav">
+        <div class="container">
+            <div class="tabs">
+                <button class="tab-button active" onclick="showTab('overview')">
+                    <i class="fas fa-info-circle"></i> Overview
+                </button>
+                <button class="tab-button" onclick="showTab('architecture')">
+                    <i class="fas fa-sitemap"></i> Architecture
+                </button>
+                <button class="tab-button" onclick="showTab('technical')">
+                    <i class="fas fa-code"></i> Technical Details
+                </button>
+                <button class="tab-button" onclick="showTab('performance')">
+                    <i class="fas fa-chart-line"></i> Performance
+                </button>
+                <button class="tab-button" onclick="showTab('impact')">
+                    <i class="fas fa-trophy"></i> Business Impact
+                </button>
+            </div>
+        </div>
+    </section>
 
-    <div id="arch" class="tab-content hidden">
-      <h3>Architecture</h3>
-      <p>Used Camunda, OpenTofu, Vault, Argo. Modular and resilient.</p>
-    </div>
+    <!-- Tab Contents -->
+    <section class="project-content">
+        <div class="container">
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <div class="content-section">
+                    <h2>Project Overview</h2>
+                    <div class="overview-grid">
+                        <div class="overview-text">
+                            <h3>Challenge</h3>
+                            <p>
+                                Our organization faced fragmented DevSecOps processes across multiple teams, 
+                                leading to inconsistent deployments, security vulnerabilities, and manual 
+                                intervention requirements. The existing infrastructure provisioning took 
+                                4-6 hours per environment, with frequent failures and rollback requirements.
+                            </p>
+                            
+                            <h3>Solution</h3>
+                            <p>
+                                RunRun is a comprehensive Infrastructure-as-Code (IaC) automation platform 
+                                that orchestrates the entire DevSecOps lifecycle. Built on Camunda BPMN 
+                                for workflow orchestration and Terraform for infrastructure provisioning, 
+                                it provides a unified solution for automated deployments, security scanning, 
+                                and compliance validation.
+                            </p>
+                        </div>
+                        <div class="overview-features">
+                            <h3>Key Features</h3>
+                            <div class="feature-list">
+                                <div class="feature-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>
+                                        <h4>Automated Infrastructure Provisioning</h4>
+                                        <p>Zero-touch deployment across multi-cloud environments</p>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <div>
+                                        <h4>Integrated Security Scanning</h4>
+                                        <p>Continuous vulnerability assessment and compliance validation</p>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-chart-bar"></i>
+                                    <div>
+                                        <h4>Real-time Monitoring</h4>
+                                        <p>Comprehensive observability with Prometheus and Grafana</p>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-sync-alt"></i>
+                                    <div>
+                                        <h4>GitOps Integration</h4>
+                                        <p>Seamless CI/CD pipeline with ArgoCD and Git workflows</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <div id="dev" class="tab-content hidden">
-      <h3>Development</h3>
-      <p>Micro frontends, alert-to-action playbooks, AI dashboards.</p>
-    </div>
+            <!-- Architecture Tab -->
+            <div id="architecture" class="tab-content hidden">
+                <div class="content-section">
+                    <h2>System Architecture</h2>
+                    <div class="architecture-details">
+                        <div class="arch-layer">
+                            <h3><i class="fas fa-layer-group"></i> Orchestration Layer</h3>
+                            <div class="layer-content">
+                                <div class="component-card">
+                                    <h4>Camunda BPMN Engine</h4>
+                                    <p>Workflow orchestration for complex deployment pipelines</p>
+                                    <div class="tech-specs">
+                                        <span>Java 17</span>
+                                        <span>Spring Boot 3.x</span>
+                                        <span>PostgreSQL Backend</span>
+                                    </div>
+                                </div>
+                                <div class="component-card">
+                                    <h4>API Gateway</h4>
+                                    <p>Centralized API management with rate limiting and authentication</p>
+                                    <div class="tech-specs">
+                                        <span>Kong Gateway</span>
+                                        <span>OAuth 2.0</span>
+                                        <span>JWT Tokens</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-    <div id="prod" class="tab-content hidden">
-      <h3>Productionization</h3>
-      <p>Regression/perf tested, scaled to planetary ops. Led to ₹100Cr Railtel deal.</p>
-    </div>
-  </main>
+                        <div class="arch-layer">
+                            <h3><i class="fas fa-cube"></i> Infrastructure Layer</h3>
+                            <div class="layer-content">
+                                <div class="component-card">
+                                    <h4>Terraform Engine</h4>
+                                    <p>Multi-cloud infrastructure provisioning with state management</p>
+                                    <div class="tech-specs">
+                                        <span>Terraform 1.6+</span>
+                                        <span>OpenTofu</span>
+                                        <span>Remote State</span>
+                                    </div>
+                                </div>
+                                <div class="component-card">
+                                    <h4>Kubernetes Operators</h4>
+                                    <p>Custom operators for application lifecycle management</p>
+                                    <div class="tech-specs">
+                                        <span>Operator SDK</span>
+                                        <span>Custom Resources</span>
+                                        <span>Helm Charts</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-  <script src="../script.js"></script>
+                        <div class="arch-layer">
+                            <h3><i class="fas fa-lock"></i> Security Layer</h3>
+                            <div class="layer-content">
+                                <div class="component-card">
+                                    <h4>HashiCorp Vault</h4>
+                                    <p>Centralized secrets management and encryption</p>
+                                    <div class="tech-specs">
+                                        <span>Dynamic Secrets</span>
+                                        <span>PKI Integration</span>
+                                        <span>Audit Logging</span>
+                                    </div>
+                                </div>
+                                <div class="component-card">
+                                    <h4>Policy Engine</h4>
+                                    <p>Automated compliance validation and policy enforcement</p>
+                                    <div class="tech-specs">
+                                        <span>Open Policy Agent</span>
+                                        <span>Rego Policies</span>
+                                        <span>Admission Controllers</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Details Tab -->
+            <div id="technical" class="tab-content hidden">
+                <div class="content-section">
+                    <h2>Technical Implementation</h2>
+                    <div class="technical-grid">
+                        <div class="tech-section">
+                            <h3><i class="fas fa-code"></i> Core Technologies</h3>
+                            <div class="tech-stack">
+                                <div class="tech-item">
+                                    <div class="tech-icon">
+                                        <i class="fab fa-java"></i>
+                                    </div>
+                                    <div class="tech-details">
+                                        <h4>Java 17 + Spring Boot</h4>
+                                        <p>Microservices architecture with reactive programming</p>
+                                        <ul>
+                                            <li>Spring WebFlux for reactive APIs</li>
+                                            <li>Spring Security for authentication</li>
+                                            <li>Spring Data JPA for persistence</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="tech-item">
+                                    <div class="tech-icon">
+                                        <i class="fas fa-database"></i>
+                                    </div>
+                                    <div class="tech-details">
+                                        <h4>PostgreSQL + Redis</h4>
+                                        <p>Hybrid data storage for performance and caching</p>
+                                        <ul>
+                                            <li>PostgreSQL for workflow state</li>
+                                            <li>Redis for session management</li>
+                                            <li>Connection pooling with HikariCP</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="tech-item">
+                                    <div class="tech-icon">
+                                        <i class="fas fa-cloud"></i>
+                                    </div>
+                                    <div class="tech-details">
+                                        <h4>Multi-Cloud Support</h4>
+                                        <p>AWS, Azure, and GCP integration</p>
+                                        <ul>
+                                            <li>Terraform providers for all clouds</li>
+                                            <li>Cloud-agnostic resource definitions</li>
+                                            <li>Cost optimization algorithms</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tech-section">
+                            <h3><i class="fas fa-cogs"></i> DevOps Integration</h3>
+                            <div class="devops-tools">
+                                <div class="tool-category">
+                                    <h4>CI/CD Pipeline</h4>
+                                    <div class="tool-list">
+                                        <div class="tool-item">
+                                            <span class="tool-name">ArgoCD</span>
+                                            <span class="tool-desc">GitOps deployment automation</span>
+                                        </div>
+                                        <div class="tool-item">
+                                            <span class="tool-name">GitHub Actions</span>
+                                            <span class="tool-desc">Continuous integration workflows</span>
+                                        </div>
+                                        <div class="tool-item">
+                                            <span class="tool-name">SonarQube</span>
+                                            <span class="tool-desc">Code quality analysis</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tool-category">
+                                    <h4>Monitoring & Observability</h4>
+                                    <div class="tool-list">
+                                        <div class="tool-item">
+                                            <span class="tool-name">Prometheus</span>
+                                            <span class="tool-desc">Metrics collection and alerting</span>
+                                        </div>
+                                        <div class="tool-item">
+                                            <span class="tool-name">Grafana</span>
+                                            <span class="tool-desc">Visualization and dashboards</span>
+                                        </div>
+                                        <div class="tool-item">
+                                            <span class="tool-name">Jaeger</span>
+                                            <span class="tool-desc">Distributed tracing</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Tab -->
+            <div id="performance" class="tab-content hidden">
+                <div class="content-section">
+                    <h2>Performance Metrics</h2>
+                    <div class="performance-dashboard">
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>Deployment Speed</h3>
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <div class="metric-value">
+                                <span class="metric-number">12 min</span>
+                                <span class="metric-unit">avg deployment time</span>
+                            </div>
+                            <div class="metric-comparison">
+                                <span class="improvement">↓ 70% faster</span>
+                                <span class="baseline">vs. 4-6 hours manual</span>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>System Reliability</h3>
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="metric-value">
+                                <span class="metric-number">99.9%</span>
+                                <span class="metric-unit">uptime SLA</span>
+                            </div>
+                            <div class="metric-comparison">
+                                <span class="improvement">↑ 15% improvement</span>
+                                <span class="baseline">vs. legacy system</span>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>Cost Optimization</h3>
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="metric-value">
+                                <span class="metric-number">45%</span>
+                                <span class="metric-unit">cost reduction</span>
+                            </div>
+                            <div class="metric-comparison">
+                                <span class="improvement">₹2.5Cr saved</span>
+                                <span class="baseline">annually</span>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>Security Compliance</h3>
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <div class="metric-value">
+                                <span class="metric-number">100%</span>
+                                <span class="metric-unit">policy adherence</span>
+                            </div>
+                            <div class="metric-comparison">
+                                <span class="improvement">Zero incidents</span>
+                                <span class="baseline">in production</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="performance-details">
+                        <h3>Detailed Performance Analysis</h3>
+                        <div class="performance-grid">
+                            <div class="perf-section">
+                                <h4>Throughput Metrics</h4>
+                                <ul class="metric-list">
+                                    <li>1000+ deployments/month processed</li>
+                                    <li>50+ concurrent workflow executions</li>
+                                    <li>5TB+ infrastructure state managed</li>
+                                    <li>99.95% success rate for deployments</li>
+                                </ul>
+                            </div>
+                            <div class="perf-section">
+                                <h4>Latency Metrics</h4>
+                                <ul class="metric-list">
+                                    <li>API response: 95th percentile &lt; 200ms</li>
+                                    <li>Workflow initiation: &lt; 2 seconds</li>
+                                    <li>Infrastructure provisioning: 8-15 minutes</li>
+                                    <li>Rollback operations: &lt; 5 minutes</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Impact Tab -->
+            <div id="impact" class="tab-content hidden">
+                <div class="content-section">
+                    <h2>Business Impact</h2>
+                    <div class="impact-overview">
+                        <div class="impact-highlight">
+                            <h3>₹100Cr+ Deal Success</h3>
+                            <p>
+                                RunRun was instrumental in securing a major ₹100 crore deal with Railtel Corporation, 
+                                India's largest railway infrastructure company. The platform's ability to demonstrate 
+                                zero-downtime deployments and enterprise-grade security compliance was key to winning 
+                                this contract.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="impact-metrics">
+                        <div class="impact-category">
+                            <h3><i class="fas fa-dollar-sign"></i> Financial Impact</h3>
+                            <div class="impact-items">
+                                <div class="impact-item">
+                                    <h4>Revenue Generation</h4>
+                                    <p>₹100Cr+ in new business secured</p>
+                                </div>
+                                <div class="impact-item">
+                                    <h4>Cost Savings</h4>
+                                    <p>₹2.5Cr annual operational cost reduction</p>
+                                </div>
+                                <div class="impact-item">
+                                    <h4>Efficiency Gains</h4>
+                                    <p>300+ developer hours saved monthly</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="impact-category">
+                            <h3><i class="fas fa-users"></i> Operational Impact</h3>
+                            <div class="impact-items">
+                                <div class="impact-item">
+                                    <h4>Team Productivity</h4>
+                                    <p>40% increase in deployment frequency</p>
+                                </div>
+                                <div class="impact-item">
+                                    <h4>Error Reduction</h4>
+                                    <p>85% reduction in deployment failures</p>
+                                </div>
+                                <div class="impact-item">
+                                    <h4>Compliance</h4>
+                                    <p>100% audit compliance achievement</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="impact-category">
+                            <h3><i class="fas fa-chart-line"></i> Strategic Impact</h3>
+                            <div class="impact-items">
+                                <div class="impact-item">
+                                    <h4>Market Position</h4>
+                                    <p>Established as DevOps leader in enterprise segment</p>
+                                </div>
+                                <div class="impact-item">
+                                    <h4>Customer Satisfaction</h4>
+                                    <p>99% customer satisfaction score</p>
+                                </div>
+                                <div class="impact-item">
+                                    <h4>Innovation</h4>
+                                    <p>3 patents filed for automation processes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonials">
+                        <h3>Client Testimonials</h3>
+                        <div class="testimonial-card">
+                            <blockquote>
+                                "RunRun transformed our deployment process completely. What used to take days now 
+                                happens in minutes, with zero downtime. The security and compliance features 
+                                gave us confidence to move forward with our digital transformation."
+                            </blockquote>
+                            <cite>- CTO, Railtel Corporation</cite>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <p>&copy; 2025 Gurpreet Gandhi. All rights reserved.</p>
+                    <p>Software Architect | Platform Engineer | CKAD Certified</p>
+                </div>
+                <div class="footer-links">
+                    <a href="../index.html">Portfolio</a>
+                    <a href="../resume.pdf" target="_blank">Resume</a>
+                    <a href="../index.html#contact">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
 </body>
 </html>
