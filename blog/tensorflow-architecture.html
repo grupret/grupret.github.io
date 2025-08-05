@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TensorFlow Architecture Guide: Production ML with TFX | Gurpreet Gandhi</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Gurpreet Gandhi</span>
+                <span class="logo-title">Software Architect</span>
+            </div>
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link">← Back to Portfolio</a>
+                <a href="../projects/neurosymbolic.html" class="nav-link">← Back to Project</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+        <div class="container">
+            <div class="blog-header">
+                <h1 class="blog-title">TensorFlow Architecture Guide</h1>
+                <p class="blog-subtitle">Production ML with TFX & TensorBoard</p>
+                <div class="blog-meta">
+                    <span class="blog-date"><i class="fas fa-calendar"></i> December 2024</span>
+                    <span class="blog-readtime"><i class="fas fa-clock"></i> 20 min read</span>
+                    <span class="blog-category"><i class="fas fa-tag"></i> Deep Learning</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Content -->
+    <section class="blog-content">
+        <div class="container">
+            <article class="blog-article">
+                <div class="article-content">
+                    <h2>Introduction to TensorFlow Ecosystem</h2>
+                    <p>
+                        TensorFlow has evolved from a research framework to a comprehensive ecosystem 
+                        for production machine learning. This guide explores the architectural patterns 
+                        and best practices for building scalable ML systems using TensorFlow Extended (TFX), 
+                        TensorBoard, and related tools.
+                    </p>
+
+                    <h2>TensorFlow Core Architecture</h2>
+                    
+                    <h3>Computational Graph Execution</h3>
+                    <div class="code-block">
+                        <pre><code>
+import tensorflow as tf
+
+# Eager execution (default in TF 2.x)
+@tf.function
+def optimized_computation(x, y):
+    """Decorated function gets compiled to graph"""
+    z = tf.matmul(x, y)
+    return tf.nn.relu(z)
+
+# Graph compilation happens automatically
+x = tf.random.normal([1000, 1000])
+y = tf.random.normal([1000, 500])
+
+# First call: compilation + execution
+result1 = optimized_computation(x, y)
+
+# Subsequent calls: cached graph execution
+result2 = optimized_computation(x, y)
+
+# Inspect the graph
+print(optimized_computation.get_concrete_function(x, y).graph.as_graph_def())
+                        </code></pre>
+                    </div>
+
+                    <h3>Distributed Training Strategies</h3>
+                    <p>
+                        TensorFlow provides multiple strategies for distributed training, 
+                        enabling scalable model development across multiple GPUs and machines.
+                    </p>
+
+                    <div class="code-block">
+                        <pre><code>
+# Multi-GPU Strategy
+strategy = tf.distribute.MirroredStrategy()
+print(f"Number of devices: {strategy.num_replicas_in_sync}")
+
+with strategy.scope():
+    # Model creation must be within strategy scope
+    model = tf.keras.Sequential([
+        tf.keras.layers.Dense(128, activation='relu'),
+        tf.keras.layers.Dropout(0.2),
+        tf.keras.layers.Dense(10, activation='softmax')
+    ])
+    
+    model.compile(
+        optimizer='adam',
+        loss='sparse_categorical_crossentropy',
+        metrics=['accuracy']
+    )
+
+# Multi-worker strategy for cluster training
+multiworker_strategy = tf.distribute.experimental.MultiWorkerMirroredStrategy()
+
+# TPU Strategy for Google Cloud TPUs
+resolver = tf.distribute.cluster_resolver.TPUClusterResolver(tpu='')
+tf.config.experimental_connect_to_cluster(resolver)
+tf.tpu.experimental.initialize_tpu_system(resolver)
+tpu_strategy = tf.distribute.experimental.TPUStrategy(resolver)
+                        </code></pre>
+                    </div>
+
+                    <h2>TensorFlow Extended (TFX) Pipeline</h2>
+
+                    <h3>Complete MLOps Pipeline Architecture</h3>
+                    <p>
+                        TFX provides production-ready components for end-to-end ML pipelines, 
+                        from data ingestion to model serving.
+                    </p>
+
+                    <div class="code-block">
+                        <pre><code>
+from tfx import v1 as tfx
+from tfx.orchestration import metadata, pipeline
+from tfx.orchestration.beam.beam_dag_runner import BeamDagRunner
+
+def create_tfx_pipeline(
+    pipeline_name: str,
+    pipeline_root: str,
+    data_root: str,
+    module_file: str,
+    serving_model_dir: str,
+    metadata_path: str
+) -> pipeline.Pipeline:
+    """Creates a complete TFX pipeline"""
+    
+    # Data ingestion
+    example_gen = tfx.components.CsvExampleGen(
+        input_base=data_root
+    )
+    
+    # Data validation
+    statistics_gen = tfx.components.StatisticsGen(
+        examples=example_gen.outputs['examples']
+    )
+    
+    schema_gen = tfx.components.SchemaGen(
+        statistics=statistics_gen.outputs['statistics'],
+        infer_feature_shape=True
+    )
+    
+    example_validator = tfx.components.ExampleValidator(
+        statistics=statistics_gen.outputs['statistics'],
+        schema=schema_gen.outputs['schema']
+    )
+    
+    # Feature engineering
+    transform = tfx.components.Transform(
+        examples=example_gen.outputs['examples'],
+        schema=schema_gen.outputs['schema'],
+        module_file=module_file
+    )
+    
+    # Model training
+    trainer = tfx.components.Trainer(
+        module_file=module_file,
+        examples=transform.outputs['transformed_examples'],
+        transform_graph=transform.outputs['transform_graph'],
+        schema=schema_gen.outputs['schema'],
+        train_args=tfx.proto.TrainArgs(num_steps=10000),
+        eval_args=tfx.proto.EvalArgs(num_steps=5000)
+    )
+    
+    # Model evaluation
+    model_resolver = tfx.components.Resolver(
+        strategy_class=tfx.dsl.experimental.LatestBlessedModelStrategy,
+        model=tfx.dsl.Channel(type=tfx.types.standard_artifacts.Model),
+        model_blessing=tfx.dsl.Channel(type=tfx.types.standard_artifacts.ModelBlessing)
+    ).with_id('latest_blessed_model_resolver')
+    
+    evaluator = tfx.components.Evaluator(
+        examples=example_gen.outputs['examples'],
+        model=trainer.outputs['model'],
+        baseline_model=model_resolver.outputs['model'],
+        eval_config=tfx.proto.EvalConfig(
+            model_specs=[tfx.proto.ModelSpec(label_key='label')],
+            slicing_specs=[tfx.proto.SlicingSpec()],
+            metrics_specs=[
+                tfx.proto.MetricsSpec(metrics=[
+                    tfx.proto.MetricConfig(class_name='SparseCategoricalAccuracy'),
+                    tfx.proto.MetricConfig(class_name='ExampleCount')
+                ])
+            ]
+        )
+    )
+    
+    # Model validation and blessing
+    pusher = tfx.components.Pusher(
+        model=trainer.outputs['model'],
+        model_blessing=evaluator.outputs['blessing'],
+        push_destination=tfx.proto.PushDestination(
+            filesystem=tfx.proto.PushDestination.Filesystem(
+                base_directory=serving_model_dir
+            )
+        )
+    )
+    
+    return pipeline.Pipeline(
+        pipeline_name=pipeline_name,
+        pipeline_root=pipeline_root,
+        components=[
+            example_gen,
+            statistics_gen,
+            schema_gen,
+            example_validator,
+            transform,
+            trainer,
+            model_resolver,
+            evaluator,
+            pusher
+        ],
+        enable_cache=True,
+        metadata_connection_config=tfx.orchestration.metadata.sqlite_metadata_connection_config(metadata_path)
+    )
+
+# Pipeline execution
+pipeline_def = create_tfx_pipeline(
+    pipeline_name='ml_pipeline',
+    pipeline_root='/tmp/tfx_pipeline',
+    data_root='/data/input',
+    module_file='preprocessing.py',
+    serving_model_dir='/models/serving',
+    metadata_path='/tmp/metadata.db'
+)
+
+BeamDagRunner().run(pipeline_def)
+                        </code></pre>
+                    </div>
+
+                    <h2>Advanced Model Architecture Patterns</h2>
+
+                    <h3>Custom Training Loops</h3>
+                    <div class="code-block">
+                        <pre><code>
+class CustomTrainer:
+    def __init__(self, model, optimizer, loss_fn, strategy):
+        self.model = model
+        self.optimizer = optimizer
+        self.loss_fn = loss_fn
+        self.strategy = strategy
+        
+        # Metrics
+        self.train_loss = tf.keras.metrics.Mean(name='train_loss')
+        self.train_accuracy = tf.keras.metrics.SparseCategoricalAccuracy(name='train_accuracy')
+        
+    @tf.function
+    def distributed_train_step(self, dataset_inputs):
+        """Distributed training step"""
+        per_replica_losses = self.strategy.run(self.train_step, args=(dataset_inputs,))
+        return self.strategy.reduce(tf.distribute.ReduceOp.SUM, per_replica_losses, axis=None)
+    
+    def train_step(self, inputs):
+        """Single training step"""
+        images, labels = inputs
+        
+        with tf.GradientTape() as tape:
+            predictions = self.model(images, training=True)
+            loss = self.loss_fn(labels, predictions)
+            
+        gradients = tape.gradient(loss, self.model.trainable_variables)
+        self.optimizer.apply_gradients(zip(gradients, self.model.trainable_variables))
+        
+        self.train_loss.update_state(loss)
+        self.train_accuracy.update_state(labels, predictions)
+        
+        return loss
+    
+    def train(self, train_dataset, epochs):
+        """Full training loop"""
+        for epoch in range(epochs):
+            # Reset metrics
+            self.train_loss.reset_states()
+            self.train_accuracy.reset_states()
+            
+            # Training
+            for batch in train_dataset:
+                self.distributed_train_step(batch)
+            
+            print(f"Epoch {epoch + 1}, Loss: {self.train_loss.result():.4f}, Accuracy: {self.train_accuracy.result():.4f}")
+
+# Usage
+with strategy.scope():
+    model = create_model()
+    optimizer = tf.keras.optimizers.Adam(learning_rate=1e-3)
+    loss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+
+trainer = CustomTrainer(model, optimizer, loss_fn, strategy)
+trainer.train(train_dataset, epochs=10)
+                        </code></pre>
+                    </div>
+
+                    <h2>TensorBoard Integration</h2>
+
+                    <h3>Comprehensive Experiment Tracking</h3>
+                    <div class="code-block">
+                        <pre><code>
+import datetime
+import tensorflow as tf
+
+# Setup TensorBoard logging
+current_time = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+train_log_dir = 'logs/gradient_tape/' + current_time + '/train'
+test_log_dir = 'logs/gradient_tape/' + current_time + '/test'
+
+train_summary_writer = tf.summary.create_file_writer(train_log_dir)
+test_summary_writer = tf.summary.create_file_writer(test_log_dir)
+
+class TensorBoardCallback(tf.keras.callbacks.Callback):
+    def __init__(self, model, validation_data, log_dir):
+        super().__init__()
+        self.model = model
+        self.validation_data = validation_data
+        self.log_dir = log_dir
+        
+    def on_epoch_end(self, epoch, logs=None):
+        # Log metrics
+        with train_summary_writer.as_default():
+            tf.summary.scalar('loss', logs['loss'], step=epoch)
+            tf.summary.scalar('accuracy', logs['accuracy'], step=epoch)
+            
+        with test_summary_writer.as_default():
+            tf.summary.scalar('val_loss', logs['val_loss'], step=epoch)
+            tf.summary.scalar('val_accuracy', logs['val_accuracy'], step=epoch)
+            
+        # Log model graph (first epoch only)
+        if epoch == 0:
+            with train_summary_writer.as_default():
+                tf.summary.graph(self.model(tf.zeros((1, 28, 28, 1))))
+                
+        # Log histograms of model weights
+        with train_summary_writer.as_default():
+            for layer in self.model.layers:
+                for weight in layer.weights:
+                    tf.summary.histogram(weight.name, weight, step=epoch)
+
+# Custom scalar logging during training
+@tf.function
+def train_step_with_logging(model, optimizer, loss_fn, images, labels, step):
+    with tf.GradientTape() as tape:
+        predictions = model(images, training=True)
+        loss = loss_fn(labels, predictions)
+        
+    gradients = tape.gradient(loss, model.trainable_variables)
+    optimizer.apply_gradients(zip(gradients, model.trainable_variables))
+    
+    # Log gradient norms
+    with train_summary_writer.as_default():
+        tf.summary.scalar('gradient_norm', tf.linalg.global_norm(gradients), step=step)
+        tf.summary.scalar('learning_rate', optimizer.learning_rate, step=step)
+    
+    return loss
+
+# Log hyperparameters
+hparams = {
+    'learning_rate': 0.001,
+    'batch_size': 32,
+    'epochs': 10,
+    'optimizer': 'adam',
+    'architecture': 'cnn'
+}
+
+with train_summary_writer.as_default():
+    tf.summary.text('hyperparameters', str(hparams), step=0)
+                        </code></pre>
+                    </div>
+
+                    <h2>Model Optimization and Deployment</h2>
+
+                    <h3>TensorFlow Lite Conversion</h3>
+                    <div class="code-block">
+                        <pre><code>
+# Convert to TensorFlow Lite for mobile/edge deployment
+converter = tf.lite.TFLiteConverter.from_saved_model(saved_model_dir)
+
+# Optimization strategies
+converter.optimizations = [tf.lite.Optimize.DEFAULT]
+
+# Post-training quantization
+converter.representative_dataset = representative_data_gen
+converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
+converter.inference_input_type = tf.int8
+converter.inference_output_type = tf.int8
+
+# Convert model
+tflite_model = converter.convert()
+
+# Save quantized model
+with open('model_quantized.tflite', 'wb') as f:
+    f.write(tflite_model)
+
+# TensorFlow.js conversion for web deployment
+import tensorflowjs as tfjs
+
+tfjs.converters.convert_tf_saved_model(
+    saved_model_dir,
+    'web_model',
+    quantization_bytes=2
+)
+                        </code></pre>
+                    </div>
+
+                    <h3>TensorFlow Serving Deployment</h3>
+                    <div class="code-block">
+                        <pre><code>
+# Docker deployment with TensorFlow Serving
+"""
+# Dockerfile
+FROM tensorflow/serving:latest
+
+COPY model_repo /models/my_model
+ENV MODEL_NAME=my_model
+ENV MODEL_BASE_PATH=/models
+
+EXPOSE 8500 8501
+"""
+
+# Model versioning and A/B testing
+import requests
+import json
+
+# Serve multiple model versions
+serving_config = {
+    "model_config_list": [
+        {
+            "name": "my_model",
+            "base_path": "/models/my_model",
+            "model_platform": "tensorflow",
+            "model_version_policy": {
+                "specific": {
+                    "versions": [1, 2, 3]
+                }
+            }
+        }
+    ]
+}
+
+# REST API prediction
+def predict_with_serving(data, model_name, version=None):
+    url = f"http://localhost:8501/v1/models/{model_name}"
+    if version:
+        url += f"/versions/{version}"
+    url += ":predict"
+    
+    payload = {"instances": data.tolist()}
+    response = requests.post(url, json=payload)
+    return response.json()
+
+# gRPC API (more efficient)
+import grpc
+from tensorflow_serving.apis import prediction_service_pb2_grpc
+from tensorflow_serving.apis import predict_pb2
+
+def predict_grpc(data, model_name, version=1):
+    channel = grpc.insecure_channel('localhost:8500')
+    stub = prediction_service_pb2_grpc.PredictionServiceStub(channel)
+    
+    request = predict_pb2.PredictRequest()
+    request.model_spec.name = model_name
+    request.model_spec.version.value = version
+    request.inputs['input'].CopyFrom(
+        tf.make_tensor_proto(data, shape=data.shape)
+    )
+    
+    result = stub.Predict(request, 10.0)
+    return result
+                        </code></pre>
+                    </div>
+
+                    <h2>Advanced Features and Best Practices</h2>
+
+                    <h3>Mixed Precision Training</h3>
+                    <div class="code-block">
+                        <pre><code>
+# Enable mixed precision for faster training on modern GPUs
+policy = tf.keras.mixed_precision.Policy('mixed_float16')
+tf.keras.mixed_precision.set_global_policy(policy)
+
+# Model with mixed precision
+model = tf.keras.Sequential([
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dense(64, activation='relu'),
+    # Output layer should be float32 for numerical stability
+    tf.keras.layers.Dense(10, activation='softmax', dtype='float32')
+])
+
+# Loss scaling to prevent gradient underflow
+optimizer = tf.keras.optimizers.Adam()
+optimizer = tf.keras.mixed_precision.LossScaleOptimizer(optimizer)
+
+# Custom training with loss scaling
+@tf.function
+def train_step_mixed_precision(images, labels):
+    with tf.GradientTape() as tape:
+        predictions = model(images, training=True)
+        loss = loss_fn(labels, predictions)
+        # Scale loss to prevent underflow
+        scaled_loss = optimizer.get_scaled_loss(loss)
+    
+    # Scale gradients back
+    scaled_gradients = tape.gradient(scaled_loss, model.trainable_variables)
+    gradients = optimizer.get_unscaled_gradients(scaled_gradients)
+    
+    optimizer.apply_gradients(zip(gradients, model.trainable_variables))
+    return loss
+                        </code></pre>
+                    </div>
+
+                    <h2>Monitoring and Debugging</h2>
+
+                    <h3>TensorFlow Profiler</h3>
+                    <div class="code-block">
+                        <pre><code>
+# Profile training performance
+tf.profiler.experimental.start('logs/profiler')
+
+# Training code here
+for epoch in range(5):
+    for batch in train_dataset:
+        train_step(batch)
+
+tf.profiler.experimental.stop()
+
+# Programmatic profiling
+with tf.profiler.experimental.Profile('logs/profiler'):
+    # Code to profile
+    model.fit(train_dataset, epochs=1)
+
+# Profile specific functions
+@tf.function
+def expensive_operation(x):
+    return tf.matmul(x, x)
+
+# Trace execution
+tf.profiler.experimental.trace_on(graph=True, profiler=True)
+result = expensive_operation(tf.random.normal([1000, 1000]))
+with tf.profiler.experimental.trace_export("logs/func_trace"):
+    pass
+                        </code></pre>
+                    </div>
+
+                    <h2>Conclusion</h2>
+                    <p>
+                        TensorFlow's comprehensive ecosystem provides all the tools necessary for 
+                        production machine learning at scale. From research prototyping with eager 
+                        execution to production deployment with TensorFlow Serving, the platform 
+                        enables seamless transitions across the ML lifecycle. Understanding these 
+                        architectural patterns and best practices is crucial for building robust, 
+                        scalable ML systems.
+                    </p>
+
+                    <div class="cta-section">
+                        <h3>Need help architecting your TensorFlow solution?</h3>
+                        <p>Let's discuss how to design and implement a scalable TensorFlow architecture for your specific requirements.</p>
+                        <a href="../index.html#contact" class="cta-button">Schedule Consultation</a>
+                    </div>
+                </div>
+
+                <div class="article-sidebar">
+                    <div class="sidebar-section">
+                        <h3>Related Articles</h3>
+                        <ul class="related-links">
+                            <li><a href="kubeflow-deep-dive.html">Kubeflow Deep Dive</a></li>
+                            <li><a href="pytorch-lightning-guide.html">PyTorch Lightning Guide</a></li>
+                            <li><a href="mlops-best-practices.html">MLOps Best Practices</a></li>
+                            <li><a href="kubernetes-ml.html">Kubernetes for ML</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Gurpreet Gandhi</h3>
+                    <p>Senior Software Architect specializing in enterprise-grade solutions and innovative technology implementations.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../index.html#about">About</a></li>
+                        <li><a href="../index.html#projects">Projects</a></li>
+                        <li><a href="../index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Gurpreet Gandhi. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>

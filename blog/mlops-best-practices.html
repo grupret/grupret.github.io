@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLOps Best Practices: CI/CD for Machine Learning | Gurpreet Gandhi</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Gurpreet Gandhi</span>
+                <span class="logo-title">Software Architect</span>
+            </div>
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link">← Back to Portfolio</a>
+                <a href="../projects/neurosymbolic.html" class="nav-link">← Back to Project</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+        <div class="container">
+            <div class="blog-header">
+                <h1 class="blog-title">MLOps Best Practices</h1>
+                <p class="blog-subtitle">CI/CD for Machine Learning</p>
+                <div class="blog-meta">
+                    <span class="blog-date"><i class="fas fa-calendar"></i> December 2024</span>
+                    <span class="blog-readtime"><i class="fas fa-clock"></i> 15 min read</span>
+                    <span class="blog-category"><i class="fas fa-tag"></i> DevOps</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Content -->
+    <section class="blog-content">
+        <div class="container">
+            <article class="blog-article">
+                <div class="article-content">
+                    <h2>Introduction to MLOps</h2>
+                    <p>
+                        MLOps (Machine Learning Operations) is the practice of applying DevOps principles 
+                        to machine learning workflows. It aims to streamline the ML lifecycle from 
+                        development to production, ensuring reliability, scalability, and maintainability.
+                    </p>
+
+                    <h2>Core MLOps Principles</h2>
+                    
+                    <h3>1. Version Control Everything</h3>
+                    <div class="code-block">
+                        <pre><code>
+# Git for code versioning
+git add model.py data_pipeline.py
+git commit -m "Add neural network architecture v2.1"
+
+# DVC for data and model versioning
+dvc add data/training_data.csv
+dvc add models/model_v2.pkl
+dvc push
+
+# MLflow for experiment tracking
+import mlflow
+import mlflow.sklearn
+
+with mlflow.start_run():
+    mlflow.log_param("learning_rate", 0.01)
+    mlflow.log_metric("accuracy", 0.95)
+    mlflow.sklearn.log_model(model, "model")
+                        </code></pre>
+                    </div>
+
+                    <h3>2. Automated Testing</h3>
+                    <div class="code-block">
+                        <pre><code>
+import pytest
+import pandas as pd
+from model import MLModel
+
+class TestMLModel:
+    def test_model_prediction_shape(self):
+        model = MLModel()
+        test_input = pd.DataFrame({'feature_1': [1, 2], 'feature_2': [3, 4]})
+        predictions = model.predict(test_input)
+        assert predictions.shape[0] == test_input.shape[0]
+    
+    def test_data_drift_detection(self):
+        baseline_data = pd.read_csv('baseline_data.csv')
+        new_data = pd.read_csv('new_data.csv')
+        
+        # Check for distribution drift
+        from scipy import stats
+        for column in baseline_data.columns:
+            _, p_value = stats.ks_2samp(baseline_data[column], new_data[column])
+            assert p_value > 0.05, f"Data drift detected in {column}"
+    
+    def test_model_performance(self):
+        model = MLModel.load('models/latest.pkl')
+        test_data = pd.read_csv('test_data.csv')
+        accuracy = model.evaluate(test_data)
+        assert accuracy > 0.85, "Model performance below threshold"
+                        </code></pre>
+                    </div>
+
+                    <h3>3. CI/CD Pipeline</h3>
+                    <div class="code-block">
+                        <pre><code>
+# .github/workflows/ml_pipeline.yml
+name: ML Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    
+    - name: Run data validation tests
+      run: pytest tests/test_data_validation.py
+    
+    - name: Run model tests
+      run: pytest tests/test_model.py
+    
+    - name: Train model
+      run: python train.py
+    
+    - name: Validate model performance
+      run: python validate_model.py
+    
+    - name: Deploy to staging
+      if: github.ref == 'refs/heads/main'
+      run: |
+        docker build -t ml-model:latest .
+        docker push registry/ml-model:latest
+                        </code></pre>
+                    </div>
+
+                    <h2>Monitoring and Observability</h2>
+
+                    <h3>Model Performance Monitoring</h3>
+                    <div class="code-block">
+                        <pre><code>
+import prometheus_client
+from prometheus_client import Counter, Histogram, Gauge
+import time
+
+# Metrics
+prediction_counter = Counter('ml_predictions_total', 'Total predictions made')
+prediction_latency = Histogram('ml_prediction_duration_seconds', 'Prediction latency')
+model_accuracy = Gauge('ml_model_accuracy', 'Current model accuracy')
+
+class MonitoredModel:
+    def __init__(self, model):
+        self.model = model
+        self.recent_predictions = []
+        
+    @prediction_latency.time()
+    def predict(self, features):
+        prediction_counter.inc()
+        
+        start_time = time.time()
+        prediction = self.model.predict(features)
+        latency = time.time() - start_time
+        
+        # Log prediction for drift detection
+        self.recent_predictions.append({
+            'timestamp': time.time(),
+            'features': features.tolist(),
+            'prediction': prediction.tolist(),
+            'latency': latency
+        })
+        
+        return prediction
+    
+    def update_accuracy_metric(self, accuracy):
+        model_accuracy.set(accuracy)
+        
+    def check_data_drift(self):
+        # Implement drift detection logic
+        if len(self.recent_predictions) > 1000:
+            # Compare recent data distribution with training data
+            drift_score = self.calculate_drift_score()
+            if drift_score > 0.1:
+                self.trigger_retraining_alert()
+                        </code></pre>
+                    </div>
+
+                    <h2>Infrastructure as Code</h2>
+
+                    <h3>Kubernetes Deployment</h3>
+                    <div class="code-block">
+                        <pre><code>
+# ml-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-model-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ml-model
+  template:
+    metadata:
+      labels:
+        app: ml-model
+    spec:
+      containers:
+      - name: ml-model
+        image: ml-model:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MODEL_VERSION
+          value: "v2.1"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ml-model-service
+spec:
+  selector:
+    app: ml-model
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+  type: LoadBalancer
+                        </code></pre>
+                    </div>
+
+                    <h2>Feature Store Implementation</h2>
+
+                    <div class="feature-highlight">
+                        <h4>Key Benefits of Feature Stores</h4>
+                        <ul>
+                            <li><strong>Feature Reusability:</strong> Share features across teams and projects</li>
+                            <li><strong>Consistency:</strong> Same features for training and inference</li>
+                            <li><strong>Data Lineage:</strong> Track feature transformations and dependencies</li>
+                            <li><strong>Real-time Serving:</strong> Low-latency feature retrieval</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-block">
+                        <pre><code>
+# Feature Store with Feast
+from feast import Entity, Feature, FeatureView, Field
+from feast.types import Float32, Int64, String
+
+# Define entities
+user = Entity(name="user_id", value_type=String)
+
+# Define feature view
+user_features = FeatureView(
+    name="user_features",
+    entities=["user_id"],
+    features=[
+        Feature(name="age", dtype=Int64),
+        Feature(name="income", dtype=Float32),
+        Feature(name="credit_score", dtype=Int64),
+    ],
+    source=BigQuerySource(
+        table="user_features",
+        timestamp_field="event_timestamp",
+    ),
+)
+
+# Get features for inference
+from feast import FeatureStore
+
+store = FeatureStore(repo_path=".")
+features = store.get_online_features(
+    features=["user_features:age", "user_features:income"],
+    entity_rows=[{"user_id": "123"}]
+).to_dict()
+                        </code></pre>
+                    </div>
+
+                    <h2>A/B Testing for ML Models</h2>
+
+                    <div class="code-block">
+                        <pre><code>
+class ABTestingFramework:
+    def __init__(self):
+        self.models = {}
+        self.traffic_split = {}
+        
+    def register_model(self, name, model, traffic_percentage):
+        self.models[name] = model
+        self.traffic_split[name] = traffic_percentage
+        
+    def predict(self, user_id, features):
+        # Determine which model to use based on user_id
+        model_name = self.assign_user_to_variant(user_id)
+        model = self.models[model_name]
+        
+        prediction = model.predict(features)
+        
+        # Log prediction for analysis
+        self.log_prediction(user_id, model_name, prediction)
+        
+        return prediction
+    
+    def assign_user_to_variant(self, user_id):
+        hash_value = hash(user_id) % 100
+        cumulative = 0
+        
+        for model_name, percentage in self.traffic_split.items():
+            cumulative += percentage
+            if hash_value < cumulative:
+                return model_name
+                
+        return list(self.models.keys())[0]  # Fallback
+
+# Usage
+ab_test = ABTestingFramework()
+ab_test.register_model("model_v1", old_model, 70)
+ab_test.register_model("model_v2", new_model, 30)
+
+prediction = ab_test.predict(user_id="123", features=user_features)
+                        </code></pre>
+                    </div>
+
+                    <h2>Security and Compliance</h2>
+
+                    <h3>Model Security Best Practices</h3>
+                    <ul>
+                        <li><strong>Input Validation:</strong> Sanitize all input data</li>
+                        <li><strong>Model Encryption:</strong> Encrypt models at rest and in transit</li>
+                        <li><strong>Access Control:</strong> Implement RBAC for model access</li>
+                        <li><strong>Audit Logging:</strong> Log all model interactions</li>
+                        <li><strong>Differential Privacy:</strong> Protect training data privacy</li>
+                    </ul>
+
+                    <div class="cta-section">
+                        <h3>Ready to implement MLOps in your organization?</h3>
+                        <p>Let's design a comprehensive MLOps strategy tailored to your specific needs.</p>
+                        <a href="../index.html#contact" class="cta-button">Start Planning</a>
+                    </div>
+                </div>
+
+                <div class="article-sidebar">
+                    <div class="sidebar-section">
+                        <h3>Related Articles</h3>
+                        <ul class="related-links">
+                            <li><a href="kubeflow-deep-dive.html">Kubeflow Deep Dive</a></li>
+                            <li><a href="tensorflow-architecture.html">TensorFlow Architecture</a></li>
+                            <li><a href="pytorch-lightning-guide.html">PyTorch Lightning</a></li>
+                            <li><a href="kubernetes-ml.html">Kubernetes for ML</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Gurpreet Gandhi</h3>
+                    <p>Senior Software Architect specializing in enterprise-grade solutions and innovative technology implementations.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../index.html#about">About</a></li>
+                        <li><a href="../index.html#projects">Projects</a></li>
+                        <li><a href="../index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Gurpreet Gandhi. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>

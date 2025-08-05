@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroSymbolic Model Factory - Low-Code ML Platform | Gurpreet Gandhi</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Gurpreet Gandhi</span>
+                <span class="logo-title">Software Architect</span>
+            </div>
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link">← Back to Portfolio</a>
+                <a href="../index.html#projects" class="nav-link">Other Projects</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-hero">
+        <div class="container">
+            <div class="project-header">
+                <div class="project-title-section">
+                    <h1 class="project-title">NeuroSymbolic Model Factory</h1>
+                    <p class="project-tagline">Low-Code ML Platform for Automated Model Development</p>
+                    <div class="project-impact">
+                        <div class="impact-stat">
+                            <span class="impact-number">80%</span>
+                            <span class="impact-label">Less Code Required</span>
+                        </div>
+                        <div class="impact-stat">
+                            <span class="impact-number">10x</span>
+                            <span class="impact-label">Faster Model Development</span>
+                        </div>
+                        <div class="impact-stat">
+                            <span class="impact-number">95%</span>
+                            <span class="impact-label">Automated Pipeline</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-image-section">
+                    <div class="project-architecture-diagram">
+                        <div class="arch-component">
+                            <i class="fas fa-brain"></i>
+                            <span>NeuroSymbolic AI</span>
+                        </div>
+                        <div class="arch-component">
+                            <i class="fas fa-cogs"></i>
+                            <span>Kubeflow</span>
+                        </div>
+                        <div class="arch-component">
+                            <i class="fas fa-cube"></i>
+                            <span>TensorFlow</span>
+                        </div>
+                        <div class="arch-component">
+                            <i class="fab fa-python"></i>
+                            <span>PyTorch</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Navigation -->
+    <section class="project-nav">
+        <div class="container">
+            <div class="tabs">
+                <button class="tab-button active" onclick="showTab('overview')">
+                    <i class="fas fa-info-circle"></i> Overview
+                </button>
+                <button class="tab-button" onclick="showTab('architecture')">
+                    <i class="fas fa-sitemap"></i> Architecture
+                </button>
+                <button class="tab-button" onclick="showTab('technical')">
+                    <i class="fas fa-code"></i> Technical Details
+                </button>
+                <button class="tab-button" onclick="showTab('mlops')">
+                    <i class="fas fa-robot"></i> MLOps Pipeline
+                </button>
+                <button class="tab-button" onclick="showTab('performance')">
+                    <i class="fas fa-chart-line"></i> Performance
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tab Contents -->
+    <section class="project-content">
+        <div class="container">
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <div class="content-section">
+                    <h2>Project Overview</h2>
+                    <div class="overview-grid">
+                        <div class="overview-text">
+                            <h3>Challenge</h3>
+                            <p>
+                                Machine learning model development requires extensive coding expertise, lengthy 
+                                development cycles, and complex infrastructure management. Data scientists spend 
+                                80% of their time on infrastructure and pipeline setup rather than model innovation, 
+                                leading to delayed deployments and reduced productivity.
+                            </p>
+                            
+                            <h3>Solution</h3>
+                            <p>
+                                NeuroSymbolic Model Factory is a revolutionary low-code ML platform that combines 
+                                symbolic reasoning with neural networks. Built on Kubeflow for orchestration, 
+                                TensorFlow and PyTorch for model development, it provides automated pipelines 
+                                for data preprocessing, model training, validation, and deployment across 
+                                multiple cloud environments.
+                            </p>
+                        </div>
+                        <div class="overview-features">
+                            <h3>Key Features</h3>
+                            <div class="feature-list">
+                                <div class="feature-item">
+                                    <i class="fas fa-magic"></i>
+                                    <div>
+                                        <h4>Auto-ML Pipeline Generation</h4>
+                                        <p>Automatically generates optimized ML pipelines based on data characteristics</p>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-brain"></i>
+                                    <div>
+                                        <h4>NeuroSymbolic Integration</h4>
+                                        <p>Combines neural networks with symbolic reasoning for enhanced interpretability</p>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-cloud"></i>
+                                    <div>
+                                        <h4>Multi-Cloud Deployment</h4>
+                                        <p>Seamless deployment across AWS, GCP, and Azure environments</p>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-chart-bar"></i>
+                                    <div>
+                                        <h4>Real-time Model Monitoring</h4>
+                                        <p>Continuous monitoring with drift detection and automatic retraining</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Architecture Tab -->
+            <div id="architecture" class="tab-content hidden">
+                <div class="content-section">
+                    <h2>System Architecture</h2>
+                    <div class="architecture-details">
+                        <div class="arch-layer">
+                            <h3><i class="fas fa-layer-group"></i> Orchestration Layer</h3>
+                            <div class="layer-content">
+                                <div class="component-card">
+                                    <h4>Kubeflow Pipelines</h4>
+                                    <p>Container-native ML workflow orchestration and management</p>
+                                    <div class="tech-specs">
+                                        <span>Kubernetes Native</span>
+                                        <span>Argo Workflows</span>
+                                        <span>Tekton Pipelines</span>
+                                    </div>
+                                </div>
+                                <div class="component-card">
+                                    <h4>MLflow Tracking</h4>
+                                    <p>Experiment tracking and model versioning across frameworks</p>
+                                    <div class="tech-specs">
+                                        <span>Model Registry</span>
+                                        <span>Artifact Store</span>
+                                        <span>Metadata DB</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="arch-layer">
+                            <h3><i class="fas fa-brain"></i> AI/ML Layer</h3>
+                            <div class="layer-content">
+                                <div class="component-card">
+                                    <h4>TensorFlow Extended (TFX)</h4>
+                                    <p>Production-ready ML pipeline components for TensorFlow models</p>
+                                    <div class="tech-specs">
+                                        <span>TensorFlow 2.x</span>
+                                        <span>TFX Components</span>
+                                        <span>TensorBoard</span>
+                                    </div>
+                                </div>
+                                <div class="component-card">
+                                    <h4>PyTorch Lightning</h4>
+                                    <p>High-performance PyTorch framework for research and production</p>
+                                    <div class="tech-specs">
+                                        <span>PyTorch 2.0</span>
+                                        <span>Lightning Flash</span>
+                                        <span>Hydra Config</span>
+                                    </div>
+                                </div>
+                                <div class="component-card">
+                                    <h4>Symbolic Reasoning Engine</h4>
+                                    <p>Knowledge graph and rule-based reasoning integration</p>
+                                    <div class="tech-specs">
+                                        <span>Neo4j Graph DB</span>
+                                        <span>Prolog Engine</span>
+                                        <span>SPARQL Queries</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="arch-layer">
+                            <h3><i class="fas fa-database"></i> Data Layer</h3>
+                            <div class="layer-content">
+                                <div class="component-card">
+                                    <h4>Feature Store</h4>
+                                    <p>Centralized feature management and serving</p>
+                                    <div class="tech-specs">
+                                        <span>Feast Framework</span>
+                                        <span>Redis Online</span>
+                                        <span>BigQuery Offline</span>
+                                    </div>
+                                </div>
+                                <div class="component-card">
+                                    <h4>Data Pipeline</h4>
+                                    <p>Automated data ingestion and preprocessing</p>
+                                    <div class="tech-specs">
+                                        <span>Apache Beam</span>
+                                        <span>Dataflow</span>
+                                        <span>Apache Kafka</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Details Tab -->
+            <div id="technical" class="tab-content hidden">
+                <div class="content-section">
+                    <h2>Technical Implementation</h2>
+                    
+                    <!-- Blog Navigation Section -->
+                    <div class="blog-navigation">
+                        <h3>Deep Dive Technical Blogs</h3>
+                        <p>Explore detailed technical articles on each technology stack component:</p>
+                        <div class="blog-tiles">
+                            <a href="../blog/kubeflow-deep-dive.html" class="blog-tile">
+                                <i class="fas fa-cogs"></i>
+                                <h4>Kubeflow Deep Dive</h4>
+                                <p>ML Orchestration & Pipeline Management</p>
+                            </a>
+                            <a href="../blog/tensorflow-architecture.html" class="blog-tile">
+                                <i class="fas fa-cube"></i>
+                                <h4>TensorFlow Architecture</h4>
+                                <p>Production ML with TFX & TensorBoard</p>
+                            </a>
+                            <a href="../blog/pytorch-lightning-guide.html" class="blog-tile">
+                                <i class="fab fa-python"></i>
+                                <h4>PyTorch Lightning</h4>
+                                <p>Research to Production Workflows</p>
+                            </a>
+                            <a href="../blog/neurosymbolic-ai.html" class="blog-tile">
+                                <i class="fas fa-brain"></i>
+                                <h4>NeuroSymbolic AI</h4>
+                                <p>Combining Neural & Symbolic Reasoning</p>
+                            </a>
+                            <a href="../blog/mlops-best-practices.html" class="blog-tile">
+                                <i class="fas fa-robot"></i>
+                                <h4>MLOps Best Practices</h4>
+                                <p>CI/CD for Machine Learning</p>
+                            </a>
+                            <a href="../blog/kubernetes-ml.html" class="blog-tile">
+                                <i class="fas fa-dharmachakra"></i>
+                                <h4>Kubernetes for ML</h4>
+                                <p>Container Orchestration for AI Workloads</p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="tech-implementation">
+                        <div class="implementation-section">
+                            <h3>Core Technologies</h3>
+                            <div class="tech-stack">
+                                <div class="tech-category">
+                                    <h4>Orchestration & Workflow</h4>
+                                    <ul>
+                                        <li><strong>Kubeflow Pipelines:</strong> Kubernetes-native ML workflows</li>
+                                        <li><strong>Argo Workflows:</strong> Container-native workflow engine</li>
+                                        <li><strong>Tekton:</strong> Cloud-native CI/CD pipeline framework</li>
+                                        <li><strong>MLflow:</strong> Model lifecycle management and tracking</li>
+                                    </ul>
+                                </div>
+                                <div class="tech-category">
+                                    <h4>ML Frameworks</h4>
+                                    <ul>
+                                        <li><strong>TensorFlow 2.x:</strong> End-to-end ML platform with TFX</li>
+                                        <li><strong>PyTorch Lightning:</strong> High-performance PyTorch wrapper</li>
+                                        <li><strong>Scikit-learn:</strong> Classical ML algorithms and preprocessing</li>
+                                        <li><strong>XGBoost/LightGBM:</strong> Gradient boosting frameworks</li>
+                                    </ul>
+                                </div>
+                                <div class="tech-category">
+                                    <h4>Data & Storage</h4>
+                                    <ul>
+                                        <li><strong>Apache Beam:</strong> Unified batch and stream processing</li>
+                                        <li><strong>Apache Kafka:</strong> Real-time data streaming</li>
+                                        <li><strong>Feast:</strong> Feature store for ML</li>
+                                        <li><strong>DVC:</strong> Data version control and pipeline tracking</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MLOps Pipeline Tab -->
+            <div id="mlops" class="tab-content hidden">
+                <div class="content-section">
+                    <h2>MLOps Pipeline</h2>
+                    <div class="pipeline-overview">
+                        <div class="pipeline-stage">
+                            <div class="stage-header">
+                                <h3><i class="fas fa-upload"></i> Data Ingestion</h3>
+                            </div>
+                            <div class="stage-content">
+                                <p>Automated data collection from multiple sources with validation and quality checks</p>
+                                <ul>
+                                    <li>Real-time streaming with Apache Kafka</li>
+                                    <li>Batch processing with Apache Beam</li>
+                                    <li>Data validation with TensorFlow Data Validation</li>
+                                    <li>Schema evolution and compatibility checks</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="pipeline-stage">
+                            <div class="stage-header">
+                                <h3><i class="fas fa-cogs"></i> Feature Engineering</h3>
+                            </div>
+                            <div class="stage-content">
+                                <p>Automated feature extraction and transformation with feature store integration</p>
+                                <ul>
+                                    <li>Feature selection using mutual information</li>
+                                    <li>Automated feature generation with Featuretools</li>
+                                    <li>Feature store management with Feast</li>
+                                    <li>Online and offline feature serving</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="pipeline-stage">
+                            <div class="stage-header">
+                                <h3><i class="fas fa-brain"></i> Model Training</h3>
+                            </div>
+                            <div class="stage-content">
+                                <p>Multi-framework model training with hyperparameter optimization</p>
+                                <ul>
+                                    <li>AutoML with Google Cloud AutoML and H2O.ai</li>
+                                    <li>Hyperparameter tuning with Optuna</li>
+                                    <li>Distributed training with Horovod</li>
+                                    <li>Model versioning with MLflow</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="pipeline-stage">
+                            <div class="stage-header">
+                                <h3><i class="fas fa-rocket"></i> Model Deployment</h3>
+                            </div>
+                            <div class="stage-content">
+                                <p>Automated deployment with A/B testing and canary releases</p>
+                                <ul>
+                                    <li>Model serving with TensorFlow Serving</li>
+                                    <li>REST API with FastAPI and GraphQL</li>
+                                    <li>Kubernetes deployment with Seldon Core</li>
+                                    <li>Progressive deployment strategies</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Tab -->
+            <div id="performance" class="tab-content hidden">
+                <div class="content-section">
+                    <h2>Performance Metrics</h2>
+                    <div class="performance-grid">
+                        <div class="performance-section">
+                            <h3>Development Efficiency</h3>
+                            <div class="metrics-list">
+                                <div class="metric-item">
+                                    <span class="metric-label">Code Reduction</span>
+                                    <span class="metric-value">80%</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-progress" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">Development Speed</span>
+                                    <span class="metric-value">10x Faster</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-progress" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">Time to Production</span>
+                                    <span class="metric-value">60% Reduction</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-progress" style="width: 60%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="performance-section">
+                            <h3>System Performance</h3>
+                            <div class="metrics-list">
+                                <div class="metric-item">
+                                    <span class="metric-label">Model Training Time</span>
+                                    <span class="metric-value">5x Faster</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-progress" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">Inference Latency</span>
+                                    <span class="metric-value">&lt;50ms</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-progress" style="width: 95%"></div>
+                                    </div>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">Resource Utilization</span>
+                                    <span class="metric-value">40% Improvement</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-progress" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="performance-section">
+                            <h3>Business Impact</h3>
+                            <div class="metrics-list">
+                                <div class="metric-item">
+                                    <span class="metric-label">Model Accuracy</span>
+                                    <span class="metric-value">95%+</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-progress" style="width: 95%"></div>
+                                    </div>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">Cost Reduction</span>
+                                    <span class="metric-value">50%</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-progress" style="width: 70%"></div>
+                                    </div>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">Team Productivity</span>
+                                    <span class="metric-value">300% Increase</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-progress" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Gurpreet Gandhi</h3>
+                    <p>Senior Software Architect specializing in enterprise-grade solutions and innovative technology implementations.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../index.html#about">About</a></li>
+                        <li><a href="../index.html#projects">Projects</a></li>
+                        <li><a href="../index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Gurpreet Gandhi. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>

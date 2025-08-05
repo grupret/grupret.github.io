@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroSymbolic AI: Combining Neural & Symbolic Reasoning | Gurpreet Gandhi</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Gurpreet Gandhi</span>
+                <span class="logo-title">Software Architect</span>
+            </div>
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link">← Back to Portfolio</a>
+                <a href="../projects/neurosymbolic.html" class="nav-link">← Back to Project</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+        <div class="container">
+            <div class="blog-header">
+                <h1 class="blog-title">NeuroSymbolic AI</h1>
+                <p class="blog-subtitle">Combining Neural Networks with Symbolic Reasoning</p>
+                <div class="blog-meta">
+                    <span class="blog-date"><i class="fas fa-calendar"></i> December 2024</span>
+                    <span class="blog-readtime"><i class="fas fa-clock"></i> 18 min read</span>
+                    <span class="blog-category"><i class="fas fa-tag"></i> AI Research</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Content -->
+    <section class="blog-content">
+        <div class="container">
+            <article class="blog-article">
+                <div class="article-content">
+                    <h2>Introduction to NeuroSymbolic AI</h2>
+                    <p>
+                        NeuroSymbolic AI represents a paradigm shift in artificial intelligence, combining 
+                        the pattern recognition capabilities of neural networks with the logical reasoning 
+                        power of symbolic systems. This hybrid approach addresses fundamental limitations 
+                        of both pure neural and symbolic approaches, creating more robust, interpretable, 
+                        and generalizable AI systems.
+                    </p>
+
+                    <h2>The Need for Hybrid Intelligence</h2>
+                    
+                    <h3>Limitations of Pure Neural Approaches</h3>
+                    <ul>
+                        <li><strong>Black Box Problem:</strong> Limited interpretability and explainability</li>
+                        <li><strong>Data Hunger:</strong> Requires massive amounts of training data</li>
+                        <li><strong>Brittle Generalization:</strong> Poor performance on out-of-distribution data</li>
+                        <li><strong>Lack of Reasoning:</strong> Difficulty with logical inference and causality</li>
+                    </ul>
+
+                    <h3>Limitations of Pure Symbolic Approaches</h3>
+                    <ul>
+                        <li><strong>Brittleness:</strong> Sensitive to noise and uncertainty</li>
+                        <li><strong>Knowledge Engineering Bottleneck:</strong> Manual rule creation is expensive</li>
+                        <li><strong>Limited Learning:</strong> Difficulty adapting from experience</li>
+                        <li><strong>Pattern Recognition:</strong> Poor at processing raw sensory data</li>
+                    </ul>
+
+                    <h2>NeuroSymbolic Architecture Patterns</h2>
+
+                    <h3>1. Neuro-Guided Symbolic Systems</h3>
+                    <div class="code-block">
+                        <pre><code>
+import torch
+import torch.nn as nn
+from pyke import knowledge_engine, krb_traceback
+
+class NeuroGuidedSymbolic(nn.Module):
+    def __init__(self, neural_predictor, knowledge_base):
+        super().__init__()
+        self.neural_predictor = neural_predictor
+        self.knowledge_base = knowledge_base
+        self.engine = knowledge_engine.engine(__file__)
+        
+    def forward(self, input_data, query):
+        # Neural component extracts features/predicates
+        neural_predicates = self.neural_predictor(input_data)
+        
+        # Convert neural outputs to symbolic facts
+        facts = self.neural_to_symbolic(neural_predicates)
+        
+        # Assert facts to knowledge base
+        for fact in facts:
+            self.engine.assert_(fact)
+            
+        # Symbolic reasoning
+        try:
+            self.engine.activate('reasoning_rules')
+            solutions = list(self.engine.prove_goal(query))
+            return solutions
+        except Exception as e:
+            krb_traceback.print_exc()
+            return []
+    
+    def neural_to_symbolic(self, neural_output):
+        """Convert neural network outputs to symbolic predicates"""
+        facts = []
+        # Threshold neural outputs to create symbolic facts
+        for i, confidence in enumerate(neural_output):
+            if confidence > 0.8:  # High confidence threshold
+                facts.append(f'predicate_{i}(entity, {confidence.item():.3f})')
+        return facts
+
+# Example usage
+class ObjectDetector(nn.Module):
+    def __init__(self, num_classes):
+        super().__init__()
+        self.backbone = nn.Sequential(
+            nn.Conv2d(3, 64, 3, padding=1),
+            nn.ReLU(),
+            nn.AdaptiveAvgPool2d(1),
+            nn.Flatten(),
+            nn.Linear(64, num_classes)
+        )
+        
+    def forward(self, x):
+        return torch.sigmoid(self.backbone(x))
+
+# Integration with symbolic reasoning
+detector = ObjectDetector(num_classes=10)
+neurosymbolic_system = NeuroGuidedSymbolic(
+    neural_predictor=detector,
+    knowledge_base="spatial_reasoning.krb"
+)
+                        </code></pre>
+                    </div>
+
+                    <h3>2. Symbolic-Guided Neural Networks</h3>
+                    <div class="code-block">
+                        <pre><code>
+import torch
+import torch.nn as nn
+from collections import defaultdict
+
+class SymbolicConstraintLayer(nn.Module):
+    """Layer that enforces symbolic constraints on neural outputs"""
+    
+    def __init__(self, constraint_rules):
+        super().__init__()
+        self.constraint_rules = constraint_rules
+        self.penalty_weight = nn.Parameter(torch.tensor(1.0))
+        
+    def forward(self, predictions, symbolic_constraints):
+        # Apply symbolic constraints as soft penalties
+        penalty = 0.0
+        
+        for rule in self.constraint_rules:
+            violation = self.evaluate_constraint(predictions, rule)
+            penalty += violation
+            
+        # Adjust predictions to satisfy constraints
+        constrained_predictions = predictions - self.penalty_weight * penalty
+        return constrained_predictions
+    
+    def evaluate_constraint(self, predictions, rule):
+        """Evaluate logical constraint violation"""
+        # Example: transitivity constraint
+        if rule['type'] == 'transitivity':
+            a, b, c = rule['entities']
+            # If A > B and B > C, then A > C should hold
+            violation = torch.relu(
+                predictions[a] - predictions[b] +  # A > B
+                predictions[b] - predictions[c] -  # B > C  
+                (predictions[a] - predictions[c])  # A > C
+            )
+            return violation.sum()
+        return 0.0
+
+class NeuroSymbolicClassifier(nn.Module):
+    def __init__(self, input_dim, num_classes, constraints):
+        super().__init__()
+        self.neural_core = nn.Sequential(
+            nn.Linear(input_dim, 128),
+            nn.ReLU(),
+            nn.Dropout(0.3),
+            nn.Linear(128, 64),
+            nn.ReLU(),
+            nn.Linear(64, num_classes)
+        )
+        self.symbolic_layer = SymbolicConstraintLayer(constraints)
+        
+    def forward(self, x, constraints=None):
+        neural_output = self.neural_core(x)
+        if constraints is not None:
+            return self.symbolic_layer(neural_output, constraints)
+        return neural_output
+
+# Example: Hierarchical classification with taxonomic constraints
+taxonomic_constraints = [
+    {'type': 'transitivity', 'entities': ['animal', 'mammal', 'dog']},
+    {'type': 'exclusivity', 'entities': ['cat', 'dog']},
+]
+
+model = NeuroSymbolicClassifier(
+    input_dim=512, 
+    num_classes=100, 
+    constraints=taxonomic_constraints
+)
+                        </code></pre>
+                    </div>
+
+                    <h2>Advanced Integration Patterns</h2>
+
+                    <h3>Graph Neural Networks with Symbolic Reasoning</h3>
+                    <div class="code-block">
+                        <pre><code>
+import torch
+import torch.nn as nn
+import torch_geometric
+from torch_geometric.nn import GCNConv, global_mean_pool
+import networkx as nx
+
+class SymbolicGraphNet(nn.Module):
+    """Graph Neural Network with integrated symbolic reasoning"""
+    
+    def __init__(self, node_features, hidden_dim, num_classes):
+        super().__init__()
+        self.node_embedding = nn.Linear(node_features, hidden_dim)
+        self.gnn_layers = nn.ModuleList([
+            GCNConv(hidden_dim, hidden_dim) for _ in range(3)
+        ])
+        self.graph_classifier = nn.Linear(hidden_dim, num_classes)
+        self.symbolic_reasoner = SymbolicReasoner()
+        
+    def forward(self, data):
+        x, edge_index, batch = data.x, data.edge_index, data.batch
+        
+        # Neural processing
+        h = self.node_embedding(x)
+        for layer in self.gnn_layers:
+            h = torch.relu(layer(h, edge_index))
+            
+        # Graph-level representation
+        graph_repr = global_mean_pool(h, batch)
+        neural_output = self.graph_classifier(graph_repr)
+        
+        # Extract symbolic relations from graph structure
+        symbolic_facts = self.extract_symbolic_facts(data)
+        
+        # Symbolic reasoning
+        symbolic_output = self.symbolic_reasoner.reason(symbolic_facts)
+        
+        # Fusion of neural and symbolic outputs
+        combined_output = self.fuse_outputs(neural_output, symbolic_output)
+        return combined_output
+    
+    def extract_symbolic_facts(self, graph_data):
+        """Extract symbolic relations from graph structure"""
+        facts = []
+        edge_index = graph_data.edge_index.cpu().numpy()
+        
+        for i in range(edge_index.shape[1]):
+            src, dst = edge_index[0, i], edge_index[1, i]
+            facts.append(f"connected({src}, {dst})")
+            
+        # Add geometric/topological facts
+        nx_graph = self.to_networkx(graph_data)
+        for node in nx_graph.nodes():
+            degree = nx_graph.degree(node)
+            facts.append(f"degree({node}, {degree})")
+            
+        return facts
+    
+    def fuse_outputs(self, neural_output, symbolic_output):
+        """Combine neural and symbolic reasoning results"""
+        # Weighted combination based on confidence scores
+        neural_confidence = torch.softmax(neural_output, dim=1).max(dim=1)[0]
+        symbolic_confidence = torch.tensor(symbolic_output['confidence'])
+        
+        weight = neural_confidence / (neural_confidence + symbolic_confidence + 1e-8)
+        
+        fused = weight.unsqueeze(1) * neural_output + \
+                (1 - weight.unsqueeze(1)) * torch.tensor(symbolic_output['predictions'])
+        
+        return fused
+
+class SymbolicReasoner:
+    """Symbolic reasoning component"""
+    
+    def __init__(self):
+        self.rules = self.load_rules()
+    
+    def reason(self, facts):
+        """Apply symbolic rules to derive new knowledge"""
+        derived_facts = set(facts)
+        
+        # Apply reasoning rules
+        for rule in self.rules:
+            new_facts = self.apply_rule(rule, derived_facts)
+            derived_facts.update(new_facts)
+            
+        return {
+            'predictions': self.facts_to_predictions(derived_facts),
+            'confidence': 0.9  # High confidence for symbolic reasoning
+        }
+    
+    def load_rules(self):
+        """Load symbolic reasoning rules"""
+        return [
+            # Transitivity: connected(A,B) ∧ connected(B,C) → path(A,C)
+            {
+                'premises': ['connected(X,Y)', 'connected(Y,Z)'],
+                'conclusion': 'path(X,Z)'
+            },
+            # Symmetry: connected(A,B) → connected(B,A)
+            {
+                'premises': ['connected(X,Y)'],
+                'conclusion': 'connected(Y,X)'
+            }
+        ]
+                        </code></pre>
+                    </div>
+
+                    <h2>Real-World Applications</h2>
+
+                    <h3>Medical Diagnosis System</h3>
+                    <div class="feature-highlight">
+                        <h4>Hybrid Medical AI</h4>
+                        <p>
+                            Combining CNN-based medical image analysis with symbolic medical knowledge:
+                        </p>
+                        <ul>
+                            <li><strong>Neural Component:</strong> Deep learning for image feature extraction</li>
+                            <li><strong>Symbolic Component:</strong> Medical ontologies and diagnostic rules</li>
+                            <li><strong>Integration:</strong> Probabilistic logic programming for uncertainty handling</li>
+                            <li><strong>Benefits:</strong> Explainable diagnoses, integration of domain knowledge</li>
+                        </ul>
+                    </div>
+
+                    <h3>Autonomous Vehicle Decision Making</h3>
+                    <div class="code-block">
+                        <pre><code>
+class AutonomousVehicleAI:
+    def __init__(self):
+        self.perception_net = PerceptionNetwork()  # CNN for scene understanding
+        self.traffic_rules = TrafficRuleEngine()   # Symbolic traffic rules
+        self.planning_net = PlanningNetwork()      # Neural path planning
+        
+    def make_decision(self, sensor_data):
+        # Neural perception
+        scene_understanding = self.perception_net(sensor_data)
+        
+        # Extract symbolic facts
+        traffic_facts = self.extract_traffic_facts(scene_understanding)
+        
+        # Apply traffic rules
+        legal_actions = self.traffic_rules.get_legal_actions(traffic_facts)
+        
+        # Neural planning within legal constraints
+        optimal_action = self.planning_net(
+            scene_understanding, 
+            legal_constraints=legal_actions
+        )
+        
+        return optimal_action
+    
+    def extract_traffic_facts(self, perception_output):
+        """Convert neural perception to symbolic traffic facts"""
+        facts = []
+        
+        # Traffic light detection
+        if perception_output['traffic_light'] == 'red':
+            facts.append('traffic_light(red)')
+        
+        # Pedestrian detection
+        if perception_output['pedestrians'].any():
+            facts.append('pedestrian_present(crosswalk)')
+            
+        # Speed limit recognition
+        speed_limit = perception_output['speed_limit_sign']
+        if speed_limit > 0:
+            facts.append(f'speed_limit({speed_limit})')
+            
+        return facts
+                        </code></pre>
+                    </div>
+
+                    <h2>Implementation Frameworks</h2>
+
+                    <h3>Popular NeuroSymbolic Frameworks</h3>
+                    <div class="cloud-comparison">
+                        <div class="cloud-option">
+                            <h4><i class="fas fa-brain"></i> PyTorch + Prolog</h4>
+                            <ul>
+                                <li>SWI-Prolog integration</li>
+                                <li>Differentiable programming</li>
+                                <li>Custom gradient computation</li>
+                                <li>Symbolic constraint layers</li>
+                            </ul>
+                        </div>
+                        <div class="cloud-option">
+                            <h4><i class="fas fa-cube"></i> TensorFlow + DeepProbLog</h4>
+                            <ul>
+                                <li>Probabilistic logic programming</li>
+                                <li>Neural-symbolic integration</li>
+                                <li>Uncertainty quantification</li>
+                                <li>End-to-end training</li>
+                            </ul>
+                        </div>
+                        <div class="cloud-option">
+                            <h4><i class="fas fa-network-wired"></i> JAX + Symbolic Reasoning</h4>
+                            <ul>
+                                <li>High-performance computing</li>
+                                <li>Automatic differentiation</li>
+                                <li>Vectorized symbolic operations</li>
+                                <li>Scalable reasoning</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h2>Training NeuroSymbolic Systems</h2>
+
+                    <h3>Joint Learning Strategies</h3>
+                    <div class="code-block">
+                        <pre><code>
+class NeuroSymbolicTrainer:
+    def __init__(self, model, symbolic_loss_weight=0.1):
+        self.model = model
+        self.symbolic_loss_weight = symbolic_loss_weight
+        self.optimizer = torch.optim.Adam(model.parameters())
+        
+    def train_step(self, batch):
+        self.optimizer.zero_grad()
+        
+        # Forward pass
+        neural_output = self.model.neural_forward(batch['input'])
+        symbolic_output = self.model.symbolic_reasoning(batch['facts'])
+        
+        # Multi-objective loss
+        neural_loss = nn.CrossEntropyLoss()(neural_output, batch['targets'])
+        symbolic_loss = self.symbolic_consistency_loss(
+            neural_output, symbolic_output
+        )
+        
+        total_loss = neural_loss + self.symbolic_loss_weight * symbolic_loss
+        
+        # Backward pass
+        total_loss.backward()
+        self.optimizer.step()
+        
+        return {
+            'total_loss': total_loss.item(),
+            'neural_loss': neural_loss.item(),
+            'symbolic_loss': symbolic_loss.item()
+        }
+    
+    def symbolic_consistency_loss(self, neural_output, symbolic_output):
+        """Ensure consistency between neural and symbolic predictions"""
+        # KL divergence between neural and symbolic distributions
+        neural_probs = torch.softmax(neural_output, dim=1)
+        symbolic_probs = torch.tensor(symbolic_output['probabilities'])
+        
+        kl_loss = nn.KLDivLoss(reduction='batchmean')(
+            torch.log(neural_probs + 1e-8),
+            symbolic_probs
+        )
+        
+        return kl_loss
+
+# Curriculum learning for NeuroSymbolic systems
+class CurriculumTrainer(NeuroSymbolicTrainer):
+    def __init__(self, model, curriculum_schedule):
+        super().__init__(model)
+        self.curriculum_schedule = curriculum_schedule
+        self.current_stage = 0
+        
+    def update_curriculum(self, epoch):
+        """Gradually increase symbolic reasoning complexity"""
+        if epoch in self.curriculum_schedule:
+            self.current_stage += 1
+            # Increase symbolic rule complexity
+            self.model.enable_rules(
+                complexity_level=self.current_stage
+            )
+                        </code></pre>
+                    </div>
+
+                    <h2>Evaluation and Interpretability</h2>
+
+                    <h3>Metrics for NeuroSymbolic Systems</h3>
+                    <ul>
+                        <li><strong>Accuracy:</strong> Traditional prediction accuracy</li>
+                        <li><strong>Logical Consistency:</strong> Adherence to symbolic constraints</li>
+                        <li><strong>Interpretability Score:</strong> Quality of explanations provided</li>
+                        <li><strong>Robustness:</strong> Performance under adversarial conditions</li>
+                        <li><strong>Data Efficiency:</strong> Performance with limited training data</li>
+                    </ul>
+
+                    <h2>Future Directions</h2>
+
+                    <h3>Emerging Research Areas</h3>
+                    <ul>
+                        <li><strong>Causal NeuroSymbolic AI:</strong> Integration with causal inference</li>
+                        <li><strong>Meta-Learning:</strong> Learning to combine neural and symbolic components</li>
+                        <li><strong>Quantum-NeuroSymbolic:</strong> Quantum computing for symbolic reasoning</li>
+                        <li><strong>Continual Learning:</strong> Lifelong learning with evolving symbolic knowledge</li>
+                    </ul>
+
+                    <h2>Conclusion</h2>
+                    <p>
+                        NeuroSymbolic AI represents the future of artificial intelligence, combining 
+                        the strengths of both neural and symbolic approaches. By integrating pattern 
+                        recognition with logical reasoning, these systems offer improved interpretability, 
+                        robustness, and generalization capabilities. As the field continues to evolve, 
+                        we can expect to see more sophisticated integration techniques and broader 
+                        applications across various domains.
+                    </p>
+
+                    <div class="cta-section">
+                        <h3>Interested in implementing NeuroSymbolic AI?</h3>
+                        <p>Let's discuss how hybrid AI systems can solve your complex reasoning challenges.</p>
+                        <a href="../index.html#contact" class="cta-button">Start the Conversation</a>
+                    </div>
+                </div>
+
+                <div class="article-sidebar">
+                    <div class="sidebar-section">
+                        <h3>Related Articles</h3>
+                        <ul class="related-links">
+                            <li><a href="kubeflow-deep-dive.html">Kubeflow Deep Dive</a></li>
+                            <li><a href="tensorflow-architecture.html">TensorFlow Architecture</a></li>
+                            <li><a href="pytorch-lightning-guide.html">PyTorch Lightning</a></li>
+                            <li><a href="mlops-best-practices.html">MLOps Best Practices</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Gurpreet Gandhi</h3>
+                    <p>Senior Software Architect specializing in enterprise-grade solutions and innovative technology implementations.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../index.html#about">About</a></li>
+                        <li><a href="../index.html#projects">Projects</a></li>
+                        <li><a href="../index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Gurpreet Gandhi. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>
