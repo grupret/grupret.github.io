@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kubeflow Deep Dive: ML Orchestration & Pipeline Management | Gurpreet Gandhi</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Gurpreet Gandhi</span>
+                <span class="logo-title">Software Architect</span>
+            </div>
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link">← Back to Portfolio</a>
+                <a href="../projects/neurosymbolic.html" class="nav-link">← Back to Project</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+        <div class="container">
+            <div class="blog-header">
+                <h1 class="blog-title">Kubeflow Deep Dive</h1>
+                <p class="blog-subtitle">ML Orchestration & Pipeline Management in Production</p>
+                <div class="blog-meta">
+                    <span class="blog-date"><i class="fas fa-calendar"></i> December 2024</span>
+                    <span class="blog-readtime"><i class="fas fa-clock"></i> 15 min read</span>
+                    <span class="blog-category"><i class="fas fa-tag"></i> MLOps</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Content -->
+    <section class="blog-content">
+        <div class="container">
+            <article class="blog-article">
+                <div class="article-content">
+                    <h2>Introduction to Kubeflow</h2>
+                    <p>
+                        Kubeflow is a comprehensive machine learning platform built on Kubernetes that enables 
+                        scalable, portable, and production-ready ML workflows. In this deep dive, we'll explore 
+                        how Kubeflow transforms the ML development lifecycle by providing container-native 
+                        orchestration and automated pipeline management.
+                    </p>
+
+                    <h2>Core Components of Kubeflow</h2>
+                    
+                    <h3>1. Kubeflow Pipelines</h3>
+                    <div class="code-block">
+                        <pre><code>
+# Example Kubeflow Pipeline Definition
+from kfp import dsl
+from kfp.components import func_to_container_op
+
+@func_to_container_op
+def data_preprocessing(input_path: str, output_path: str):
+    """Data preprocessing component"""
+    import pandas as pd
+    import numpy as np
+    
+    # Load and process data
+    df = pd.read_csv(input_path)
+    processed_df = df.dropna().reset_index(drop=True)
+    processed_df.to_csv(output_path, index=False)
+    
+    return output_path
+
+@func_to_container_op  
+def model_training(data_path: str, model_path: str):
+    """Model training component"""
+    import pandas as pd
+    from sklearn.ensemble import RandomForestClassifier
+    import joblib
+    
+    # Load data and train model
+    df = pd.read_csv(data_path)
+    X = df.drop('target', axis=1)
+    y = df['target']
+    
+    model = RandomForestClassifier(n_estimators=100)
+    model.fit(X, y)
+    
+    # Save model
+    joblib.dump(model, model_path)
+    return model_path
+
+@dsl.pipeline(
+    name='ML Training Pipeline',
+    description='End-to-end ML training pipeline'
+)
+def ml_pipeline(input_data_path: str):
+    """Complete ML pipeline definition"""
+    
+    # Data preprocessing step
+    preprocess_task = data_preprocessing(
+        input_path=input_data_path,
+        output_path='/tmp/processed_data.csv'
+    )
+    
+    # Model training step
+    train_task = model_training(
+        data_path=preprocess_task.output,
+        model_path='/tmp/trained_model.pkl'
+    )
+    
+    return train_task.output
+                        </code></pre>
+                    </div>
+
+                    <h3>2. Kubeflow Notebook Servers</h3>
+                    <p>
+                        Kubeflow provides managed Jupyter notebook environments that integrate seamlessly 
+                        with the ML pipeline ecosystem. These notebooks come pre-configured with popular 
+                        ML frameworks and can scale resources dynamically based on workload requirements.
+                    </p>
+
+                    <div class="feature-highlight">
+                        <h4>Key Benefits:</h4>
+                        <ul>
+                            <li>Shared persistent volumes for collaborative development</li>
+                            <li>GPU support for deep learning workloads</li>
+                            <li>Custom Docker images for specialized environments</li>
+                            <li>Integration with authentication and authorization systems</li>
+                        </ul>
+                    </div>
+
+                    <h3>3. Katib for Hyperparameter Tuning</h3>
+                    <div class="code-block">
+                        <pre><code>
+# Katib Experiment Configuration
+apiVersion: kubeflow.org/v1beta1
+kind: Experiment
+metadata:
+  name: random-forest-optimization
+spec:
+  algorithm:
+    algorithmName: random
+  objective:
+    type: maximize
+    goal: 0.99
+    objectiveMetricName: accuracy
+  parameters:
+  - name: n_estimators
+    parameterType: int
+    feasibleSpace:
+      min: "10"
+      max: "200"
+  - name: max_depth
+    parameterType: int
+    feasibleSpace:
+      min: "3"
+      max: "20"
+  - name: learning_rate
+    parameterType: double
+    feasibleSpace:
+      min: "0.01"
+      max: "0.3"
+  trialTemplate:
+    primaryContainerName: training-container
+    trialSpec:
+      apiVersion: batch/v1
+      kind: Job
+      spec:
+        template:
+          spec:
+            containers:
+            - name: training-container
+              image: kubeflow/katib-trial:latest
+              command:
+              - "python3"
+              - "/opt/katib/train.py"
+              - "--n_estimators={{.HyperParameters.n_estimators}}"
+              - "--max_depth={{.HyperParameters.max_depth}}"
+              - "--learning_rate={{.HyperParameters.learning_rate}}"
+            restartPolicy: Never
+                        </code></pre>
+                    </div>
+
+                    <h2>Advanced Pipeline Patterns</h2>
+
+                    <h3>Conditional Execution</h3>
+                    <p>
+                        Kubeflow pipelines support complex workflow patterns including conditional execution, 
+                        loops, and parallel processing. This enables sophisticated ML workflows that can 
+                        adapt based on data characteristics or model performance.
+                    </p>
+
+                    <div class="code-block">
+                        <pre><code>
+@dsl.pipeline(name='Conditional ML Pipeline')
+def conditional_pipeline(data_quality_threshold: float = 0.8):
+    """Pipeline with conditional model selection based on data quality"""
+    
+    # Data quality assessment
+    quality_check = assess_data_quality()
+    
+    # Conditional model selection
+    with dsl.Condition(quality_check.outputs['quality_score'] > data_quality_threshold):
+        # Use complex model for high-quality data
+        complex_model = train_deep_learning_model(
+            data_path=quality_check.outputs['clean_data']
+        )
+        
+    with dsl.Condition(quality_check.outputs['quality_score'] <= data_quality_threshold):
+        # Use simple model for lower-quality data
+        simple_model = train_classical_model(
+            data_path=quality_check.outputs['clean_data']
+        )
+    
+    # Model evaluation and deployment
+    evaluation_task = evaluate_model(
+        model_path=dsl.OneOf(complex_model.outputs['model'], simple_model.outputs['model'])
+    )
+    
+    return evaluation_task.outputs['evaluation_metrics']
+                        </code></pre>
+                    </div>
+
+                    <h3>Multi-Model Training with Parallel Execution</h3>
+                    <p>
+                        Leverage Kubernetes' natural parallelism to train multiple models simultaneously, 
+                        enabling efficient model comparison and ensemble creation.
+                    </p>
+
+                    <h2>Production Deployment Strategies</h2>
+
+                    <h3>Model Serving with KServe</h3>
+                    <p>
+                        KServe (formerly KNative Serving) provides serverless inference for ML models 
+                        with automatic scaling, canary deployments, and multi-framework support.
+                    </p>
+
+                    <div class="code-block">
+                        <pre><code>
+# KServe InferenceService Configuration
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  name: sklearn-iris-model
+spec:
+  predictor:
+    sklearn:
+      storageUri: gs://my-bucket/sklearn-iris-model
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits:
+          cpu: 1
+          memory: 1Gi
+  canaryTrafficPercent: 10
+  transformer:
+    custom:
+      container:
+        image: my-registry/custom-transformer:latest
+        name: transformer
+                        </code></pre>
+                    </div>
+
+                    <h2>Monitoring and Observability</h2>
+
+                    <h3>Pipeline Monitoring</h3>
+                    <p>
+                        Comprehensive monitoring capabilities include pipeline execution tracking, 
+                        resource utilization monitoring, and custom metrics collection for ML-specific 
+                        observability requirements.
+                    </p>
+
+                    <div class="feature-highlight">
+                        <h4>Monitoring Stack Components:</h4>
+                        <ul>
+                            <li><strong>Prometheus:</strong> Metrics collection and alerting</li>
+                            <li><strong>Grafana:</strong> Visualization and dashboards</li>
+                            <li><strong>Jaeger:</strong> Distributed tracing for complex pipelines</li>
+                            <li><strong>Elasticsearch:</strong> Log aggregation and search</li>
+                        </ul>
+                    </div>
+
+                    <h2>Best Practices and Optimization</h2>
+
+                    <h3>Resource Management</h3>
+                    <ul>
+                        <li><strong>Resource Requests:</strong> Always specify CPU and memory requests for predictable scheduling</li>
+                        <li><strong>Node Affinity:</strong> Use node selectors for GPU workloads and specialized hardware</li>
+                        <li><strong>Persistent Volumes:</strong> Leverage PVCs for data persistence across pipeline runs</li>
+                        <li><strong>Spot Instances:</strong> Use preemptible instances for cost optimization in non-critical workloads</li>
+                    </ul>
+
+                    <h3>Security Considerations</h3>
+                    <ul>
+                        <li><strong>RBAC:</strong> Implement role-based access control for multi-tenant environments</li>
+                        <li><strong>Network Policies:</strong> Restrict inter-pod communication using Kubernetes network policies</li>
+                        <li><strong>Secrets Management:</strong> Use Kubernetes secrets and external secret managers</li>
+                        <li><strong>Image Security:</strong> Scan container images for vulnerabilities</li>
+                    </ul>
+
+                    <h2>Integration with Cloud Services</h2>
+
+                    <h3>Multi-Cloud Deployment</h3>
+                    <p>
+                        Kubeflow's cloud-agnostic architecture enables seamless deployment across 
+                        different cloud providers while maintaining consistent ML workflows.
+                    </p>
+
+                    <div class="cloud-comparison">
+                        <div class="cloud-option">
+                            <h4><i class="fab fa-aws"></i> AWS Integration</h4>
+                            <ul>
+                                <li>EKS for managed Kubernetes</li>
+                                <li>S3 for artifact storage</li>
+                                <li>IAM for authentication</li>
+                                <li>CloudWatch for monitoring</li>
+                            </ul>
+                        </div>
+                        <div class="cloud-option">
+                            <h4><i class="fab fa-google"></i> GCP Integration</h4>
+                            <ul>
+                                <li>GKE for managed Kubernetes</li>
+                                <li>Cloud Storage for artifacts</li>
+                                <li>Cloud IAM for security</li>
+                                <li>Cloud Monitoring for observability</li>
+                            </ul>
+                        </div>
+                        <div class="cloud-option">
+                            <h4><i class="fab fa-microsoft"></i> Azure Integration</h4>
+                            <ul>
+                                <li>AKS for managed Kubernetes</li>
+                                <li>Blob Storage for data</li>
+                                <li>Azure AD for authentication</li>
+                                <li>Azure Monitor for metrics</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h2>Conclusion</h2>
+                    <p>
+                        Kubeflow represents a paradigm shift in ML platform architecture, providing 
+                        the scalability and reliability of Kubernetes for machine learning workloads. 
+                        By embracing container-native approaches and cloud-native patterns, organizations 
+                        can build robust, scalable ML platforms that support the entire ML lifecycle 
+                        from experimentation to production deployment.
+                    </p>
+
+                    <div class="cta-section">
+                        <h3>Ready to implement Kubeflow in your organization?</h3>
+                        <p>Contact me to discuss how we can design and implement a scalable ML platform using Kubeflow for your specific use case.</p>
+                        <a href="../index.html#contact" class="cta-button">Get in Touch</a>
+                    </div>
+                </div>
+
+                <div class="article-sidebar">
+                    <div class="sidebar-section">
+                        <h3>Related Articles</h3>
+                        <ul class="related-links">
+                            <li><a href="tensorflow-architecture.html">TensorFlow Architecture Guide</a></li>
+                            <li><a href="pytorch-lightning-guide.html">PyTorch Lightning Best Practices</a></li>
+                            <li><a href="mlops-best-practices.html">MLOps Implementation Strategy</a></li>
+                            <li><a href="kubernetes-ml.html">Kubernetes for Machine Learning</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h3>Quick Navigation</h3>
+                        <ul class="toc-links">
+                            <li><a href="#introduction">Introduction</a></li>
+                            <li><a href="#core-components">Core Components</a></li>
+                            <li><a href="#advanced-patterns">Advanced Patterns</a></li>
+                            <li><a href="#production-deployment">Production Deployment</a></li>
+                            <li><a href="#monitoring">Monitoring</a></li>
+                            <li><a href="#best-practices">Best Practices</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Gurpreet Gandhi</h3>
+                    <p>Senior Software Architect specializing in enterprise-grade solutions and innovative technology implementations.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../index.html#about">About</a></li>
+                        <li><a href="../index.html#projects">Projects</a></li>
+                        <li><a href="../index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Gurpreet Gandhi. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>

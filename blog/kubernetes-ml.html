@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kubernetes for Machine Learning: Container Orchestration for AI | Gurpreet Gandhi</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Gurpreet Gandhi</span>
+                <span class="logo-title">Software Architect</span>
+            </div>
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link">← Back to Portfolio</a>
+                <a href="../projects/neurosymbolic.html" class="nav-link">← Back to Project</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+        <div class="container">
+            <div class="blog-header">
+                <h1 class="blog-title">Kubernetes for Machine Learning</h1>
+                <p class="blog-subtitle">Container Orchestration for AI Workloads</p>
+                <div class="blog-meta">
+                    <span class="blog-date"><i class="fas fa-calendar"></i> December 2024</span>
+                    <span class="blog-readtime"><i class="fas fa-clock"></i> 12 min read</span>
+                    <span class="blog-category"><i class="fas fa-tag"></i> Infrastructure</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Content -->
+    <section class="blog-content">
+        <div class="container">
+            <article class="blog-article">
+                <div class="article-content">
+                    <h2>Why Kubernetes for ML?</h2>
+                    <p>
+                        Kubernetes provides the foundation for scalable, reliable ML infrastructure. 
+                        It offers container orchestration, resource management, and service discovery 
+                        that are essential for production ML workloads.
+                    </p>
+
+                    <h2>ML-Specific Kubernetes Resources</h2>
+                    
+                    <h3>GPU-Enabled Pods</h3>
+                    <div class="code-block">
+                        <pre><code>
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gpu-training-pod
+spec:
+  containers:
+  - name: ml-training
+    image: tensorflow/tensorflow:latest-gpu
+    resources:
+      limits:
+        nvidia.com/gpu: 2
+        memory: 16Gi
+        cpu: 8
+      requests:
+        nvidia.com/gpu: 2
+        memory: 8Gi
+        cpu: 4
+    volumeMounts:
+    - name: training-data
+      mountPath: /data
+    - name: model-output
+      mountPath: /models
+  volumes:
+  - name: training-data
+    persistentVolumeClaim:
+      claimName: training-data-pvc
+  - name: model-output
+    persistentVolumeClaim:
+      claimName: model-output-pvc
+  nodeSelector:
+    accelerator: nvidia-tesla-v100
+                        </code></pre>
+                    </div>
+
+                    <h3>Distributed Training with Jobs</h3>
+                    <div class="code-block">
+                        <pre><code>
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: distributed-training
+spec:
+  parallelism: 4
+  completions: 4
+  template:
+    spec:
+      containers:
+      - name: training-worker
+        image: my-ml-image:latest
+        env:
+        - name: WORKER_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: TOTAL_WORKERS
+          value: "4"
+        - name: MASTER_ADDR
+          value: "training-master-service"
+        command: ["python", "distributed_train.py"]
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+            memory: 8Gi
+      restartPolicy: OnFailure
+                        </code></pre>
+                    </div>
+
+                    <h2>Resource Management</h2>
+
+                    <h3>Node Affinity for Specialized Hardware</h3>
+                    <div class="code-block">
+                        <pre><code>
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inference-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ml-inference
+  template:
+    metadata:
+      labels:
+        app: ml-inference
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: hardware-type
+                operator: In
+                values: ["gpu", "high-memory"]
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+              - key: zone
+                operator: In
+                values: ["us-west1-a"]
+      containers:
+      - name: inference-server
+        image: ml-inference:latest
+        resources:
+          requests:
+            memory: 2Gi
+            cpu: 1
+          limits:
+            memory: 4Gi
+            cpu: 2
+                        </code></pre>
+                    </div>
+
+                    <h2>Data Management</h2>
+
+                    <div class="feature-highlight">
+                        <h4>Storage Solutions for ML</h4>
+                        <ul>
+                            <li><strong>Persistent Volumes:</strong> For training data and model storage</li>
+                            <li><strong>ConfigMaps:</strong> For hyperparameters and configuration</li>
+                            <li><strong>Secrets:</strong> For API keys and credentials</li>
+                            <li><strong>EmptyDir:</strong> For temporary computation scratch space</li>
+                        </ul>
+                    </div>
+
+                    <h3>Data Pipeline with InitContainers</h3>
+                    <div class="code-block">
+                        <pre><code>
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ml-pipeline
+spec:
+  initContainers:
+  - name: data-downloader
+    image: data-pipeline:latest
+    command: ['python', 'download_data.py']
+    volumeMounts:
+    - name: shared-data
+      mountPath: /data
+  - name: data-preprocessor
+    image: data-pipeline:latest
+    command: ['python', 'preprocess.py']
+    volumeMounts:
+    - name: shared-data
+      mountPath: /data
+  containers:
+  - name: model-trainer
+    image: ml-trainer:latest
+    command: ['python', 'train.py']
+    volumeMounts:
+    - name: shared-data
+      mountPath: /data
+    - name: model-output
+      mountPath: /models
+  volumes:
+  - name: shared-data
+    emptyDir: {}
+  - name: model-output
+    persistentVolumeClaim:
+      claimName: model-storage
+                        </code></pre>
+                    </div>
+
+                    <h2>Monitoring and Observability</h2>
+
+                    <h3>Custom Metrics for ML Workloads</h3>
+                    <div class="code-block">
+                        <pre><code>
+# Custom metrics server for ML
+from prometheus_client import start_http_server, Counter, Histogram, Gauge
+import time
+
+# ML-specific metrics
+training_iterations = Counter('ml_training_iterations_total', 'Training iterations')
+model_accuracy = Gauge('ml_model_accuracy', 'Current model accuracy')
+inference_latency = Histogram('ml_inference_duration_seconds', 'Inference latency')
+
+class MLMetricsCollector:
+    def __init__(self):
+        self.start_time = time.time()
+        
+    def record_training_iteration(self, loss, accuracy):
+        training_iterations.inc()
+        model_accuracy.set(accuracy)
+        
+    def record_inference(self, latency):
+        inference_latency.observe(latency)
+
+# Start metrics server
+if __name__ == '__main__':
+    start_http_server(8000)
+    collector = MLMetricsCollector()
+    
+    # Your ML code here
+    while True:
+        time.sleep(1)
+                        </code></pre>
+                    </div>
+
+                    <h2>Scaling Strategies</h2>
+
+                    <h3>Horizontal Pod Autoscaler for Inference</h3>
+                    <div class="code-block">
+                        <pre><code>
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: ml-inference-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: ml-inference
+  minReplicas: 2
+  maxReplicas: 20
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  - type: Pods
+    pods:
+      metric:
+        name: inference_queue_length
+      target:
+        type: AverageValue
+        averageValue: "10"
+                        </code></pre>
+                    </div>
+
+                    <h2>Security Best Practices</h2>
+
+                    <h3>RBAC for ML Teams</h3>
+                    <div class="code-block">
+                        <pre><code>
+# Role for ML Engineers
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: ml-workspace
+  name: ml-engineer
+rules:
+- apiGroups: [""]
+  resources: ["pods", "services", "configmaps", "secrets"]
+  verbs: ["get", "list", "create", "update", "delete"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "replicasets"]
+  verbs: ["get", "list", "create", "update", "delete"]
+- apiGroups: ["batch"]
+  resources: ["jobs", "cronjobs"]
+  verbs: ["get", "list", "create", "update", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ml-engineer-binding
+  namespace: ml-workspace
+subjects:
+- kind: User
+  name: ml-engineer@company.com
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: ml-engineer
+  apiGroup: rbac.authorization.k8s.io
+                        </code></pre>
+                    </div>
+
+                    <div class="cta-section">
+                        <h3>Ready to scale your ML infrastructure?</h3>
+                        <p>Let's design a Kubernetes-based ML platform that grows with your needs.</p>
+                        <a href="../index.html#contact" class="cta-button">Build Together</a>
+                    </div>
+                </div>
+
+                <div class="article-sidebar">
+                    <div class="sidebar-section">
+                        <h3>Related Articles</h3>
+                        <ul class="related-links">
+                            <li><a href="kubeflow-deep-dive.html">Kubeflow Deep Dive</a></li>
+                            <li><a href="tensorflow-architecture.html">TensorFlow Architecture</a></li>
+                            <li><a href="pytorch-lightning-guide.html">PyTorch Lightning</a></li>
+                            <li><a href="mlops-best-practices.html">MLOps Best Practices</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Gurpreet Gandhi</h3>
+                    <p>Senior Software Architect specializing in enterprise-grade solutions and innovative technology implementations.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../index.html#about">About</a></li>
+                        <li><a href="../index.html#projects">Projects</a></li>
+                        <li><a href="../index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Gurpreet Gandhi. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>
