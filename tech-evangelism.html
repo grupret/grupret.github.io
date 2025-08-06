@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Evangelism | Gurpreet Gandhi</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="tech-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <span class="logo-text">Gurpreet Gandhi</span>
+                    <span class="logo-title">Software Architect</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html#home" class="nav-link">Home</a>
+                <a href="index.html#about" class="nav-link">About</a>
+                <a href="index.html#experience" class="nav-link">Experience</a>
+                <a href="index.html#projects" class="nav-link">Projects</a>
+                <a href="index.html#skills" class="nav-link">Skills</a>
+                <a href="index.html#personal" class="nav-link">Personal</a>
+                <a href="tech-evangelism.html" class="nav-link active">Tech Evangelism</a>
+                <a href="books.html" class="nav-link">Books</a>
+                <a href="travel-adventures.html" class="nav-link">Travel</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="tech-hero">
+        <div class="tech-hero-content">
+            <h1 class="tech-hero-title">Technology Evangelism</h1>
+            <p class="tech-hero-subtitle">Advocating for innovative technologies, best practices, and the future of software architecture</p>
+            <div class="tech-stats">
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Technologies Explored</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">10+</span>
+                    <span class="stat-label">Years in Tech</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">Problems Solved</span>
+                </div>
+            </div>
+        </div>
+        <div class="tech-hero-bg"></div>
+    </section>
+
+    <!-- Tech Focus Areas -->
+    <section class="tech-focus">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Technology Focus Areas</h2>
+                <p class="section-subtitle">Exploring the frontiers of software architecture and platform engineering</p>
+            </div>
+
+            <!-- Cloud Native Technologies -->
+            <div class="tech-category">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fab fa-docker"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3 class="category-title">Cloud Native & Containerization</h3>
+                        <p class="category-subtitle">Building scalable, resilient applications in the cloud</p>
+                    </div>
+                </div>
+
+                <div class="tech-grid">
+                    <!-- Kubernetes -->
+                    <div class="tech-card featured">
+                        <div class="tech-header">
+                            <div class="tech-logo">
+                                <img src="https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=100&h=100&fit=crop" alt="Kubernetes">
+                            </div>
+                            <div class="tech-info">
+                                <h4 class="tech-name">Kubernetes</h4>
+                                <span class="tech-level">Expert</span>
+                            </div>
+                            <div class="tech-badge">CKAD Certified</div>
+                        </div>
+                        
+                        <div class="tech-content">
+                            <p class="tech-description">
+                                Kubernetes has fundamentally transformed how we think about application deployment and scaling. 
+                                My journey with K8s began three years ago, and it's been the cornerstone of every platform I've architected since.
+                            </p>
+                            
+                            <div class="tech-insights">
+                                <h5>Key Insights & Advocacy Points</h5>
+                                <ul>
+                                    <li><strong>Declarative Infrastructure:</strong> YAML configurations as code enable GitOps workflows</li>
+                                    <li><strong>Auto-scaling:</strong> HPA and VPA provide intelligent resource management</li>
+                                    <li><strong>Service Mesh Integration:</strong> Istio/Linkerd for advanced traffic management</li>
+                                    <li><strong>Operator Pattern:</strong> Custom controllers for application-specific automation</li>
+                                </ul>
+                            </div>
+
+                            <div class="tech-example">
+                                <h5>Example: Auto-scaling Deployment</h5>
+                                <pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-app
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      containers:
+      - name: app
+        image: myapp:v1.0
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi</code></pre>
+                            </div>
+
+                            <div class="tech-references">
+                                <h5>Essential References</h5>
+                                <div class="reference-links">
+                                    <a href="https://kubernetes.io/docs/" target="_blank" class="reference-link">
+                                        <i class="fas fa-book"></i>
+                                        Official Documentation
+                                    </a>
+                                    <a href="https://github.com/kelseyhightower/kubernetes-the-hard-way" target="_blank" class="reference-link">
+                                        <i class="fab fa-github"></i>
+                                        Kubernetes The Hard Way
+                                    </a>
+                                    <a href="https://www.cncf.io/certification/ckad/" target="_blank" class="reference-link">
+                                        <i class="fas fa-certificate"></i>
+                                        CKAD Certification
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Docker -->
+                    <div class="tech-card">
+                        <div class="tech-header">
+                            <div class="tech-logo">
+                                <img src="https://images.unsplash.com/photo-1605745341112-85968b19335a?w=100&h=100&fit=crop" alt="Docker">
+                            </div>
+                            <div class="tech-info">
+                                <h4 class="tech-name">Docker & Containerization</h4>
+                                <span class="tech-level">Expert</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tech-content">
+                            <p class="tech-description">
+                                Docker revolutionized application packaging and deployment. My advocacy focuses on 
+                                multi-stage builds, security best practices, and optimization for production workloads.
+                            </p>
+                            
+                            <div class="tech-insights">
+                                <h5>Containerization Best Practices</h5>
+                                <ul>
+                                    <li>Multi-stage builds for smaller production images</li>
+                                    <li>Non-root user execution for security</li>
+                                    <li>Distroless base images for minimal attack surface</li>
+                                    <li>Layer caching optimization for faster builds</li>
+                                </ul>
+                            </div>
+
+                            <div class="tech-example">
+                                <h5>Multi-stage Dockerfile Example</h5>
+                                <pre><code class="language-dockerfile"># Build stage
+FROM node:16-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+
+# Production stage
+FROM node:16-alpine
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
+WORKDIR /app
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --chown=nextjs:nodejs . .
+USER nextjs
+EXPOSE 3000
+CMD ["npm", "start"]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MLOps & AI -->
+            <div class="tech-category">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3 class="category-title">MLOps & AI Platform Engineering</h3>
+                        <p class="category-subtitle">Bridging the gap between ML experimentation and production deployment</p>
+                    </div>
+                </div>
+
+                <div class="tech-grid">
+                    <!-- Kubeflow -->
+                    <div class="tech-card">
+                        <div class="tech-header">
+                            <div class="tech-logo">
+                                <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=100&h=100&fit=crop" alt="Kubeflow">
+                            </div>
+                            <div class="tech-info">
+                                <h4 class="tech-name">Kubeflow</h4>
+                                <span class="tech-level">Advanced</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tech-content">
+                            <p class="tech-description">
+                                Kubeflow represents the future of ML platform engineering—bringing DevOps practices to 
+                                machine learning workflows with native Kubernetes integration.
+                            </p>
+                            
+                            <div class="tech-insights">
+                                <h5>MLOps Platform Benefits</h5>
+                                <ul>
+                                    <li>Standardized ML workflow orchestration</li>
+                                    <li>Multi-tenant ML experimentation environments</li>
+                                    <li>Model versioning and artifact management</li>
+                                    <li>Automated model serving and monitoring</li>
+                                </ul>
+                            </div>
+
+                            <div class="tech-references">
+                                <h5>Recommended Resources</h5>
+                                <div class="reference-links">
+                                    <a href="https://www.kubeflow.org/" target="_blank" class="reference-link">
+                                        <i class="fas fa-globe"></i>
+                                        Kubeflow.org
+                                    </a>
+                                    <a href="https://www.tensorflow.org/tfx" target="_blank" class="reference-link">
+                                        <i class="fas fa-cogs"></i>
+                                        TensorFlow Extended
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grok4 AI Model Advocacy -->
+                    <div class="tech-card featured">
+                        <div class="tech-header">
+                            <div class="tech-logo">
+                                <img src="https://images.unsplash.com/photo-1677756119517-756a188d2d94?w=100&h=100&fit=crop" alt="Grok4 AI">
+                            </div>
+                            <div class="tech-info">
+                                <h4 class="tech-name">Grok4 & Advanced LLMs</h4>
+                                <span class="tech-level">Research</span>
+                            </div>
+                            <div class="tech-badge">Latest Focus</div>
+                        </div>
+                        
+                        <div class="tech-content">
+                            <p class="tech-description">
+                                Advocating for responsible adoption of next-generation language models like Grok4 in enterprise environments. 
+                                Focusing on practical implementation strategies and ethical AI practices.
+                            </p>
+                            
+                            <div class="tech-insights">
+                                <h5>Enterprise LLM Strategy</h5>
+                                <ul>
+                                    <li><strong>Privacy-First Architecture:</strong> On-premise deployment options for sensitive data</li>
+                                    <li><strong>Fine-tuning Frameworks:</strong> Domain-specific model adaptation strategies</li>
+                                    <li><strong>Cost Optimization:</strong> Efficient inference scaling and caching mechanisms</li>
+                                    <li><strong>Quality Assurance:</strong> Automated testing and validation pipelines for AI outputs</li>
+                                </ul>
+                            </div>
+
+                            <div class="tech-writeup">
+                                <h5>Implementation Philosophy</h5>
+                                <p>
+                                    The future of enterprise AI lies not in replacing human intelligence, but in augmenting it. 
+                                    My advocacy for Grok4 and similar models focuses on creating symbiotic relationships between 
+                                    human expertise and artificial intelligence capabilities.
+                                </p>
+                                <p>
+                                    Key considerations include establishing clear boundaries for AI decision-making, 
+                                    implementing robust monitoring systems, and ensuring that AI systems remain 
+                                    explainable and auditable in enterprise contexts.
+                                </p>
+                            </div>
+
+                            <div class="tech-references">
+                                <h5>Research & Resources</h5>
+                                <div class="reference-links">
+                                    <a href="https://arxiv.org/list/cs.AI/recent" target="_blank" class="reference-link">
+                                        <i class="fas fa-file-alt"></i>
+                                        ArXiv AI Research
+                                    </a>
+                                    <a href="https://huggingface.co/" target="_blank" class="reference-link">
+                                        <i class="fas fa-brain"></i>
+                                        Hugging Face Models
+                                    </a>
+                                    <a href="https://openai.com/research" target="_blank" class="reference-link">
+                                        <i class="fas fa-microscope"></i>
+                                        OpenAI Research
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Platform Engineering -->
+            <div class="tech-category">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3 class="category-title">Platform Engineering & DevSecOps</h3>
+                        <p class="category-subtitle">Building self-service platforms that empower development teams</p>
+                    </div>
+                </div>
+
+                <div class="tech-grid">
+                    <!-- Terraform -->
+                    <div class="tech-card">
+                        <div class="tech-header">
+                            <div class="tech-logo">
+                                <img src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=100&h=100&fit=crop" alt="Terraform">
+                            </div>
+                            <div class="tech-info">
+                                <h4 class="tech-name">Terraform & IaC</h4>
+                                <span class="tech-level">Expert</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tech-content">
+                            <p class="tech-description">
+                                Infrastructure as Code represents a paradigm shift in how we manage cloud resources. 
+                                Terraform's declarative approach enables version-controlled, reproducible infrastructure.
+                            </p>
+                            
+                            <div class="tech-insights">
+                                <h5>IaC Best Practices</h5>
+                                <ul>
+                                    <li>Module-based architecture for reusability</li>
+                                    <li>State management with remote backends</li>
+                                    <li>Automated testing with Terratest</li>
+                                    <li>Policy as Code with Sentinel/OPA</li>
+                                </ul>
+                            </div>
+
+                            <div class="tech-example">
+                                <h5>Kubernetes Cluster Module</h5>
+                                <pre><code class="language-hcl">resource "aws_eks_cluster" "main" {
+  name     = var.cluster_name
+  role_arn = aws_iam_role.eks_cluster.arn
+  version  = var.kubernetes_version
+
+  vpc_config {
+    subnet_ids              = var.subnet_ids
+    endpoint_private_access = true
+    endpoint_public_access  = true
+  }
+
+  depends_on = [
+    aws_iam_role_policy_attachment.eks_cluster_policy,
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ArgoCD -->
+                    <div class="tech-card">
+                        <div class="tech-header">
+                            <div class="tech-logo">
+                                <img src="https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=100&h=100&fit=crop" alt="ArgoCD">
+                            </div>
+                            <div class="tech-info">
+                                <h4 class="tech-name">ArgoCD & GitOps</h4>
+                                <span class="tech-level">Advanced</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tech-content">
+                            <p class="tech-description">
+                                GitOps revolutionizes deployment pipelines by treating Git as the single source of truth. 
+                                ArgoCD enables continuous delivery with declarative, version-controlled deployments.
+                            </p>
+                            
+                            <div class="tech-insights">
+                                <h5>GitOps Advantages</h5>
+                                <ul>
+                                    <li>Declarative system state management</li>
+                                    <li>Automatic drift detection and remediation</li>
+                                    <li>Enhanced security through pull-based deployments</li>
+                                    <li>Complete audit trail of all changes</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Observability & Monitoring -->
+            <div class="tech-category">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3 class="category-title">Observability & Performance</h3>
+                        <p class="category-subtitle">Building systems that tell their own story through metrics, logs, and traces</p>
+                    </div>
+                </div>
+
+                <div class="tech-grid">
+                    <!-- Prometheus -->
+                    <div class="tech-card">
+                        <div class="tech-header">
+                            <div class="tech-logo">
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=100&h=100&fit=crop" alt="Prometheus">
+                            </div>
+                            <div class="tech-info">
+                                <h4 class="tech-name">Prometheus & Grafana</h4>
+                                <span class="tech-level">Expert</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tech-content">
+                            <p class="tech-description">
+                                The Prometheus ecosystem provides comprehensive observability for cloud-native applications. 
+                                My advocacy focuses on SLI/SLO-driven monitoring and proactive alerting strategies.
+                            </p>
+                            
+                            <div class="tech-insights">
+                                <h5>Observability Strategy</h5>
+                                <ul>
+                                    <li>Four Golden Signals: Latency, Traffic, Errors, Saturation</li>
+                                    <li>SLI/SLO-based alerting to reduce noise</li>
+                                    <li>Distributed tracing with Jaeger/Zipkin</li>
+                                    <li>Custom metrics for business logic monitoring</li>
+                                </ul>
+                            </div>
+
+                            <div class="tech-example">
+                                <h5>Custom Metrics Example</h5>
+                                <pre><code class="language-yaml"># Prometheus Rule
+groups:
+- name: slo_rules
+  rules:
+  - record: http_request_rate_5m
+    expr: rate(http_requests_total[5m])
+  - record: http_error_rate_5m
+    expr: rate(http_requests_total{status=~"5.."}[5m])
+  - alert: HighErrorRate
+    expr: http_error_rate_5m / http_request_rate_5m > 0.05
+    for: 5m
+    annotations:
+      summary: "High error rate detected"</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Philosophy -->
+    <section class="tech-philosophy">
+        <div class="container">
+            <h2 class="section-title">Technology Philosophy</h2>
+            <div class="philosophy-grid">
+                <div class="philosophy-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Innovation with Purpose</h3>
+                    <p>Technology should solve real problems, not create complexity for its own sake. Every tool we advocate for must demonstrate clear value.</p>
+                </div>
+                <div class="philosophy-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Security by Design</h3>
+                    <p>Security cannot be an afterthought. Modern architectures must embed security principles from the ground up, making secure practices the path of least resistance.</p>
+                </div>
+                <div class="philosophy-item">
+                    <i class="fas fa-users"></i>
+                    <h3>Developer Experience First</h3>
+                    <p>The best technologies are those that make developers more productive and happier. Platform engineering should eliminate friction, not create it.</p>
+                </div>
+                <div class="philosophy-item">
+                    <i class="fas fa-recycle"></i>
+                    <h3>Sustainable Technology</h3>
+                    <p>We must consider the environmental impact of our architectural decisions. Efficiency isn't just about cost—it's about responsible resource usage.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Talks & Writings -->
+    <section class="tech-content">
+        <div class="container">
+            <h2 class="section-title">Recent Talks & Writings</h2>
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="content-header">
+                        <span class="content-type">Conference Talk</span>
+                        <span class="content-date">December 2024</span>
+                    </div>
+                    <h3 class="content-title">"Platform Engineering: Building Internal Developer Platforms that Scale"</h3>
+                    <p class="content-description">
+                        Exploring how to build self-service platforms that reduce cognitive load for development teams 
+                        while maintaining operational excellence. Presented at DevOps Days 2024.
+                    </p>
+                    <div class="content-tags">
+                        <span class="tag">Platform Engineering</span>
+                        <span class="tag">DevOps</span>
+                        <span class="tag">Kubernetes</span>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <div class="content-header">
+                        <span class="content-type">Blog Post</span>
+                        <span class="content-date">November 2024</span>
+                    </div>
+                    <h3 class="content-title">"The Future of MLOps: Lessons from 3 Years in Production"</h3>
+                    <p class="content-description">
+                        Key insights from deploying and managing machine learning workloads at scale, including 
+                        model drift detection, automated retraining, and the importance of feature stores.
+                    </p>
+                    <div class="content-tags">
+                        <span class="tag">MLOps</span>
+                        <span class="tag">Kubeflow</span>
+                        <span class="tag">Machine Learning</span>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <div class="content-header">
+                        <span class="content-type">Workshop</span>
+                        <span class="content-date">October 2024</span>
+                    </div>
+                    <h3 class="content-title">"Hands-on GitOps with ArgoCD and Terraform"</h3>
+                    <p class="content-description">
+                        3-hour workshop covering infrastructure as code with Terraform and GitOps deployment 
+                        patterns with ArgoCD. Includes practical exercises and real-world scenarios.
+                    </p>
+                    <div class="content-tags">
+                        <span class="tag">GitOps</span>
+                        <span class="tag">ArgoCD</span>
+                        <span class="tag">Terraform</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="tech-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Let's Shape the Future of Technology Together</h2>
+                <p>
+                    Interested in collaborating on technology advocacy, platform engineering challenges, 
+                    or discussing the latest trends in cloud-native development?
+                </p>
+                <div class="cta-buttons">
+                    <a href="index.html#contact" class="btn btn-primary">Get In Touch</a>
+                    <a href="https://linkedin.com/in/gurpreetgandhi" target="_blank" class="btn btn-secondary">
+                        <i class="fab fa-linkedin"></i>
+                        Connect on LinkedIn
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <p>&copy; 2025 Gurpreet Gandhi. All rights reserved.</p>
+                    <p>Software Architect | Platform Engineer | Technology Advocate</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="books.html">Books</a>
+                    <a href="travel-adventures.html">Travel</a>
+                    <a href="resume.pdf" target="_blank">Resume</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="script.js"></script>
+    <script src="tech-script.js"></script>
+</body>
+</html>

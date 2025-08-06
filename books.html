@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books & Reading | Gurpreet Gandhi</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="books-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <span class="logo-text">Gurpreet Gandhi</span>
+                    <span class="logo-title">Software Architect</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html#home" class="nav-link">Home</a>
+                <a href="index.html#about" class="nav-link">About</a>
+                <a href="index.html#experience" class="nav-link">Experience</a>
+                <a href="index.html#projects" class="nav-link">Projects</a>
+                <a href="index.html#skills" class="nav-link">Skills</a>
+                <a href="index.html#personal" class="nav-link">Personal</a>
+                <a href="tech-evangelism.html" class="nav-link">Tech Evangelism</a>
+                <a href="books.html" class="nav-link active">Books</a>
+                <a href="travel-adventures.html" class="nav-link">Travel</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="books-hero">
+        <div class="books-hero-content">
+            <h1 class="books-hero-title">Books That Shaped My Mind</h1>
+            <p class="books-hero-subtitle">A curated collection of transformative reads that influenced my perspective on technology, life, and growth</p>
+            <div class="reading-stats">
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Books Read</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">Genres Explored</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">Ideas Gained</span>
+                </div>
+            </div>
+        </div>
+        <div class="books-hero-bg"></div>
+    </section>
+
+    <!-- Books Categories -->
+    <section class="books-categories">
+        <div class="container">
+            <div class="category-nav">
+                <button class="category-btn active" data-category="all">All Books</button>
+                <button class="category-btn" data-category="personal-development">Personal Development</button>
+                <button class="category-btn" data-category="philosophy">Philosophy</button>
+                <button class="category-btn" data-category="fiction">Fiction</button>
+                <button class="category-btn" data-category="technology">Technology</button>
+                <button class="category-btn" data-category="biography">Biography</button>
+            </div>
+
+            <div class="books-grid">
+                <!-- Personal Development Books -->
+                <div class="book-card featured" data-category="personal-development">
+                    <div class="book-image">
+                        <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=300&h=400&fit=crop" alt="Outliers by Malcolm Gladwell">
+                        <div class="book-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">5.0</span>
+                        </div>
+                    </div>
+                    <div class="book-details">
+                        <h3 class="book-title">Outliers: The Story of Success</h3>
+                        <p class="book-author">by Malcolm Gladwell</p>
+                        <p class="book-genre">Personal Development</p>
+                        
+                        <div class="book-quote">
+                            <i class="fas fa-quote-left"></i>
+                            <p>"Success is not just about individual merit but opportunity, timing, and cultural background."</p>
+                        </div>
+                        
+                        <div class="book-review">
+                            <h4>My Take</h4>
+                            <p>
+                                This book completely changed how I think about success in the tech industry. Gladwell's 10,000-hour rule 
+                                resonated deeply with my journey in software architecture. The idea that expertise comes from deliberate 
+                                practice, not just talent, has guided my approach to mastering new technologies like Kubernetes and MLOps.
+                            </p>
+                            <p>
+                                The chapter on cultural legacy particularly struck me as someone working in diverse, global teams. 
+                                Understanding how cultural backgrounds influence communication patterns has made me a better platform engineer.
+                            </p>
+                        </div>
+                        
+                        <div class="book-insights">
+                            <h4>Key Insights Applied to Tech</h4>
+                            <ul>
+                                <li>Deliberate practice in coding leads to architectural mastery</li>
+                                <li>Timing matters—being early in cloud adoption paid off</li>
+                                <li>Cultural awareness improves global team dynamics</li>
+                                <li>Environmental factors influence career opportunities</li>
+                            </ul>
+                        </div>
+
+                        <div class="book-actions">
+                            <button class="btn-secondary">Add to Reading List</button>
+                            <a href="https://www.goodreads.com/book/show/3228917-outliers" target="_blank" class="btn-primary">
+                                <i class="fas fa-external-link-alt"></i>
+                                View on Goodreads
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Philosophy Book -->
+                <div class="book-card" data-category="philosophy fiction">
+                    <div class="book-image">
+                        <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=300&h=400&fit=crop" alt="The Alchemist by Paulo Coelho">
+                        <div class="book-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-text">4.5</span>
+                        </div>
+                    </div>
+                    <div class="book-details">
+                        <h3 class="book-title">The Alchemist</h3>
+                        <p class="book-author">by Paulo Coelho</p>
+                        <p class="book-genre">Philosophy · Fiction</p>
+                        
+                        <div class="book-quote">
+                            <i class="fas fa-quote-left"></i>
+                            <p>"When you want something, all the universe conspires in helping you to achieve it."</p>
+                        </div>
+                        
+                        <div class="book-review">
+                            <h4>My Take</h4>
+                            <p>
+                                A beautiful allegory about following your dreams despite obstacles. As someone who transitioned from 
+                                traditional development to cloud architecture, this book reminded me that career pivots require both 
+                                courage and persistence. The concept of "Personal Legend" resonates with finding your true calling in tech.
+                            </p>
+                        </div>
+                        
+                        <div class="book-insights">
+                            <h4>Career Lessons</h4>
+                            <ul>
+                                <li>Trust the process of learning new technologies</li>
+                                <li>Setbacks are part of the journey to mastery</li>
+                                <li>Listen to your intuition about technology choices</li>
+                            </ul>
+                        </div>
+
+                        <div class="book-actions">
+                            <button class="btn-secondary">Add to Reading List</button>
+                            <a href="https://www.goodreads.com/book/show/865.The_Alchemist" target="_blank" class="btn-primary">
+                                <i class="fas fa-external-link-alt"></i>
+                                View on Goodreads
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fiction Book -->
+                <div class="book-card" data-category="fiction">
+                    <div class="book-image">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop" alt="A Man Called Ove by Fredrik Backman">
+                        <div class="book-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">5.0</span>
+                        </div>
+                    </div>
+                    <div class="book-details">
+                        <h3 class="book-title">A Man Called Ove</h3>
+                        <p class="book-author">by Fredrik Backman</p>
+                        <p class="book-genre">Fiction</p>
+                        
+                        <div class="book-quote">
+                            <i class="fas fa-quote-left"></i>
+                            <p>"All people at root are time optimists. We always think there's enough time to do things with other people."</p>
+                        </div>
+                        
+                        <div class="book-review">
+                            <h4>My Take</h4>
+                            <p>
+                                This heart-warming story about an unlikely hero taught me about the importance of human connections 
+                                in our increasingly digital world. As someone who spends most days architecting systems, Ove's story 
+                                reminded me that technology should ultimately serve to bring people together, not isolate them.
+                            </p>
+                            <p>
+                                The book's exploration of how small acts of kindness can transform lives has influenced how I mentor 
+                                junior developers and approach team building in my current role.
+                            </p>
+                        </div>
+                        
+                        <div class="book-insights">
+                            <h4>Leadership Lessons</h4>
+                            <ul>
+                                <li>Technical expertise must be balanced with empathy</li>
+                                <li>Small gestures have big impacts on team morale</li>
+                                <li>Everyone has valuable knowledge to share</li>
+                                <li>Community building starts with individual connections</li>
+                            </ul>
+                        </div>
+
+                        <div class="book-actions">
+                            <button class="btn-secondary">Add to Reading List</button>
+                            <a href="https://www.goodreads.com/book/show/18774964-a-man-called-ove" target="_blank" class="btn-primary">
+                                <i class="fas fa-external-link-alt"></i>
+                                View on Goodreads
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technology Book -->
+                <div class="book-card" data-category="technology">
+                    <div class="book-image">
+                        <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=300&h=400&fit=crop" alt="Clean Code by Robert Martin">
+                        <div class="book-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">5.0</span>
+                        </div>
+                    </div>
+                    <div class="book-details">
+                        <h3 class="book-title">Clean Code</h3>
+                        <p class="book-author">by Robert C. Martin</p>
+                        <p class="book-genre">Technology · Programming</p>
+                        
+                        <div class="book-quote">
+                            <i class="fas fa-quote-left"></i>
+                            <p>"Clean code is simple and direct. Clean code reads like well-written prose."</p>
+                        </div>
+                        
+                        <div class="book-review">
+                            <h4>My Take</h4>
+                            <p>
+                                This book fundamentally changed how I write and review code. Uncle Bob's principles have become 
+                                the foundation of how I approach software architecture. The emphasis on readability and 
+                                maintainability has guided every major system I've designed.
+                            </p>
+                            <p>
+                                The book's focus on craftsmanship over quick fixes has been instrumental in my approach to 
+                                platform engineering, where long-term maintainability is crucial for scaling systems.
+                            </p>
+                        </div>
+                        
+                        <div class="book-insights">
+                            <h4>Applied Principles</h4>
+                            <ul>
+                                <li>Function naming should be self-documenting</li>
+                                <li>Small functions are easier to test and maintain</li>
+                                <li>Code should tell a story, not require comments</li>
+                                <li>Refactoring is an ongoing responsibility</li>
+                            </ul>
+                        </div>
+
+                        <div class="book-actions">
+                            <button class="btn-secondary">Add to Reading List</button>
+                            <a href="https://www.goodreads.com/book/show/3735293-clean-code" target="_blank" class="btn-primary">
+                                <i class="fas fa-external-link-alt"></i>
+                                View on Goodreads
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Biography Book -->
+                <div class="book-card" data-category="biography">
+                    <div class="book-image">
+                        <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=300&h=400&fit=crop" alt="Steve Jobs by Walter Isaacson">
+                        <div class="book-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="rating-text">4.0</span>
+                        </div>
+                    </div>
+                    <div class="book-details">
+                        <h3 class="book-title">Steve Jobs</h3>
+                        <p class="book-author">by Walter Isaacson</p>
+                        <p class="book-genre">Biography · Technology</p>
+                        
+                        <div class="book-quote">
+                            <i class="fas fa-quote-left"></i>
+                            <p>"Innovation distinguishes between a leader and a follower."</p>
+                        </div>
+                        
+                        <div class="book-review">
+                            <h4>My Take</h4>
+                            <p>
+                                Jobs' obsession with user experience and elegant design has influenced how I approach 
+                                developer experience in platform engineering. While I don't agree with all his methods, 
+                                his focus on simplicity and intuitive interfaces has shaped my API design philosophy.
+                            </p>
+                        </div>
+                        
+                        <div class="book-insights">
+                            <h4>Leadership Insights</h4>
+                            <ul>
+                                <li>Simplicity is the ultimate sophistication</li>
+                                <li>User experience should drive technical decisions</li>
+                                <li>Attention to detail creates competitive advantage</li>
+                                <li>Vision must be backed by execution excellence</li>
+                            </ul>
+                        </div>
+
+                        <div class="book-actions">
+                            <button class="btn-secondary">Add to Reading List</button>
+                            <a href="https://www.goodreads.com/book/show/11084145-steve-jobs" target="_blank" class="btn-primary">
+                                <i class="fas fa-external-link-alt"></i>
+                                View on Goodreads
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personal Development Book -->
+                <div class="book-card" data-category="personal-development">
+                    <div class="book-image">
+                        <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=300&h=400&fit=crop" alt="Atomic Habits by James Clear">
+                        <div class="book-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">5.0</span>
+                        </div>
+                    </div>
+                    <div class="book-details">
+                        <h3 class="book-title">Atomic Habits</h3>
+                        <p class="book-author">by James Clear</p>
+                        <p class="book-genre">Personal Development</p>
+                        
+                        <div class="book-quote">
+                            <i class="fas fa-quote-left"></i>
+                            <p>"You do not rise to the level of your goals. You fall to the level of your systems."</p>
+                        </div>
+                        
+                        <div class="book-review">
+                            <h4>My Take</h4>
+                            <p>
+                                This book revolutionized how I approach skill development in technology. Clear's framework 
+                                for building habits has been instrumental in maintaining consistent learning schedules 
+                                for new technologies and keeping up with the rapidly evolving cloud landscape.
+                            </p>
+                            <p>
+                                The concept of atomic habits has helped me build sustainable practices around code review, 
+                                documentation, and continuous integration that compound into significant improvements over time.
+                            </p>
+                        </div>
+                        
+                        <div class="book-insights">
+                            <h4>Tech Application</h4>
+                            <ul>
+                                <li>Daily coding practice compounds into expertise</li>
+                                <li>Small improvements in deployment processes save hours</li>
+                                <li>Consistent learning habits keep skills current</li>
+                                <li>Environment design influences coding productivity</li>
+                            </ul>
+                        </div>
+
+                        <div class="book-actions">
+                            <button class="btn-secondary">Add to Reading List</button>
+                            <a href="https://www.goodreads.com/book/show/40121378-atomic-habits" target="_blank" class="btn-primary">
+                                <i class="fas fa-external-link-alt"></i>
+                                View on Goodreads
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reading Philosophy -->
+    <section class="reading-philosophy">
+        <div class="container">
+            <h2 class="section-title">My Reading Philosophy</h2>
+            <div class="philosophy-content">
+                <div class="philosophy-text">
+                    <p>
+                        Reading, for me, is like debugging—you approach a complex problem (or idea) systematically, 
+                        break it down into understandable components, and integrate the solution into your existing 
+                        knowledge base. Every book is a new codebase to explore, understand, and learn from.
+                    </p>
+                    <p>
+                        I prefer books that challenge my existing mental models, much like how learning a new 
+                        programming paradigm forces you to think differently about problem-solving. The best books, 
+                        like the best code, are those that you can return to multiple times and discover new insights.
+                    </p>
+                </div>
+                <div class="reading-habits">
+                    <h3>Reading Habits</h3>
+                    <div class="habits-grid">
+                        <div class="habit-item">
+                            <i class="fas fa-clock"></i>
+                            <h4>Daily Reading</h4>
+                            <p>30 minutes every morning, usually with coffee and before checking emails</p>
+                        </div>
+                        <div class="habit-item">
+                            <i class="fas fa-notes-medical"></i>
+                            <h4>Active Note-Taking</h4>
+                            <p>Digital highlights and notes using Notion, organized by themes and concepts</p>
+                        </div>
+                        <div class="habit-item">
+                            <i class="fas fa-users"></i>
+                            <h4>Discussion & Sharing</h4>
+                            <p>Regular book discussions with team members and tech community</p>
+                        </div>
+                        <div class="habit-item">
+                            <i class="fas fa-sync-alt"></i>
+                            <h4>Implementation</h4>
+                            <p>Always ask: "How can I apply this concept to my current projects?"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Currently Reading -->
+    <section class="currently-reading">
+        <div class="container">
+            <h2 class="section-title">Currently Reading</h2>
+            <div class="current-books">
+                <div class="current-book">
+                    <div class="book-cover">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=250&h=350&fit=crop" alt="System Design Interview">
+                        <div class="reading-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%"></div>
+                            </div>
+                            <span class="progress-text">65% Complete</span>
+                        </div>
+                    </div>
+                    <div class="book-info">
+                        <h3>System Design Interview</h3>
+                        <p class="author">by Alex Xu</p>
+                        <p class="current-chapter">Chapter 8: Design a Chat System</p>
+                        <p class="reading-note">
+                            Excellent deep dive into scalable chat architecture. The WebSocket vs polling 
+                            trade-offs section is particularly relevant to a project I'm working on.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <p>&copy; 2025 Gurpreet Gandhi. All rights reserved.</p>
+                    <p>Software Architect | Platform Engineer | Lifelong Learner</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="tech-evangelism.html">Tech Evangelism</a>
+                    <a href="travel-adventures.html">Travel</a>
+                    <a href="resume.pdf" target="_blank">Resume</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="books-script.js"></script>
+</body>
+</html>
