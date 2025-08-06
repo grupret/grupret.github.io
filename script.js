@@ -121,7 +121,7 @@ function initFormHandling() {
     }
 }
 
-// Mobile menu toggle
+// Enhanced Mobile menu toggle
 function initMobileMenu() {
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
@@ -130,6 +130,17 @@ function initMobileMenu() {
         navToggle.addEventListener('click', function() {
             navMenu.classList.toggle('active');
             this.classList.toggle('active');
+            
+            // Animate hamburger bars
+            const bars = this.querySelectorAll('.bar');
+            bars.forEach((bar, index) => {
+                bar.style.transform = this.classList.contains('active') 
+                    ? `rotate(${index === 1 ? 0 : index === 0 ? 45 : -45}deg) translate(${index === 1 ? 0 : index === 0 ? '5px, 5px' : '-5px, -5px'})`
+                    : 'none';
+            });
+            
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = this.classList.contains('active') ? 'hidden' : 'auto';
         });
         
         // Close mobile menu when clicking on a link
@@ -138,7 +149,42 @@ function initMobileMenu() {
             link.addEventListener('click', function() {
                 navMenu.classList.remove('active');
                 navToggle.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                
+                // Reset hamburger bars
+                const bars = navToggle.querySelectorAll('.bar');
+                bars.forEach(bar => {
+                    bar.style.transform = 'none';
+                });
             });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navToggle.contains(e.target) && !navMenu.contains(e.target) && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                
+                const bars = navToggle.querySelectorAll('.bar');
+                bars.forEach(bar => {
+                    bar.style.transform = 'none';
+                });
+            }
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                
+                const bars = navToggle.querySelectorAll('.bar');
+                bars.forEach(bar => {
+                    bar.style.transform = 'none';
+                });
+            }
         });
     }
 }
