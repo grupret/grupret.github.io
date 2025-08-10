@@ -1,12 +1,39 @@
 {
   "goa": [
-    "/assets/images/goa/goa.jpg"
+    "/assets/images/goa/goa.jpg",
+    "/assets/images/goa/goa1.jpg",
+    "/assets/images/goa/goa2.jpg",
+    "/assets/images/goa/goa3.jpg",
+    "/assets/images/goa/goa4.jpg",
+    "/assets/images/goa/goa5.jpg",
+    "/assets/images/goa/goa6.jpg",
+    "/assets/images/goa/goa7.jpg",
+    "/assets/images/goa/goa8.jpg",
+    "/assets/images/goa/goa9.jpg",
+    "/assets/images/goa/goa10.jpg",
+    "/assets/images/goa/goa11.jpg",
+    "/assets/images/goa/goa12.jpg",
+    "/assets/images/goa/go13.jpeg",
+    "/assets/images/goa/goa14.jpg",
+    "/assets/images/goa/goa15.jpeg",
+    "/assets/images/goa/goa16.jpeg"
   ],
   "humpi": [
-    "/assets/images/humpi/humpi.jpg"
+    "/assets/images/humpi/humpi.jpg",
+    "/assets/images/humpi/humpi1.jpg",
+    "/assets/images/humpi/humpi2.jpg",
+    "/assets/images/humpi/humpi3.jpg",
+    "/assets/images/humpi/humpi4.jpg",
+    "/assets/images/humpi/humpi5.jpg"
   ],
   "hyderabad": [
-    "/assets/images/hyderabad/bike.jpg"
+    "/assets/images/hyderabad/htd1.jpg",
+    "/assets/images/hyderabad/htd2.jpeg",
+    "/assets/images/hyderabad/htd3.jpeg",
+    "/assets/images/hyderabad/hyderabad1.jpg",
+    "/assets/images/hyderabad/hyderabad2.jpeg",
+    "/assets/images/hyderabad/hyderabad3.jpg",
+    "/assets/images/hyderabad/hyderabad4.jpg"
   ],
   "kasauli": [
     "/assets/images/kasauli/kasauli.jpg",
@@ -14,18 +41,31 @@
     "/assets/images/kasauli/solan.jpg"
   ],
   "nanded": [
-    "/assets/images/nanded/nanded.jpg"
+    "/assets/images/nanded/nanded.jpg",
+    "/assets/images/nanded/nanded1.jpeg",
+    "/assets/images/nanded/nanded2.jpeg",
+    "/assets/images/nanded/nanded3.jpeg",
+    "/assets/images/nanded/nanded4.jpeg",
+    "/assets/images/nanded/nanded5.jpeg",
+    "/assets/images/nanded/nanded6.jpeg"
   ],
   "pushkar": [
     "/assets/images/pushkar/pushkar.jpg"
   ],
   "rishikesh": [
-    "/assets/images/rishikesh/rishikesh.jpg"
+    "/assets/images/rishikesh/rishikesh.jpeg",
+     "/assets/images/rishikesh/rishikesh2.jpg",
+      "/assets/images/rishikesh/rishikesh3.jpeg"
   ],
   "shimla": [
     "/assets/images/shimla/shimla.jpg"
   ],
   "workout": [
-    "/assets/images/workout/workout.jpg"
+    "/assets/images/workout/workout.jpg",
+    "/assets/images/workout/workout1.jpeg",
+    "/assets/images/workout/workout2.jpg",
+    "/assets/images/workout/workout3.jpg",
+    "/assets/images/workout/workout4.jpg",
+    "/assets/images/workout/workout5.jpeg"
   ]
 }
