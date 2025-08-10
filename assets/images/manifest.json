@@ -1,0 +1,31 @@
+{
+  "goa": [
+    "/assets/images/goa/goa.jpg"
+  ],
+  "humpi": [
+    "/assets/images/humpi/humpi.jpg"
+  ],
+  "hyderabad": [
+    "/assets/images/hyderabad/bike.jpg"
+  ],
+  "kasauli": [
+    "/assets/images/kasauli/kasauli.jpg",
+    "/assets/images/kasauli/kufri.jpg",
+    "/assets/images/kasauli/solan.jpg"
+  ],
+  "nanded": [
+    "/assets/images/nanded/nanded.jpg"
+  ],
+  "pushkar": [
+    "/assets/images/pushkar/pushkar.jpg"
+  ],
+  "rishikesh": [
+    "/assets/images/rishikesh/rishikesh.jpg"
+  ],
+  "shimla": [
+    "/assets/images/shimla/shimla.jpg"
+  ],
+  "workout": [
+    "/assets/images/workout/workout.jpg"
+  ]
+}

@@ -2471,6 +2471,11 @@ section {
     object-fit: cover;
 }
 
+.fitness-image .slideshow {
+    display: block;
+    height: 300px;
+}
+
 .fitness-details h4 {
     font-size: 1.5rem;
     font-weight: 600;
@@ -2633,5 +2638,11 @@ section {
     .consistency-stats .stat-number {
         font-size: 2rem;
     }
+}
+
+/* Slideshow container should fill image wrappers */
+.slideshow {
+    width: 100%;
+    height: 100%;
 }
   
