@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initSkillAnimations();
     initProjectCards();
     initTypewriterEffect();
+    initSlideshows();
 });
 
 // Navigation functionality
@@ -436,4 +437,42 @@ const mobileMenuCSS = `
 const style = document.createElement('style');
 style.textContent = mobileMenuCSS;
 document.head.appendChild(style);
+
+function initSlideshows() {
+    const slideshowContainers = document.querySelectorAll('.slideshow');
+    if (slideshowContainers.length === 0) return;
+
+    fetch('assets/images/manifest.json')
+        .then(resp => resp.json())
+        .then(manifest => {
+            slideshowContainers.forEach(container => {
+                const folder = container.getAttribute('data-folder');
+                const images = manifest[folder] || [];
+                if (!images.length) return;
+
+                const img = document.createElement('img');
+                img.alt = folder;
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'cover';
+                img.decoding = 'async';
+                img.loading = 'lazy';
+                container.appendChild(img);
+
+                let index = 0;
+                const update = () => {
+                    const src = images[index % images.length];
+                    img.src = src;
+                    index = (index + 1) % images.length;
+                };
+                update();
+                if (images.length > 1) {
+                    setInterval(update, 3500);
+                }
+            });
+        })
+        .catch(err => {
+            console.error('Failed to load slideshow manifest', err);
+        });
+}
   
