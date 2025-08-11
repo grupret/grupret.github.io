@@ -43,6 +43,7 @@
   "nanded": [
     "/assets/images/nanded/nanded.jpg",
     "/assets/images/nanded/nanded1.jpeg",
+    "/assets/images/nanded/nanded1.jpg",
     "/assets/images/nanded/nanded2.jpeg",
     "/assets/images/nanded/nanded3.jpeg",
     "/assets/images/nanded/nanded4.jpeg",
@@ -54,7 +55,7 @@
   ],
   "rishikesh": [
     "/assets/images/rishikesh/rishikesh.jpg",
-     "/assets/images/rishikesh/rishikesh2.jpg",
+     "/assets/images/rishikesh/rishikesh2.jpeg",
       "/assets/images/rishikesh/rishikesh3.jpeg"
   ],
   "shimla": [
@@ -62,8 +63,8 @@
   ],
   "workout": [
     "/assets/images/workout/workout.jpg",
-    "/assets/images/workout/workout1.jpeg",
-    "/assets/images/workout/workout2.jpg",
+    "/assets/images/workout/workout1.jpg",
+    "/assets/images/workout/workout2.jpeg",
     "/assets/images/workout/workout3.jpg",
     "/assets/images/workout/workout4.jpg",
     "/assets/images/workout/workout5.jpeg"
