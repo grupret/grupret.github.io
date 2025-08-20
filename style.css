@@ -1662,7 +1662,7 @@ section {
 /* Blog Styles */
 .blog-hero {
     background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-    color: white;
+    color: rgb(5, 0, 0);
     padding: 120px 0 80px;
     text-align: center;
 }
@@ -1711,7 +1711,7 @@ section {
 }
 
 .article-content {
-    background: rgb(8, 0, 0);
+    background: rgb(248, 248, 248);
     padding: 3rem;
     border-radius: 12px;
     box-shadow: var(--card-shadow);
