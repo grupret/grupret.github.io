@@ -28,20 +28,26 @@ function initNavigation() {
         }
     });
     
-    // Smooth scrolling for navigation links
+    // Smooth scrolling for navigation links (only for same-page anchors)
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
+            const href = this.getAttribute('href');
             
-            if (targetElement) {
-                const offsetTop = targetElement.offsetTop - 80;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
+            // Only prevent default for same-page anchor links (starting with #)
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                const targetId = href.substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    const offsetTop = targetElement.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
             }
+            // For external links (like ../index.html), let the browser handle navigation normally
         });
     });
     
@@ -475,4 +481,3 @@ function initSlideshows() {
             console.error('Failed to load slideshow manifest', err);
         });
 }
-  
