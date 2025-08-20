@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RLAF: Reinforcement Learning with Attention Flow for Neural Networks | Gurpreet Gandhi</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        .rlaf-visualization {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .rlaf-visualization::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: flow 6s ease-in-out infinite;
+        }
+        
+        @keyframes flow {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+        }
+        
+        .attention-flow {
+            background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .attention-flow::after {
+            content: '→';
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5em;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .attention-flow:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .rl-components {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .rl-component {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            border-top: 4px solid #4facfe;
+            transition: all 0.3s ease;
+        }
+        
+        .rl-component:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .algorithm-steps {
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #e9ecef;
+        }
+        
+        .step-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .step-item:last-child {
+            border-bottom: none;
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .performance-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .dashboard-card {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .dashboard-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(79, 172, 254, 0.3);
+        }
+        
+        .dashboard-value {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .dashboard-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .attention-heatmap {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .heatmap-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 5px;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+        
+        .heatmap-cell {
+            aspect-ratio: 1;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .interactive-demo {
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #e9ecef;
+        }
+        
+        .demo-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .demo-button {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Gurpreet Gandhi</span>
+                <span class="logo-title">Software Architect</span>
+            </div>
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link">← Back to Portfolio</a>
+                <a href="../projects/neurosymbolic.html" class="nav-link">← Back to Project</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+        <div class="container">
+            <div class="blog-header">
+                <h1 class="blog-title">RLAF for Neural Networks</h1>
+                <p class="blog-subtitle">Reinforcement Learning with Attention Flow for Enhanced Neural Architecture</p>
+                <div class="blog-meta">
+                    <span class="blog-date"><i class="fas fa-calendar"></i> January 2025</span>
+                    <span class="blog-readtime"><i class="fas fa-clock"></i> 25 min read</span>
+                    <span class="blog-category"><i class="fas fa-tag"></i> Reinforcement Learning</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Content -->
+    <section class="blog-content">
+        <div class="container">
+            <article class="blog-article">
+                <div class="article-content">
+                    <h2>Introduction to RLAF</h2>
+                    <p>
+                        Reinforcement Learning with Attention Flow (RLAF) represents a novel paradigm that combines 
+                        the decision-making capabilities of reinforcement learning with the selective focus mechanisms 
+                        of attention. This approach enables neural networks to dynamically allocate computational 
+                        resources and adapt their processing strategies based on environmental feedback and task requirements.
+                    </p>
+
+                    <div class="rlaf-visualization">
+                        <h3><i class="fas fa-brain"></i> RLAF Architecture Overview</h3>
+                        <div class="attention-flow">
+                            <h4>🎯 Attention Agent</h4>
+                            <p>RL agent that learns optimal attention allocation strategies</p>
+                        </div>
+                        <div class="attention-flow">
+                            <h4>🔄 Dynamic Flow Control</h4>
+                            <p>Adaptive information routing based on learned policies</p>
+                        </div>
+                        <div class="attention-flow">
+                            <h4>📊 Reward-Driven Optimization</h4>
+                            <p>Attention patterns optimized through environmental feedback</p>
+                        </div>
+                        <div class="attention-flow">
+                            <h4>⚡ Efficient Resource Allocation</h4>
+                            <p>Computational resources directed to most relevant features</p>
+                        </div>
+                    </div>
+
+                    <h2>Core Components of RLAF</h2>
+
+                    <div class="rl-components">
+                        <div class="rl-component">
+                            <h3><i class="fas fa-robot"></i> Attention Agent</h3>
+                            <p>
+                                A reinforcement learning agent that learns to control attention mechanisms 
+                                within neural networks. The agent receives observations about network states 
+                                and environmental conditions, then decides how to allocate attention across 
+                                different network components.
+                            </p>
+                        </div>
+                        
+                        <div class="rl-component">
+                            <h3><i class="fas fa-eye"></i> Attention Mechanisms</h3>
+                            <p>
+                                Multi-scale attention modules that can be dynamically controlled by the RL agent. 
+                                These include spatial attention, channel attention, temporal attention, and 
+                                cross-modal attention mechanisms.
+                            </p>
+                        </div>
+                        
+                        <div class="rl-component">
+                            <h3><i class="fas fa-chart-line"></i> Reward System</h3>
+                            <p>
+                                A sophisticated reward system that provides feedback based on task performance, 
+                                computational efficiency, and attention quality. Rewards guide the agent to 
+                                learn effective attention strategies.
+                            </p>
+                        </div>
+                        
+                        <div class="rl-component">
+                            <h3><i class="fas fa-network-wired"></i> Flow Controller</h3>
+                            <p>
+                                A neural module that implements the attention decisions made by the RL agent, 
+                                controlling information flow through the network and modulating feature 
+                                representations based on learned attention patterns.
+                            </p>
+                        </div>
+                    </div>
+
+                    <h2>RLAF Algorithm Implementation</h2>
+
+                    <div class="algorithm-steps">
+                        <h3>RLAF Training Process</h3>
+                        <div class="step-item">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>State Observation</h4>
+                                <p>Agent observes current network state, input features, and task context</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Attention Action Selection</h4>
+                                <p>Agent selects attention allocation strategy using learned policy</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Flow Control Execution</h4>
+                                <p>Attention mechanisms are configured according to agent's decisions</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Network Forward Pass</h4>
+                                <p>Neural network processes input with dynamically controlled attention</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <h4>Reward Calculation</h4>
+                                <p>System evaluates performance and efficiency to generate reward signal</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <h4>Policy Update</h4>
+                                <p>RL agent updates its policy based on received rewards and experiences</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Core RLAF Implementation</h3>
+                    <div class="code-block">
+                        <pre><code class="language-python">
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import numpy as np
+from typing import Dict, List, Tuple, Optional
+from collections import deque
+import random
+
+class AttentionAgent(nn.Module):
+    """
+    Reinforcement Learning Agent for controlling attention mechanisms
+    """
+    def __init__(self, state_dim: int, action_dim: int, hidden_dim: int = 256):
+        super().__init__()
+        self.state_dim = state_dim
+        self.action_dim = action_dim
+        self.hidden_dim = hidden_dim
+        
+        # Policy network (Actor)
+        self.actor = nn.Sequential(
+            nn.Linear(state_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, action_dim),
+            nn.Softmax(dim=-1)
+        )
+        
+        # Value network (Critic)
+        self.critic = nn.Sequential(
+            nn.Linear(state_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, 1)
+        )
+        
+        # Experience replay buffer
+        self.memory = deque(maxlen=10000)
+        self.epsilon = 0.1  # Exploration rate
+        
+    def get_state_representation(self, network_state: Dict) -> torch.Tensor:
+        """Convert network state to agent observation"""
+        features = []
+        
+        # Network activation statistics
+        if 'activations' in network_state:
+            activations = network_state['activations']
+            features.extend([
+                activations.mean().item(),
+                activations.std().item(),
+                activations.max().item(),
+                activations.min().item()
+            ])
+        
+        # Task context features
+        if 'task_context' in network_state:
+            context = network_state['task_context']
+            features.extend(context.flatten().tolist())
+        
+        # Performance metrics
+        if 'performance' in network_state:
+            perf = network_state['performance']
+            features.extend([
+                perf.get('accuracy', 0.0),
+                perf.get('loss', 0.0),
+                perf.get('efficiency', 0.0)
+            ])
+        
+        # Pad or truncate to fixed size
+        while len(features) < self.state_dim:
+            features.append(0.0)
+        features = features[:self.state_dim]
+        
+        return torch.tensor(features, dtype=torch.float32)
+    
+    def select_action(self, state: torch.Tensor, training: bool = True) -> Tuple[torch.Tensor, torch.Tensor]:
+        """Select attention allocation action"""
+        if training and random.random() < self.epsilon:
+            # Exploration: random action
+            action_probs = torch.rand(self.action_dim)
+            action_probs = F.softmax(action_probs, dim=0)
+        else:
+            # Exploitation: use policy
+            action_probs = self.actor(state)
+        
+        # Sample action from probability distribution
+        action_dist = torch.distributions.Categorical(action_probs)
+        action = action_dist.sample()
+        
+        return action, action_probs
+    
+    def evaluate_state(self, state: torch.Tensor) -> torch.Tensor:
+        """Evaluate state value using critic network"""
+        return self.critic(state)
+    
+    def store_experience(self, state: torch.Tensor, action: torch.Tensor, 
+                        reward: float, next_state: torch.Tensor, done: bool):
+        """Store experience in replay buffer"""
+        self.memory.append((state, action, reward, next_state, done))
+    
+    def update_policy(self, batch_size: int = 32) -> Dict[str, float]:
+        """Update actor-critic networks using stored experiences"""
+        if len(self.memory) < batch_size:
+            return {}
+        
+        # Sample batch from memory
+        batch = random.sample(self.memory, batch_size)
+        states, actions, rewards, next_states, dones = zip(*batch)
+        
+        states = torch.stack(states)
+        actions = torch.stack(actions)
+        rewards = torch.tensor(rewards, dtype=torch.float32)
+        next_states = torch.stack(next_states)
+        dones = torch.tensor(dones, dtype=torch.bool)
+        
+        # Compute target values
+        with torch.no_grad():
+            next_values = self.critic(next_states).squeeze()
+            target_values = rewards + 0.99 * next_values * (~dones)
+        
+        # Current state values
+        current_values = self.critic(states).squeeze()
+        
+        # Compute advantages
+        advantages = target_values - current_values
+        
+        # Actor loss (policy gradient)
+        action_probs = self.actor(states)
+        action_log_probs = torch.log(action_probs.gather(1, actions.unsqueeze(1))).squeeze()
+        actor_loss = -(action_log_probs * advantages.detach()).mean()
+        
+        # Critic loss (value function)
+        critic_loss = F.mse_loss(current_values, target_values)
+        
+        # Update networks
+        actor_optimizer = torch.optim.Adam(self.actor.parameters(), lr=0.001)
+        critic_optimizer = torch.optim.Adam(self.critic.parameters(), lr=0.001)
+        
+        actor_optimizer.zero_grad()
+        actor_loss.backward()
+        actor_optimizer.step()
+        
+        critic_optimizer.zero_grad()
+        critic_loss.backward()
+        critic_optimizer.step()
+        
+        # Decay exploration rate
+        self.epsilon = max(0.01, self.epsilon * 0.995)
+        
+        return {
+            'actor_loss': actor_loss.item(),
+            'critic_loss': critic_loss.item(),
+            'epsilon': self.epsilon
+        }
+
+class AdaptiveAttentionModule(nn.Module):
+    """
+    Attention module controlled by RL agent
+    """
+    def __init__(self, input_dim: int, attention_types: List[str] = ['spatial', 'channel']):
+        super().__init__()
+        self.input_dim = input_dim
+        self.attention_types = attention_types
+        
+        # Different attention mechanisms
+        self.attention_modules = nn.ModuleDict()
+        
+        if 'spatial' in attention_types:
+            self.attention_modules['spatial'] = SpatialAttention(input_dim)
+        if 'channel' in attention_types:
+            self.attention_modules['channel'] = ChannelAttention(input_dim)
+        if 'temporal' in attention_types:
+            self.attention_modules['temporal'] = TemporalAttention(input_dim)
+        
+        # Attention fusion layer
+        self.fusion = nn.Linear(len(attention_types), 1)
+        
+    def forward(self, x: torch.Tensor, attention_weights: torch.Tensor) -> torch.Tensor:
+        """Apply attention based on agent's decisions"""
+        attended_features = []
+        
+        for i, (name, module) in enumerate(self.attention_modules.items()):
+            attended = module(x)
+            weight = attention_weights[i] if i < len(attention_weights) else 0.0
+            attended_features.append(weight * attended)
+        
+        # Combine attended features
+        if attended_features:
+            combined = torch.stack(attended_features,
