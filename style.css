@@ -1662,7 +1662,7 @@ section {
 /* Blog Styles */
 .blog-hero {
     background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-    color: white;
+    color: rgb(5, 0, 0);
     padding: 120px 0 80px;
     text-align: center;
 }
