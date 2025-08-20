@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CaFo/FF Implementation: Cascaded Forward-Forward Learning | Gurpreet Gandhi</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        .cascade-visualization {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cascade-layer {
+            background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .cascade-layer::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid rgba(255,255,255,0.3);
+        }
+        
+        .cascade-layer:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .architecture-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .flow-stage {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid #ff6b6b;
+            transition: all 0.3s ease;
+        }
+        
+        .flow-stage:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .performance-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .comparison-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-top: 4px solid #ff6b6b;
+        }
+        
+        .algorithm-demo {
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #e9ecef;
+        }
+        
+        .interactive-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .control-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .control-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        .cascade-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .metric-box {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .metric-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.3);
+        }
+        
+        .metric-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .metric-description {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Gurpreet Gandhi</span>
+                <span class="logo-title">Software Architect</span>
+            </div>
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link">← Back to Portfolio</a>
+                <a href="../projects/neurosymbolic.html" class="nav-link">← Back to Project</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+        <div class="container">
+            <div class="blog-header">
+                <h1 class="blog-title">CaFo/FF Implementation</h1>
+                <p class="blog-subtitle">Cascaded Forward-Forward Learning for Enhanced Neural Networks</p>
+                <div class="blog-meta">
+                    <span class="blog-date"><i class="fas fa-calendar"></i> January 2025</span>
+                    <span class="blog-readtime"><i class="fas fa-clock"></i> 20 min read</span>
+                    <span class="blog-category"><i class="fas fa-tag"></i> Deep Learning</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Content -->
+    <section class="blog-content">
+        <div class="container">
+            <article class="blog-article">
+                <div class="article-content">
+                    <h2>Introduction to CaFo/FF</h2>
+                    <p>
+                        Cascaded Forward-Forward (CaFo/FF) represents an advanced evolution of Hilton's Forward-Forward algorithm, 
+                        introducing hierarchical learning stages and improved information flow. This implementation addresses 
+                        key limitations of the original FF algorithm while maintaining its biological plausibility and 
+                        computational advantages.
+                    </p>
+
+                    <div class="cascade-visualization">
+                        <h3><i class="fas fa-layer-group"></i> CaFo Architecture Overview</h3>
+                        <div class="cascade-layer">
+                            <h4>🔄 Stage 1: Feature Extraction</h4>
+                            <p>Low-level feature learning with local FF updates</p>
+                        </div>
+                        <div class="cascade-layer">
+                            <h4>🔄 Stage 2: Pattern Recognition</h4>
+                            <p>Mid-level pattern detection with cascaded learning</p>
+                        </div>
+                        <div class="cascade-layer">
+                            <h4>🔄 Stage 3: High-Level Reasoning</h4>
+                            <p>Abstract concept formation with global coherence</p>
+                        </div>
+                        <div class="cascade-layer">
+                            <h4>⚡ Cascade Integration</h4>
+                            <p>Cross-stage information flow and joint optimization</p>
+                        </div>
+                    </div>
+
+                    <h2>Key Innovations in CaFo/FF</h2>
+
+                    <div class="architecture-flow">
+                        <div class="flow-stage">
+                            <h3><i class="fas fa-arrows-alt-h"></i> Bidirectional Information Flow</h3>
+                            <p>
+                                Unlike traditional FF which only processes information forward, CaFo/FF introduces 
+                                controlled bidirectional flow between cascade stages, allowing higher-level stages 
+                                to influence lower-level feature learning.
+                            </p>
+                        </div>
+                        
+                        <div class="flow-stage">
+                            <h3><i class="fas fa-sync-alt"></i> Adaptive Cascade Scheduling</h3>
+                            <p>
+                                Dynamic scheduling of cascade stages based on learning progress, allowing more 
+                                complex stages to receive additional training time when needed.
+                            </p>
+                        </div>
+                        
+                        <div class="flow-stage">
+                            <h3><i class="fas fa-balance-scale"></i> Multi-Scale Goodness Functions</h3>
+                            <p>
+                                Different goodness functions optimized for each cascade stage, from local feature 
+                                detection to global semantic coherence.
+                            </p>
+                        </div>
+                    </div>
+
+                    <h2>Core Implementation</h2>
+
+                    <h3>CaFo Layer Architecture</h3>
+                    <div class="code-block">
+                        <pre><code class="language-python">
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from typing import List, Dict, Optional, Tuple
+
+class CaFoLayer(nn.Module):
+    """
+    Cascaded Forward-Forward Layer with bidirectional information flow
+    """
+    def __init__(self, input_size: int, output_size: int, 
+                 cascade_stage: int = 0, threshold: float = 2.0):
+        super().__init__()
+        self.input_size = input_size
+        self.output_size = output_size
+        self.cascade_stage = cascade_stage
+        self.threshold = threshold
+        
+        # Main transformation layers
+        self.forward_transform = nn.Linear(input_size, output_size, bias=False)
+        self.cascade_transform = nn.Linear(output_size, output_size, bias=False)
+        
+        # Bidirectional flow components
+        self.top_down_gate = nn.Linear(output_size, output_size)
+        self.bottom_up_gate = nn.Linear(input_size, output_size)
+        
+        # Stage-specific normalization
+        self.layer_norm = nn.LayerNorm(output_size)
+        self.dropout = nn.Dropout(0.1)
+        
+        # Adaptive learning components
+        self.learning_rate_scheduler = AdaptiveLRScheduler(
+            initial_lr=0.01, stage=cascade_stage
+        )
+        self.optimizer = torch.optim.Adam(self.parameters(), 
+                                        lr=self.learning_rate_scheduler.get_lr())
+        
+        # Stage-specific goodness function
+        self.goodness_fn = self._get_stage_goodness_function()
+        
+    def _get_stage_goodness_function(self):
+        """Get stage-appropriate goodness function"""
+        if self.cascade_stage == 0:
+            # Low-level: Focus on local features
+            return lambda x: x.pow(2).sum(dim=1)
+        elif self.cascade_stage == 1:
+            # Mid-level: Focus on pattern diversity
+            return lambda x: x.pow(2).sum(dim=1) + 0.1 * self._diversity_measure(x)
+        else:
+            # High-level: Focus on semantic coherence
+            return lambda x: x.pow(2).sum(dim=1) + 0.2 * self._coherence_measure(x)
+    
+    def _diversity_measure(self, x: torch.Tensor) -> torch.Tensor:
+        """Measure activation diversity for mid-level features"""
+        # Calculate entropy of activation distribution
+        probs = F.softmax(x, dim=1)
+        entropy = -torch.sum(probs * torch.log(probs + 1e-8), dim=1)
+        return entropy
+    
+    def _coherence_measure(self, x: torch.Tensor) -> torch.Tensor:
+        """Measure semantic coherence for high-level features"""
+        # Calculate consistency across batch
+        batch_mean = x.mean(dim=0, keepdim=True)
+        coherence = -torch.sum((x - batch_mean).pow(2), dim=1)
+        return coherence
+    
+    def forward(self, x: torch.Tensor, 
+                top_down_signal: Optional[torch.Tensor] = None) -> torch.Tensor:
+        """Forward pass with optional top-down modulation"""
+        # Normalize input
+        x_norm = x / (x.norm(dim=1, keepdim=True) + 1e-4)
+        
+        # Main forward transformation
+        h = self.forward_transform(x_norm)
+        
+        # Apply top-down modulation if available
+        if top_down_signal is not None:
+            top_down_gate = torch.sigmoid(self.top_down_gate(top_down_signal))
+            h = h * top_down_gate
+        
+        # Cascade transformation
+        h = self.cascade_transform(h)
+        
+        # Normalization and activation
+        h = self.layer_norm(h)
+        h = torch.relu(h)
+        h = self.dropout(h)
+        
+        return h
+    
+    def compute_goodness(self, x: torch.Tensor) -> torch.Tensor:
+        """Compute stage-specific goodness"""
+        return self.goodness_fn(x)
+    
+    def train_step(self, positive_data: torch.Tensor, 
+                   negative_data: torch.Tensor,
+                   top_down_signal: Optional[torch.Tensor] = None) -> Dict[str, float]:
+        """Single training step with cascade-aware updates"""
+        self.optimizer.zero_grad()
+        
+        # Forward pass for positive and negative data
+        pos_activations = self.forward(positive_data, top_down_signal)
+        neg_activations = self.forward(negative_data, top_down_signal)
+        
+        # Compute goodness
+        pos_goodness = self.compute_goodness(pos_activations)
+        neg_goodness = self.compute_goodness(neg_activations)
+        
+        # CaFo loss with stage-specific weighting
+        stage_weight = 1.0 + 0.1 * self.cascade_stage
+        logits = (pos_goodness - neg_goodness - self.threshold) * stage_weight
+        cafo_loss = -torch.log(torch.sigmoid(logits) + 1e-8).mean()
+        
+        # Additional regularization terms
+        cascade_reg = self._cascade_regularization()
+        total_loss = cafo_loss + cascade_reg
+        
+        # Backward pass
+        total_loss.backward()
+        torch.nn.utils.clip_grad_norm_(self.parameters(), max_norm=1.0)
+        self.optimizer.step()
+        
+        # Update learning rate
+        self.learning_rate_scheduler.step(cafo_loss.item())
+        
+        return {
+            'cafo_loss': cafo_loss.item(),
+            'cascade_reg': cascade_reg.item(),
+            'pos_goodness': pos_goodness.mean().item(),
+            'neg_goodness': neg_goodness.mean().item(),
+            'learning_rate': self.learning_rate_scheduler.get_lr()
+        }
+    
+    def _cascade_regularization(self) -> torch.Tensor:
+        """Stage-specific regularization terms"""
+        # Weight decay
+        weight_decay = 0.01 * sum(p.pow(2).sum() for p in self.parameters())
+        
+        # Stage-specific regularization
+        if self.cascade_stage > 0:
+            # Encourage smooth transitions between stages
+            cascade_smooth = 0.001 * self.cascade_transform.weight.pow(2).sum()
+            return weight_decay + cascade_smooth
+        
+        return weight_decay
+
+class AdaptiveLRScheduler:
+    """Adaptive learning rate scheduler for cascade stages"""
+    
+    def __init__(self, initial_lr: float = 0.01, stage: int = 0):
+        self.initial_lr = initial_lr
+        self.stage = stage
+        self.current_lr = initial_lr * (0.8 ** stage)  # Decay for higher stages
+        self.loss_history = []
+        self.patience = 10
+        self.factor = 0.8
+        self.min_lr = 1e-6
+        
+    def step(self, loss: float):
+        """Update learning rate based on loss"""
+        self.loss_history.append(loss)
+        
+        if len(self.loss_history) > self.patience:
+            recent_losses = self.loss_history[-self.patience:]
+            if all(recent_losses[i] >= recent_losses[i-1] 
+                   for i in range(1, len(recent_losses))):
+                # Loss is not decreasing, reduce learning rate
+                self.current_lr = max(self.current_lr * self.factor, self.min_lr)
+                self.loss_history = []  # Reset history
+    
+    def get_lr(self) -> float:
+        return self.current_lr
+
+class CaFoNetwork(nn.Module):
+    """
+    Complete Cascaded Forward-Forward Network
+    """
+    def __init__(self, layer_configs: List[Dict], cascade_stages: int = 3):
+        super().__init__()
+        self.cascade_stages = cascade_stages
+        self.layers_per_stage = len(layer_configs) // cascade_stages
+        
+        # Build cascade stages
+        self.stages = nn.ModuleList()
+        for stage in range(cascade_stages):
+            stage_layers = nn.ModuleList()
+            start_idx = stage * self.layers_per_stage
+            end_idx = start_idx + self.layers_per_stage
+            
+            for i in range(start_idx, min(end_idx, len(layer_configs))):
+                config = layer_configs[i]
+                layer = CaFoLayer(
+                    input_size=config['input_size'],
+                    output_size=config['output_size'],
+                    cascade_stage=stage,
+                    threshold=config.get('threshold', 2.0)
+                )
+                stage_layers.append(layer)
+            
+            self.stages.append(stage_layers)
+        
+        # Cross-stage connections
+        self.cross_stage_connections = self._build_cross_connections()
+        
+    def _build_cross_connections(self):
+        """Build connections between cascade stages"""
+        connections = nn.ModuleDict()
+        
+        for stage in range(1, self.cascade_stages):
+            # Top-down connections
+            prev_stage_size = self.stages[stage-1][-1].output_size
+            curr_stage_size = self.stages[stage][0].input_size
+            
+            connections[f'top_down_{stage}'] = nn.Linear(
+                prev_stage_size, curr_stage_size
+            )
+            
+            # Bottom-up feedback
+            connections[f'bottom_up_{stage}'] = nn.Linear(
+                curr_stage_size, prev_stage_size
+            )
+        
+        return connections
+    
+    def forward(self, x: torch.Tensor) -> List[torch.Tensor]:
+        """Forward pass through all cascade stages"""
+        stage_outputs = []
+        current_input = x
+        
+        for stage_idx, stage_layers in enumerate(self.stages):
+            stage_activations = []
+            
+            # Get top-down signal if not first stage
+            top_down_signal = None
+            if stage_idx > 0 and len(stage_outputs) > 0:
+                prev_output = stage_outputs[-1][-1]  # Last layer of previous stage
+                top_down_signal = self.cross_stage_connections[
+                    f'top_down_{stage_idx}'
+                ](prev_output)
+            
+            # Process through stage layers
+            layer_input = current_input
+            for layer in stage_layers:
+                layer_output = layer(layer_input, top_down_signal)
+                stage_activations.append(layer_output)
+                layer_input = layer_output
+            
+            stage_outputs.append(stage_activations)
+            current_input = stage_activations[-1]  # Output of last layer in stage
+        
+        return stage_outputs
+    
+    def train_cascade(self, positive_data: torch.Tensor, 
+                     negative_data: torch.Tensor) -> List[List[Dict[str, float]]]:
+        """Train all cascade stages with coordinated updates"""
+        all_losses = []
+        
+        # Forward pass to get all activations
+        pos_stage_outputs = self.forward(positive_data)
+        neg_stage_outputs = self.forward(negative_data)
+        
+        # Train each stage
+        for stage_idx, stage_layers in enumerate(self.stages):
+            stage_losses = []
+            
+            # Get stage inputs
+            if stage_idx == 0:
+                pos_stage_input = positive_data
+                neg_stage_input = negative_data
+            else:
+                pos_stage_input = pos_stage_outputs[stage_idx-1][-1].detach()
+                neg_stage_input = neg_stage_outputs[stage_idx-1][-1].detach()
+            
+            # Get top-down signal
+            top_down_signal = None
+            if stage_idx > 0:
+                prev_output = pos_stage_outputs[stage_idx-1][-1]
+                top_down_signal = self.cross_stage_connections[
+                    f'top_down_{stage_idx}'
+                ](prev_output).detach()
+            
+            # Train each layer in the stage
+            layer_pos_input = pos_stage_input
+            layer_neg_input = neg_stage_input
+            
+            for layer in stage_layers:
+                # Train current layer
+                layer_stats = layer.train_step(
+                    layer_pos_input, layer_neg_input, top_down_signal
+                )
+                stage_losses.append(layer_stats)
+                
+                # Update inputs for next layer
+                with torch.no_grad():
+                    layer_pos_input = layer(layer_pos_input, top_down_signal)
+                    layer_neg_input = layer(layer_neg_input, top_down_signal)
+            
+            all_losses.append(stage_losses)
+        
+        return all_losses
+                        </code></pre>
+                    </div>
+
+                    <h3>Advanced Negative Sample Generation</h3>
+                    <div class="code-block">
+                        <pre><code class="language-python">
+class CaFoNegativeSampler:
+    """
+    Advanced negative sample generation for CaFo training
+    """
+    def __init__(self, cascade_stages: int = 3):
+        self.cascade_stages = cascade_stages
+        self.stage_strategies = {
+            0: ['noise', 'shuffle'],           # Low-level: structural corruption
+            1: ['hybrid', 'adversarial'],      # Mid-level: pattern mixing
+            2: ['semantic', 'contrastive']     # High-level: semantic negatives
+        }
+        
+    def generate_negatives(self, positive_data: torch.Tensor, 
+                          stage: int, method: str = 'auto') -> torch.Tensor:
+        """Generate stage-appropriate negative samples"""
+        if method == 'auto':
+            method = self._select_method(stage)
+        
+        if method == 'noise':
+            return self._noise_corruption(positive_data, stage)
+        elif method == 'shuffle':
+            return self._shuffle_corruption(positive_data, stage)
+        elif method == 'hybrid':
+            return self._hybrid_mixing(positive_data)
+        elif method == 'adversarial':
+            return self._adversarial_generation(positive_data, stage)
+        elif method == 'semantic':
+            return self._semantic_negatives(positive_data)
+        elif method == 'contrastive':
+            return self._contrastive_negatives(positive_data)
+        else:
+            raise ValueError(f"Unknown negative sampling method: {method}")
+    
+    def _select_method(self, stage: int) -> str:
+        """Automatically select appropriate method for stage"""
+        available_methods = self.stage_strategies.get(stage, ['hybrid'])
+        return torch.randint(0, len(available_methods), (1,)).item()
+        return available_methods[idx]
+    
+    def _noise_corruption(self, data: torch.Tensor, stage: int) -> torch.Tensor:
+        """Add stage-appropriate noise corruption"""
+        noise_scale = 0.1 * (1 + 0.2 * stage)  # More noise for higher stages
+        noise = torch.randn_like(data) * noise_scale
+        return data + noise
+    
+    def _shuffle_corruption(self, data: torch.Tensor, stage: int) -> torch.Tensor:
+        """Shuffle features with stage-appropriate granularity"""
+        corrupted = data.clone()
+        batch_size, feature_dim = data.shape
+        
+        # Determine shuffle granularity based on stage
+        if stage == 0:
+            # Fine-grained shuffling for low-level features
+            shuffle_size = feature_dim // 10
+        elif stage == 1:
+            # Medium-grained shuffling for mid-level patterns
+            shuffle_size = feature_dim // 5
+        else:
+            # Coarse-grained shuffling for high-level concepts
+            shuffle_size = feature_dim // 2
+        
+        for i in range(batch_size):
+            for start in range(0, feature_dim, shuffle_size):
+                end = min(start + shuffle_size, feature_dim)
+                indices = torch.randperm(end - start) + start
+                corrupted[i, start:end] = corrupted[i, indices]
+        
+        return corrupted
+    
+    def _hybrid_mixing(self, data: torch.Tensor) -> torch.Tensor:
+        """Create hybrid samples by mixing different examples"""
+        batch_size = data.size(0)
+        indices = torch.randperm(batch_size)
+        
+        # Random mixing weights
+        alpha = torch.rand(batch_size, 1)
+        mixed_data = alpha * data + (1 - alpha) * data[indices]
+        
+        return mixed_data
+    
+    def _adversarial_generation(self, data: torch.Tensor, stage: int) -> torch.Tensor:
+        """Generate adversarial negatives using gradient-based perturbations"""
+        data_adv = data.clone().detach().requires_grad_(True)
+        
+        # Simple adversarial perturbation
+        # In practice, this would use a trained discriminator
+        perturbation = torch.randn_like(data_adv) * 0.01
+        data_adv = data_adv + perturbation
+        
+        return data_adv.detach()
+    
+    def _semantic_negatives(self, data: torch.Tensor) -> torch.Tensor:
+        """Generate semantically meaningful negative samples"""
+        # This is a simplified version - in practice, would use
+        # learned semantic representations or external knowledge
+        batch_size, feature_dim = data.shape
+        
+        # Create semantic opposites by inverting high-activation features
+        threshold = data.mean(dim=1, keepdim=True)
+        mask = (data > threshold).float()
+        
+        # Invert high-activation features
+        semantic_negatives = data * (1 - mask) + (1 - data) * mask
+        
+        return semantic_negatives
+    
+    def _contrastive_negatives(self, data: torch.Tensor) -> torch.Tensor:
+        """Generate contrastive negatives for representation learning"""
+        batch_size = data.size(0)
+        
+        # Create contrastive pairs by selecting dissimilar samples
+        distances = torch.cdist(data, data)
+        
+        # For each sample, find the most dissimilar sample
+        _, dissimilar_indices = distances.max(dim=1)
+        contrastive_negatives = data[dissimilar_indices]
+        
+        return contrastive_negatives
+
+# Usage example
+def train_cafo_network():
+    """Complete training example for CaFo network"""
+    
+    # Network configuration
+    layer_configs = [
+        {'input_size': 784, 'output_size': 512, 'threshold': 2.0},
+        {'input_size': 512, 'output_size': 256, 'threshold': 2.2},
+        {'input_size': 256, 'output_size': 128, 'threshold': 2.4},
+        {'input_size': 128, 'output_size': 64, 'threshold': 2.6},
+        {'input_size': 64, 'output_size': 32, 'threshold': 2.8},
+        {'input_size': 32, 'output_size': 10, 'threshold': 3.0},
+    ]
+    
+    # Create network and negative sampler
+    network = CaFoNetwork(layer_configs, cascade_stages=3)
+    neg_sampler = CaFoNegativeSampler(cascade_stages=3)
+    
+    # Training loop
+    for epoch in range(100):
+        epoch_losses = []
+        
+        for batch_idx, (data, targets) in enumerate(train_loader):
+            # Flatten input data
+            data = data.view(data.size(0), -1)
+            
+            # Generate stage-appropriate negative samples
+            negative_samples = []
+            for stage in range(3):
+                neg_data = neg_sampler.generate_negatives(data, stage)
+                negative_samples.append(neg_data)
+            
+            # Train network with cascade-aware negatives
+            # For simplicity, using the same negatives for all stages
+            # In practice, you'd use stage-specific negatives
+            losses = network.train_cascade(data, negative_samples[0])
+            epoch_losses.append(losses)
+            
+            if batch_idx % 100 == 0:
+                print(f'Epoch {epoch}, Batch {batch_idx}')
+                for stage_idx, stage_losses in enumerate(losses):
+                    avg_loss = sum(l['cafo_loss'] for l in stage_losses) / len(stage_losses)
+                    print(f'  Stage {stage_idx}: Avg Loss = {avg_loss:.4f}')
+        
+        # Evaluate performance periodically
+        if epoch % 10 == 0:
+            accuracy = evaluate_cafo_network(network, test_loader)
+            print(f'Epoch {epoch}: Test Accuracy = {accuracy:.2f}%')
+
+def evaluate_cafo_network(network: CaFoNetwork, test_loader) -> float:
+    """Evaluate CaFo network performance"""
+    correct = 0
+    total = 0
+    
+    with torch.no_grad():
+        for data, targets in test_loader:
+            data = data.view(data.size(0), -1)
+            
+            # Get final stage outputs
+            stage_outputs = network.forward(data)
