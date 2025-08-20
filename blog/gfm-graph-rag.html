@@ -1,22 +1,42 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>GFM Graph RAG vs Neo4j GraphRAG &amp; Knowlege Graph Creation and Retrieval</title>
-<link href="../style.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
-<style>
-.comparison-table{width:100%;border-collapse:collapse;margin:1rem 0}
-.comparison-table th,.comparison-table td{border:1px solid #e5e7eb;padding:.75rem;vertical-align:top}
-.comparison-table th{background:#f8fafc;text-align:left}
-.table-responsive{overflow-x:auto}
-</style>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>GFM Graph RAG vs Neo4j GraphRAG &amp; Knowlege Graph Creation and Retrieval</title>
+    <link href="../style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #e5e7eb;
+            padding: .75rem;
+            vertical-align: top
+        }
+
+        .comparison-table th {
+            background: #f8fafc;
+            text-align: left
+        }
+
+        .table-responsive {
+            overflow-x: auto
+        }
+    </style>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar">
@@ -32,127 +52,142 @@
             </div>
         </div>
     </nav>
-</header>
-<main class="content">
-<section class="blog-hero">
-<div class="blog-meta">
-<span class="badge">RAG &amp; Knowledge Graphs</span>
-<span class="blog-date"> August 2025</span>
-</div>
-<h1 class="blog-title">GFM Graph RAG vs Neo4j GraphRAG</h1>
-<p class="blog-subtitle">Comparing knowledge graph creation &amp; retrieval technologies (architecture, features, and trade-offs)</p>
-</section>
+    </header>
+    <main class="content">
+        <section class="blog-hero">
+            <div class="blog-meta">
+                <span class="badge">RAG &amp; Knowledge Graphs</span>
+                <span class="blog-date"> August 2025</span>
+            </div>
+            <h1 class="blog-title">GFM Graph RAG vs Neo4j GraphRAG</h1>
+            <p class="blog-subtitle">Comparing knowledge graph creation &amp; retrieval technologies (architecture,
+                features, and trade-offs)</p>
+        </section>
 
-<section class="article-content">
-  <h2>Why compare these two?</h2>
-  <p>
-    <strong>GFM-RAG</strong> (Graph Foundation Model for RAG) proposes a pre-trained graph-aware retriever
-    that <em>reasons over knowledge graphs</em>, aiming for strong zero-shot retrieval on unseen graphs.
-    <strong>Neo4j GraphRAG</strong> is an <em>ecosystem</em> (database + Python SDK) for building end-to-end GraphRAG
-    pipelines—document → KG construction → multi-strategy retrieval → generation.
-  </p>
+        <section class="blog-content">
+            <div class="container">
+                <article class="blog-article">
+                    <section class="article-content">
+                        <h2>Why compare these two?</h2>
+                        <p>
+                            <strong>GFM-RAG</strong> (Graph Foundation Model for RAG) proposes a pre-trained graph-aware
+                            retriever
+                            that <em>reasons over knowledge graphs</em>, aiming for strong zero-shot retrieval on unseen
+                            graphs.
+                            <strong>Neo4j GraphRAG</strong> is an <em>ecosystem</em> (database + Python SDK) for
+                            building end-to-end GraphRAG
+                            pipelines—document → KG construction → multi-strategy retrieval → generation.
+                        </p>
 
-  <h2>At a glance</h2>
-  <div class="cloud-comparison">
-    <div class="cloud-option">
-      <h4>GFM-RAG</h4>
-      <ul>
-        <li>Pre-trained ~8M-parameter GNN backbone (<code>GFMRetriever</code>)</li>
-        <li>Focus: retrieval quality &amp; generalization</li>
-        <li>Input: a KG index (triples + doc links)</li>
-        <li>Output: ranked nodes/edges/docs for your LLM</li>
-        <li>Packaging: pip/Docs + code on GitHub</li>
-      </ul>
-    </div>
-    <div class="cloud-option">
-      <h4>Neo4j GraphRAG</h4>
-      <ul>
-        <li>Graph DB + first-party Python library</li>
-        <li>Focus: data ingestion, KG ops, retrievers, production</li>
-        <li>Input: unstructured docs; builds/stores KG in Neo4j</li>
-        <li>Output: local/global/community-aware retrieval</li>
-        <li>Packaging: Neo4j + python package &amp; examples</li>
-      </ul>
-    </div>
-  </div>
+                        <h2>At a glance</h2>
+                        <div class="cloud-comparison">
+                            <div class="cloud-option">
+                                <h4>GFM-RAG</h4>
+                                <ul>
+                                    <li>Pre-trained ~8M-parameter GNN backbone (<code>GFMRetriever</code>)</li>
+                                    <li>Focus: retrieval quality &amp; generalization</li>
+                                    <li>Input: a KG index (triples + doc links)</li>
+                                    <li>Output: ranked nodes/edges/docs for your LLM</li>
+                                    <li>Packaging: pip/Docs + code on GitHub</li>
+                                </ul>
+                            </div>
+                            <div class="cloud-option">
+                                <h4>Neo4j GraphRAG</h4>
+                                <ul>
+                                    <li>Graph DB + first-party Python library</li>
+                                    <li>Focus: data ingestion, KG ops, retrievers, production</li>
+                                    <li>Input: unstructured docs; builds/stores KG in Neo4j</li>
+                                    <li>Output: local/global/community-aware retrieval</li>
+                                    <li>Packaging: Neo4j + python package &amp; examples</li>
+                                </ul>
+                            </div>
+                        </div>
 
-  <h2>Feature comparison</h2>
-  <div class="table-responsive">
-    <table class="comparison-table">
-      <thead>
-        <tr>
-          <th>Dimension</th>
-          <th>GFM-RAG</th>
-          <th>Neo4j GraphRAG</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Primary value</td>
-          <td>Pre-trained GNN retriever that reasons over KGs</td>
-          <td>Complete GraphRAG stack on a production graph database</td>
-        </tr>
-        <tr>
-          <td>KG construction</td>
-          <td>Requires a KG index; supports building from docs in repo</td>
-          <td>Built-in doc→KG pipelines (entities/relations, summaries, communities)</td>
-        </tr>
-        <tr>
-          <td>Retrieval modes</td>
-          <td>Model-driven graph-aware retrieval (<code>GFMRetriever</code>)</td>
-          <td>Local, global, community, traversal-based retrievers</td>
-        </tr>
-        <tr>
-          <td>Zero-/few-shot</td>
-          <td>Zero-shot across unseen datasets</td>
-          <td>Recipe-driven; quality depends on KG setup &amp; retriever config</td>
-        </tr>
-        <tr>
-          <td>Store/infra</td>
-          <td>Any store for the KG index; lightweight</td>
-          <td>Neo4j DB (cloud or self-hosted); rich ops &amp; tooling</td>
-        </tr>
-        <tr>
-          <td>Scale &amp; ops</td>
-          <td>Simple; swap-in retriever</td>
-          <td>Enterprise features (ACID, security, monitoring, Cypher)</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+                        <h2>Feature comparison</h2>
+                        <div class="table-responsive">
+                            <table class="comparison-table">
+                                <thead>
+                                    <tr>
+                                        <th>Dimension</th>
+                                        <th>GFM-RAG</th>
+                                        <th>Neo4j GraphRAG</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Primary value</td>
+                                        <td>Pre-trained GNN retriever that reasons over KGs</td>
+                                        <td>Complete GraphRAG stack on a production graph database</td>
+                                    </tr>
+                                    <tr>
+                                        <td>KG construction</td>
+                                        <td>Requires a KG index; supports building from docs in repo</td>
+                                        <td>Built-in doc→KG pipelines (entities/relations, summaries, communities)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Retrieval modes</td>
+                                        <td>Model-driven graph-aware retrieval (<code>GFMRetriever</code>)</td>
+                                        <td>Local, global, community, traversal-based retrievers</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Zero-/few-shot</td>
+                                        <td>Zero-shot across unseen datasets</td>
+                                        <td>Recipe-driven; quality depends on KG setup &amp; retriever config</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Store/infra</td>
+                                        <td>Any store for the KG index; lightweight</td>
+                                        <td>Neo4j DB (cloud or self-hosted); rich ops &amp; tooling</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Scale &amp; ops</td>
+                                        <td>Simple; swap-in retriever</td>
+                                        <td>Enterprise features (ACID, security, monitoring, Cypher)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-  <h2>Architectural patterns</h2>
-  <h3>GFM-RAG workflow</h3>
-  <ol>
-    <li>Build/ingest a <em>KG index</em> (triples linked back to source docs).</li>
-    <li>Use the <code>GFMRetriever</code> (e.g., <code>model_path: rmanluo/GFM-RAG-8M</code>) to score/query the graph.</li>
-    <li>Retrieve nodes/edges/docs; pass compact contexts to the LLM for generation.</li>
-  </ol>
+                        <h2>Architectural patterns</h2>
+                        <h3>GFM-RAG workflow</h3>
+                        <ol>
+                            <li>Build/ingest a <em>KG index</em> (triples linked back to source docs).</li>
+                            <li>Use the <code>GFMRetriever</code> (e.g., <code>model_path: rmanluo/GFM-RAG-8M</code>) to
+                                score/query the graph.</li>
+                            <li>Retrieve nodes/edges/docs; pass compact contexts to the LLM for generation.</li>
+                        </ol>
 
-  <h3>Neo4j GraphRAG workflow</h3>
-  <ol>
-    <li>Ingest raw docs; extract entities/relations; create summaries &amp; communities in Neo4j.</li>
-    <li>Choose retriever(s): local (neighborhood), global (graph-wide), or community-aware.</li>
-    <li>Ground LLM prompts with retrieved subgraphs and summaries; iterate with Cypher.</li>
-  </ol>
+                        <h3>Neo4j GraphRAG workflow</h3>
+                        <ol>
+                            <li>Ingest raw docs; extract entities/relations; create summaries &amp; communities in
+                                Neo4j.</li>
+                            <li>Choose retriever(s): local (neighborhood), global (graph-wide), or community-aware.</li>
+                            <li>Ground LLM prompts with retrieved subgraphs and summaries; iterate with Cypher.</li>
+                        </ol>
 
-  <h2>When to pick which</h2>
-  <ul>
-    <li><strong>Pick GFM-RAG</strong> if you already have or can build a KG and you want a strong, pre-trained graph-aware retriever with minimal ops.</li>
-    <li><strong>Pick Neo4j GraphRAG</strong> if you need a full pipeline (doc→KG→retrieval→ops) on a battle-tested graph database with production tooling.</li>
-    <li><strong>Use both</strong>: construct and serve the KG in Neo4j, export triples, and plug in <code>GFMRetriever</code> for retrieval experiments.</li>
-  </ul>
+                        <h2>When to pick which</h2>
+                        <ul>
+                            <li><strong>Pick GFM-RAG</strong> if you already have or can build a KG and you want a
+                                strong, pre-trained graph-aware retriever with minimal ops.</li>
+                            <li><strong>Pick Neo4j GraphRAG</strong> if you need a full pipeline (doc→KG→retrieval→ops)
+                                on a battle-tested graph database with production tooling.</li>
+                            <li><strong>Use both</strong>: construct and serve the KG in Neo4j, export triples, and plug
+                                in <code>GFMRetriever</code> for retrieval experiments.</li>
+                        </ul>
 
-  <h2>Setup snippets</h2>
-  <div class="code-block"><pre><code># GFM-RAG (Python)
+                        <h2>Setup snippets</h2>
+                        <div class="code-block">
+                            <pre><code># GFM-RAG (Python)
 pip install gfmrag
 
 # Minimal config (YAML)
 graph_retriever:
   model_path: rmanluo/GFM-RAG-8M
-  </code></pre></div>
+  </code></pre>
+                        </div>
 
-  <div class="code-block"><pre><code># Neo4j GraphRAG (Python)
+                        <div class="code-block">
+                            <pre><code># Neo4j GraphRAG (Python)
 pip install neo4j-graphrag
 
 # Quick retrieval (pseudo)
@@ -162,24 +197,34 @@ gr = GraphRAG(uri, auth, database="neo4j")
 gr.ingest(path="docs/")        # build KG (entities, relations, summaries)
 ans = gr.ask("What caused the outage?")  # mixes local/global/community retrievers
 print(ans.text)
-  </code></pre></div>
+  </code></pre>
+                        </div>
 
-  <h2>Practical notes</h2>
-  <ul>
-    <li><strong>Data quality matters:</strong> both approaches depend on clean entity/relationship extraction and doc↔node traceability.</li>
-    <li><strong>Latency:</strong> GFM-RAG adds a model scoring step; Neo4j adds graph traversal &amp; DB hops—profile both.</li>
-    <li><strong>Governance:</strong> Neo4j eases auditing/lineage with Cypher queries; for GFM-RAG, keep a persistent triple store with sources.</li>
-  </ul>
+                        <h2>Practical notes</h2>
+                        <ul>
+                            <li><strong>Data quality matters:</strong> both approaches depend on clean
+                                entity/relationship extraction and doc↔node traceability.</li>
+                            <li><strong>Latency:</strong> GFM-RAG adds a model scoring step; Neo4j adds graph traversal
+                                &amp; DB hops—profile both.</li>
+                            <li><strong>Governance:</strong> Neo4j eases auditing/lineage with Cypher queries; for
+                                GFM-RAG, keep a persistent triple store with sources.</li>
+                        </ul>
 
-  <h2>References</h2>
-  <ol>
-    <li><a href="https://arxiv.org/abs/2502.01113" target="_blank" rel="noopener">GFM-RAG: Graph Foundation Model for RAG (arXiv)</a></li>
-    <li><a href="https://github.com/RManLuo/gfm-rag" target="_blank" rel="noopener">GFM-RAG (GitHub)</a></li>
-    <li><a href="https://neo4j.com/blog/genai/what-is-graphrag/" target="_blank" rel="noopener">What is GraphRAG? (Neo4j)</a></li>
-    <li><a href="https://github.com/neo4j/neo4j-graphrag-python" target="_blank" rel="noopener">neo4j-graphrag-python (GitHub)</a></li>
-  </ol>
-</section>
-</main>
+                        <h2>References</h2>
+                        <ol>
+                            <li><a href="https://arxiv.org/abs/2502.01113" target="_blank" rel="noopener">GFM-RAG: Graph
+                                    Foundation Model for RAG (arXiv)</a></li>
+                            <li><a href="https://github.com/RManLuo/gfm-rag" target="_blank" rel="noopener">GFM-RAG
+                                    (GitHub)</a></li>
+                            <li><a href="https://neo4j.com/blog/genai/what-is-graphrag/" target="_blank"
+                                    rel="noopener">What is GraphRAG? (Neo4j)</a></li>
+                            <li><a href="https://github.com/neo4j/neo4j-graphrag-python" target="_blank"
+                                    rel="noopener">neo4j-graphrag-python (GitHub)</a></li>
+                        </ol>
+                </article>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -187,7 +232,8 @@ print(ans.text)
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Gurpreet Gandhi</h3>
-                    <p>Senior Software Architect specializing in enterprise-grade solutions and innovative technology implementations.</p>
+                    <p>Senior Software Architect specializing in enterprise-grade solutions and innovative technology
+                        implementations.</p>
                 </div>
                 <div class="footer-section">
                     <h4>Quick Links</h4>
@@ -215,4 +261,5 @@ print(ans.text)
 
     <script src="../script.js"></script>
 </body>
+
 </html>
