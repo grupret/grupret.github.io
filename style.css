@@ -64,6 +64,25 @@ body {
     font-weight: 500;
 }
 
+/* VP Domain Tags in nav */
+.vp-domains {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    margin-top: 3px;
+}
+.vp-domain-tag {
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    background: rgba(99, 102, 241, 0.1);
+    color: #6366f1;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
 .nav-menu {
     display: flex;
     gap: 2rem;
