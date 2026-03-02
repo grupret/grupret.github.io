@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Career Platform</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+<!-- ── Login Screen ── -->
+<div id="login-screen" class="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-avatar">GG</div>
+      <h1>Career Platform</h1>
+      <p>Admin Access</p>
+    </div>
+    <form id="login-form" onsubmit="adminLogin(event)">
+      <div class="form-group">
+        <label for="password-input">Password</label>
+        <input type="password" id="password-input" placeholder="Enter admin password" autocomplete="current-password" required />
+      </div>
+      <button type="submit" class="btn btn-primary btn-full" id="login-btn">
+        <span class="btn-text">Sign In</span>
+      </button>
+      <div id="login-error" class="login-error hidden"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ── Admin Shell ── -->
+<div id="admin-shell" class="admin-shell hidden">
+
+  <!-- Sidebar -->
+  <nav class="admin-sidebar" id="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">GG</div>
+      <div class="sidebar-title">
+        <span class="sidebar-name">Career Platform</span>
+        <span class="sidebar-role">Admin</span>
+      </div>
+      <button class="sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()">&#9776;</button>
+    </div>
+
+    <div class="sidebar-nav">
+      <a href="#dashboard"   class="nav-item active" data-section="dashboard">
+        <span class="nav-icon">&#128200;</span><span class="nav-label">Dashboard</span>
+      </a>
+      <a href="#jobs"        class="nav-item" data-section="jobs">
+        <span class="nav-icon">&#128188;</span><span class="nav-label">Job Hunt</span>
+        <span class="nav-badge" id="jobs-badge">0</span>
+      </a>
+      <a href="#posts"       class="nav-item" data-section="posts">
+        <span class="nav-icon">&#128221;</span><span class="nav-label">Posts</span>
+      </a>
+      <a href="#learning"    class="nav-item" data-section="learning">
+        <span class="nav-icon">&#127979;</span><span class="nav-label">Learning</span>
+      </a>
+      <a href="#seo"         class="nav-item" data-section="seo">
+        <span class="nav-icon">&#128269;</span><span class="nav-label">SEO</span>
+      </a>
+      <a href="#exclusions"  class="nav-item" data-section="exclusions">
+        <span class="nav-icon">&#128683;</span><span class="nav-label">Exclusions</span>
+      </a>
+      <a href="#apikeys"     class="nav-item" data-section="apikeys">
+        <span class="nav-icon">&#128273;</span><span class="nav-label">API Keys</span>
+      </a>
+      <a href="#crons"       class="nav-item" data-section="crons">
+        <span class="nav-icon">&#9201;</span><span class="nav-label">Cron Status</span>
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      <a href="index.html" class="nav-item" target="_blank">
+        <span class="nav-icon">&#127758;</span><span class="nav-label">View Site</span>
+      </a>
+      <button class="nav-item btn-logout" onclick="adminLogout()">
+        <span class="nav-icon">&#128682;</span><span class="nav-label">Logout</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="admin-main" id="admin-main">
+
+    <!-- Top Bar -->
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <h2 class="page-title" id="page-title">Dashboard</h2>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-status" id="topbar-status">
+          <span class="status-dot online"></span>
+          <span>Backend Online</span>
+        </div>
+        <div class="topbar-time" id="topbar-time"></div>
+      </div>
+    </header>
+
+    <!-- ────────────────────────────────────────────────────── Dashboard -->
+    <section class="admin-section active" id="section-dashboard">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">New Jobs</div>
+          <div class="stat-value" id="dash-jobs-new">—</div>
+          <div class="stat-sub">awaiting review</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Applications Sent</div>
+          <div class="stat-value" id="dash-apps-sent">—</div>
+          <div class="stat-sub">this week</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Learning Streak</div>
+          <div class="stat-value" id="dash-streak">—</div>
+          <div class="stat-sub">days in a row</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">GitHub Repos</div>
+          <div class="stat-value" id="dash-repos">—</div>
+          <div class="stat-sub">public repos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">LeetCode Solved</div>
+          <div class="stat-value" id="dash-leet">—</div>
+          <div class="stat-sub">total problems</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">LinkedIn Posts</div>
+          <div class="stat-value" id="dash-posts">—</div>
+          <div class="stat-sub">published</div>
+        </div>
+      </div>
+
+      <div class="dash-grid">
+        <!-- Market Snapshot -->
+        <div class="admin-card">
+          <div class="card-header">
+            <h3>Market Snapshot</h3>
+            <button class="btn btn-sm" onclick="Admin.refreshMarket()">Refresh</button>
+          </div>
+          <div id="dash-market" class="market-snapshot">
+            <div class="loading-text">Loading market data…</div>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="admin-card">
+          <div class="card-header">
+            <h3>Quick Actions</h3>
+          </div>
+          <div class="quick-actions">
+            <button class="qa-btn" onclick="Admin.triggerJobSearch()">
+              <span class="qa-icon">&#128269;</span>
+              <span>Scrape LinkedIn Jobs</span>
+            </button>
+            <button class="qa-btn" onclick="Admin.refreshStats()">
+              <span class="qa-icon">&#128260;</span>
+              <span>Refresh GitHub + LeetCode</span>
+            </button>
+            <button class="qa-btn" onclick="Admin.showSection('posts')">
+              <span class="qa-icon">&#128221;</span>
+              <span>Compose New Post</span>
+            </button>
+            <button class="qa-btn" onclick="Admin.recordStreak()">
+              <span class="qa-icon">&#128293;</span>
+              <span>Record Today's Streak</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────────────────────────────────────────────────────── Jobs -->
+    <section class="admin-section hidden" id="section-jobs">
+      <div class="section-toolbar">
+        <div class="toolbar-left">
+          <select id="job-filter-status" onchange="Admin.loadJobs()">
+            <option value="">All Statuses</option>
+            <option value="new" selected>New</option>
+            <option value="reviewing">Reviewing</option>
+            <option value="applied">Applied</option>
+            <option value="skipped">Skipped</option>
+          </select>
+          <input type="number" id="job-filter-score" placeholder="Min score (0-100)" min="0" max="100" style="width:160px" onchange="Admin.loadJobs()" />
+          <input type="text" id="job-filter-search" placeholder="Search title / company…" oninput="Admin.loadJobs()" />
+        </div>
+        <div class="toolbar-right">
+          <button class="btn btn-primary" onclick="Admin.triggerJobSearch()">
+            &#128269; Scrape Jobs Now
+          </button>
+        </div>
+      </div>
+
+      <div id="jobs-list" class="jobs-list">
+        <div class="loading-text">Loading jobs…</div>
+      </div>
+
+      <!-- Job Detail Modal -->
+      <div class="modal hidden" id="job-modal">
+        <div class="modal-overlay" onclick="Admin.closeJobModal()"></div>
+        <div class="modal-card modal-lg">
+          <div class="modal-header">
+            <h3 id="job-modal-title">Job Details</h3>
+            <button class="modal-close" onclick="Admin.closeJobModal()">&#10005;</button>
+          </div>
+          <div class="modal-body" id="job-modal-body"></div>
+          <div class="modal-footer">
+            <button class="btn btn-danger" id="job-skip-btn" onclick="Admin.skipJob()">Skip</button>
+            <button class="btn btn-secondary" id="job-generate-btn" onclick="Admin.generateResume()">
+              Generate Resume + Cover Letter
+            </button>
+            <button class="btn btn-primary" id="job-apply-btn" onclick="Admin.applyJob()">Apply</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────────────────────────────────────────────────────── Posts -->
+    <section class="admin-section hidden" id="section-posts">
+      <div class="posts-layout">
+        <!-- Composer -->
+        <div class="admin-card post-composer">
+          <div class="card-header">
+            <h3 id="post-composer-title">New Post</h3>
+            <button class="btn btn-sm" onclick="Admin.resetPostForm()">Clear</button>
+          </div>
+          <input type="hidden" id="post-edit-id" value="" />
+          <div class="form-group">
+            <label>Title</label>
+            <input type="text" id="post-title" placeholder="Post title…" />
+          </div>
+          <div class="form-group">
+            <label>Content</label>
+            <textarea id="post-content" rows="10" placeholder="Write your post here…
+
+Use line breaks for readability.
+Add #hashtags for LinkedIn."></textarea>
+          </div>
+          <div class="form-group">
+            <label>LinkedIn Post References <span class="label-hint">(paste LinkedIn post URLs)</span></label>
+            <div id="post-refs-list" class="tags-list"></div>
+            <div class="input-row">
+              <input type="text" id="post-ref-input" placeholder="https://linkedin.com/posts/…" />
+              <button class="btn btn-sm" onclick="Admin.addPostRef()">Add</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Schedule</label>
+            <div class="radio-row">
+              <label class="radio-label">
+                <input type="radio" name="post-schedule" value="now" checked onchange="Admin.toggleSchedule(this)" />
+                Publish Now
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="post-schedule" value="draft" onchange="Admin.toggleSchedule(this)" />
+                Save Draft
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="post-schedule" value="scheduled" onchange="Admin.toggleSchedule(this)" />
+                Schedule
+              </label>
+            </div>
+            <input type="datetime-local" id="post-schedule-dt" class="hidden" />
+          </div>
+          <div class="form-row">
+            <button class="btn btn-secondary" onclick="Admin.savePost('draft')">Save Draft</button>
+            <button class="btn btn-primary" onclick="Admin.savePost('publish')">
+              Publish to LinkedIn
+            </button>
+          </div>
+        </div>
+
+        <!-- Posts List -->
+        <div class="admin-card">
+          <div class="card-header">
+            <h3>Published &amp; Drafts</h3>
+          </div>
+          <div id="posts-list" class="posts-list">
+            <div class="loading-text">Loading posts…</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────────────────────────────────────────────────────── Learning -->
+    <section class="admin-section hidden" id="section-learning">
+      <div class="learning-layout">
+        <!-- Streak Card -->
+        <div class="admin-card streak-card">
+          <div class="streak-display">
+            <div class="streak-flame">&#128293;</div>
+            <div class="streak-count" id="learning-streak">0</div>
+            <div class="streak-label">Day Streak</div>
+          </div>
+          <button class="btn btn-primary btn-full" onclick="Admin.recordStreak()">
+            Record Today's Activity
+          </button>
+        </div>
+
+        <!-- Plan Editor -->
+        <div class="admin-card plan-editor">
+          <div class="card-header">
+            <h3>Learning Plan</h3>
+            <button class="btn btn-sm btn-primary" onclick="Admin.addPlanItem()">+ Add Item</button>
+          </div>
+          <div id="plan-list" class="plan-list">
+            <div class="loading-text">Loading plan…</div>
+          </div>
+        </div>
+
+        <!-- Courses Progress -->
+        <div class="admin-card">
+          <div class="card-header">
+            <h3>Course Progress</h3>
+            <button class="btn btn-sm" onclick="Admin.addCourseProgress()">+ Add Course</button>
+          </div>
+          <div id="courses-list" class="courses-list">
+            <div class="loading-text">Loading courses…</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Plan Item Modal -->
+      <div class="modal hidden" id="plan-modal">
+        <div class="modal-overlay" onclick="Admin.closePlanModal()"></div>
+        <div class="modal-card">
+          <div class="modal-header">
+            <h3>Add Learning Item</h3>
+            <button class="modal-close" onclick="Admin.closePlanModal()">&#10005;</button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Type</label>
+              <select id="plan-item-type">
+                <option value="course">Course</option>
+                <option value="book">Book</option>
+                <option value="project">Project</option>
+                <option value="practice">Practice</option>
+                <option value="reading">Reading</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Title</label>
+              <input type="text" id="plan-item-title" placeholder="e.g., Kubernetes CKA Certification" />
+            </div>
+            <div class="form-group">
+              <label>Domain</label>
+              <select id="plan-item-domain">
+                <option value="platformops">PlatformOps</option>
+                <option value="mlops">MLOps</option>
+                <option value="llmops">LLMOps</option>
+                <option value="gitops">GitOps</option>
+                <option value="devops">DevOps</option>
+                <option value="leadership">Leadership</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>URL (optional)</label>
+              <input type="url" id="plan-item-url" placeholder="https://…" />
+            </div>
+            <div class="form-group">
+              <label>Target Date (optional)</label>
+              <input type="date" id="plan-item-date" />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="Admin.closePlanModal()">Cancel</button>
+            <button class="btn btn-primary" onclick="Admin.savePlanItem()">Add Item</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────────────────────────────────────────────────────── SEO -->
+    <section class="admin-section hidden" id="section-seo">
+      <div class="seo-layout">
+        <!-- Meta -->
+        <div class="admin-card">
+          <div class="card-header">
+            <h3>Site Meta</h3>
+            <button class="btn btn-sm btn-primary" onclick="Admin.saveSEOMeta()">Save</button>
+          </div>
+          <div class="form-group">
+            <label>Page Title</label>
+            <input type="text" id="seo-title" placeholder="Gurpreet Gandhi | VP of Platform Engineering" />
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="seo-description" rows="3" placeholder="Experienced VP of Platform Engineering specializing in…"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Keywords <span class="label-hint">(comma-separated)</span></label>
+            <input type="text" id="seo-keywords" placeholder="Platform Engineering, MLOps, LLMOps, Kubernetes…" />
+          </div>
+        </div>
+
+        <!-- YouTube Videos -->
+        <div class="admin-card">
+          <div class="card-header">
+            <h3>YouTube Videos</h3>
+          </div>
+          <div id="seo-videos-list" class="media-list"></div>
+          <div class="form-group" style="margin-top:12px">
+            <div class="input-row">
+              <input type="text" id="seo-video-id" placeholder="YouTube video ID or URL" style="flex:1" />
+              <input type="text" id="seo-video-title" placeholder="Title" style="flex:1" />
+              <button class="btn btn-sm btn-primary" onclick="Admin.addVideo()">Add</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Blog Posts -->
+        <div class="admin-card">
+          <div class="card-header">
+            <h3>Blog References</h3>
+          </div>
+          <div id="seo-blogs-list" class="media-list"></div>
+          <div class="form-group" style="margin-top:12px">
+            <div class="input-row">
+              <input type="text" id="seo-blog-url" placeholder="https://…" style="flex:1" />
+              <input type="text" id="seo-blog-title" placeholder="Blog title" style="flex:1" />
+              <button class="btn btn-sm btn-primary" onclick="Admin.addBlog()">Add</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- LinkedIn Post References -->
+        <div class="admin-card">
+          <div class="card-header">
+            <h3>LinkedIn Post References</h3>
+          </div>
+          <div id="seo-linkedin-list" class="media-list"></div>
+          <div class="form-group" style="margin-top:12px">
+            <div class="input-row">
+              <input type="text" id="seo-linkedin-url" placeholder="https://linkedin.com/posts/…" style="flex:1" />
+              <input type="text" id="seo-linkedin-label" placeholder="Topic label" style="flex:1" />
+              <button class="btn btn-sm btn-primary" onclick="Admin.addLinkedInRef()">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────────────────────────────────────────────────────── Exclusions -->
+    <section class="admin-section hidden" id="section-exclusions">
+      <div class="exclusions-layout">
+
+        <div class="admin-card" id="excl-companies-card">
+          <div class="card-header">
+            <h3>&#127970; Excluded Companies</h3>
+          </div>
+          <div id="excl-companies" class="excl-list"></div>
+          <div class="excl-input-row">
+            <input type="text" id="excl-companies-input" placeholder="Company name…" />
+            <button class="btn btn-sm btn-danger" onclick="Admin.addExclusion('companies', 'excl-companies-input')">Add</button>
+          </div>
+        </div>
+
+        <div class="admin-card" id="excl-people-card">
+          <div class="card-header">
+            <h3>&#128683; Excluded People</h3>
+          </div>
+          <div id="excl-people" class="excl-list"></div>
+          <div class="excl-input-row">
+            <input type="text" id="excl-people-input" placeholder="Full name…" />
+            <button class="btn btn-sm btn-danger" onclick="Admin.addExclusion('people', 'excl-people-input')">Add</button>
+          </div>
+        </div>
+
+        <div class="admin-card" id="excl-keywords-card">
+          <div class="card-header">
+            <h3>&#128681; Excluded Keywords</h3>
+          </div>
+          <div id="excl-keywords" class="excl-list"></div>
+          <div class="excl-input-row">
+            <input type="text" id="excl-keywords-input" placeholder="Keyword…" />
+            <button class="btn btn-sm btn-danger" onclick="Admin.addExclusion('keywords', 'excl-keywords-input')">Add</button>
+          </div>
+        </div>
+
+        <div class="admin-card" id="excl-connections-card">
+          <div class="card-header">
+            <h3>&#128101; Known Connections to Exclude</h3>
+          </div>
+          <div id="excl-connections" class="excl-list"></div>
+          <div class="excl-input-row">
+            <input type="text" id="excl-connections-input" placeholder="Name or keyword…" />
+            <button class="btn btn-sm btn-danger" onclick="Admin.addExclusion('knownConnections', 'excl-connections-input')">Add</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ────────────────────────────────────────────────────── API Keys -->
+    <section class="admin-section hidden" id="section-apikeys">
+      <div class="apikeys-layout">
+
+        <div class="admin-card">
+          <div class="card-header">
+            <h3>Anthropic (Claude AI)</h3>
+            <span class="key-status" id="anthropic-status"></span>
+          </div>
+          <div class="form-group">
+            <label>API Key</label>
+            <div class="secret-input-row">
+              <input type="password" id="anthropic-key" placeholder="sk-ant-api03-…" />
+              <button class="btn btn-sm" onclick="toggleReveal('anthropic-key')">&#128065;</button>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="Admin.saveApiKey('anthropic')">Save</button>
+        </div>
+
+        <div class="admin-card">
+          <div class="card-header">
+            <h3>GitHub</h3>
+            <span class="key-status" id="github-status"></span>
+          </div>
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" id="github-username" placeholder="grupret" />
+          </div>
+          <div class="form-group">
+            <label>Personal Access Token <span class="label-hint">(read:user, read:repo)</span></label>
+            <div class="secret-input-row">
+              <input type="password" id="github-token" placeholder="ghp_…" />
+              <button class="btn btn-sm" onclick="toggleReveal('github-token')">&#128065;</button>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="Admin.saveApiKey('github')">Save</button>
+        </div>
+
+        <div class="admin-card">
+          <div class="card-header">
+            <h3>LeetCode</h3>
+          </div>
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" id="leetcode-username" placeholder="your-lc-username" />
+          </div>
+          <button class="btn btn-primary" onclick="Admin.saveApiKey('leetcode')">Save</button>
+        </div>
+
+        <div class="admin-card">
+          <div class="card-header">
+            <h3>LinkedIn OAuth2</h3>
+            <span class="key-status" id="linkedin-status"></span>
+          </div>
+          <div class="form-group">
+            <label>Client ID</label>
+            <input type="text" id="linkedin-client-id" placeholder="86xxxxxx" />
+          </div>
+          <div class="form-group">
+            <label>Client Secret</label>
+            <div class="secret-input-row">
+              <input type="password" id="linkedin-client-secret" placeholder="…" />
+              <button class="btn btn-sm" onclick="toggleReveal('linkedin-client-secret')">&#128065;</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Redirect URI</label>
+            <input type="text" id="linkedin-redirect-uri" placeholder="https://your-backend.railway.app/api/auth/linkedin/callback" />
+          </div>
+          <div class="form-row">
+            <button class="btn btn-secondary" onclick="Admin.saveApiKey('linkedin')">Save Credentials</button>
+            <button class="btn btn-primary" id="linkedin-oauth-btn" onclick="Admin.startLinkedInOAuth()">
+              Connect LinkedIn Account
+            </button>
+          </div>
+          <div class="form-group" style="margin-top:8px">
+            <div id="linkedin-token-status" class="info-text">Not connected</div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="card-header">
+            <h3>Admin Password</h3>
+          </div>
+          <div class="form-group">
+            <label>New Password</label>
+            <input type="password" id="new-password" placeholder="min 8 characters" />
+          </div>
+          <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" id="confirm-password" placeholder="repeat password" />
+          </div>
+          <button class="btn btn-primary" onclick="Admin.changePassword()">Change Password</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ────────────────────────────────────────────────────── Cron Status -->
+    <section class="admin-section hidden" id="section-crons">
+      <div class="crons-layout">
+        <div class="admin-card cron-card" id="cron-github">
+          <div class="cron-icon">&#128048;</div>
+          <div class="cron-info">
+            <div class="cron-name">GitHub Stats</div>
+            <div class="cron-schedule">Daily @ 6:00 AM IST</div>
+            <div class="cron-last" id="cron-last-github">Never run</div>
+          </div>
+          <button class="btn btn-sm btn-primary" onclick="Admin.refreshStats('github')">Run Now</button>
+        </div>
+        <div class="admin-card cron-card" id="cron-leetcode">
+          <div class="cron-icon">&#127993;</div>
+          <div class="cron-info">
+            <div class="cron-name">LeetCode Stats</div>
+            <div class="cron-schedule">Daily @ 7:00 AM IST</div>
+            <div class="cron-last" id="cron-last-leetcode">Never run</div>
+          </div>
+          <button class="btn btn-sm btn-primary" onclick="Admin.refreshStats('leetcode')">Run Now</button>
+        </div>
+        <div class="admin-card cron-card" id="cron-jobs">
+          <div class="cron-icon">&#128188;</div>
+          <div class="cron-info">
+            <div class="cron-name">LinkedIn Job Scrape</div>
+            <div class="cron-schedule">Daily @ 8:00 AM IST</div>
+            <div class="cron-last" id="cron-last-jobs">Never run</div>
+          </div>
+          <button class="btn btn-sm btn-primary" onclick="Admin.triggerJobSearch()">Run Now</button>
+        </div>
+        <div class="admin-card cron-card" id="cron-market">
+          <div class="cron-icon">&#128202;</div>
+          <div class="cron-info">
+            <div class="cron-name">Market Analysis</div>
+            <div class="cron-schedule">Daily @ 9:00 AM IST</div>
+            <div class="cron-last" id="cron-last-market">Never run</div>
+          </div>
+          <button class="btn btn-sm btn-primary" onclick="Admin.refreshMarket()">Run Now</button>
+        </div>
+        <div class="admin-card cron-card" id="cron-posts">
+          <div class="cron-icon">&#128203;</div>
+          <div class="cron-info">
+            <div class="cron-name">Publish Scheduled Posts</div>
+            <div class="cron-schedule">Every 4 hours</div>
+            <div class="cron-last" id="cron-last-posts">—</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Toast Notifications -->
+<div id="toast-container" class="toast-container"></div>
+
+<script src="config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

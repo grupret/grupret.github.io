@@ -4,6 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gurpreet Gandhi | VP of Platform Engineering · PlatformOps · MLOps · LLMOps · GitOps · DevOps</title>
+
+    <!-- SEO Meta -->
+    <meta name="description" content="Gurpreet Gandhi — VP of Platform Engineering with 11+ years architecting enterprise-grade distributed systems across PlatformOps, MLOps, LLMOps, GitOps and DevSecOps. CKAD Certified." />
+    <meta name="keywords" content="Platform Engineering, MLOps, LLMOps, GitOps, DevOps, DevSecOps, Kubernetes, Terraform, Kafka, Flink, ArgoCD, VP Engineering, Gurpreet Gandhi" />
+    <meta name="author" content="Gurpreet Gandhi" />
+    <link rel="canonical" href="https://grupret.github.io/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type"        content="profile" />
+    <meta property="og:title"       content="Gurpreet Gandhi | VP of Platform Engineering" />
+    <meta property="og:description" content="11+ years architecting enterprise-grade distributed systems across PlatformOps, MLOps, LLMOps, GitOps &amp; DevSecOps. Scaling platforms to 10TB+/day · 99.9% uptime." />
+    <meta property="og:url"         content="https://grupret.github.io/" />
+    <meta property="og:image"       content="https://grupret.github.io/assets/images/ckad1.jpeg" />
+    <meta property="og:site_name"   content="Gurpreet Gandhi Portfolio" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content="Gurpreet Gandhi | VP of Platform Engineering" />
+    <meta name="twitter:description" content="11+ years in PlatformOps, MLOps, LLMOps, GitOps &amp; DevSecOps. CKAD Certified." />
+    <meta name="twitter:image"       content="https://grupret.github.io/assets/images/ckad1.jpeg" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Gurpreet Gandhi",
+      "jobTitle": "VP of Platform Engineering",
+      "url": "https://grupret.github.io/",
+      "image": "https://grupret.github.io/assets/images/ckad1.jpeg",
+      "sameAs": [
+        "https://linkedin.com/in/gandhigurpreet",
+        "https://github.com/grupret"
+      ],
+      "knowsAbout": [
+        "Platform Engineering", "MLOps", "LLMOps", "GitOps", "DevOps",
+        "Kubernetes", "Terraform", "Kafka", "Apache Flink", "ArgoCD", "Vault"
+      ],
+      "description": "11+ years architecting enterprise-grade distributed systems. Scaling platforms to 10TB+/day, 99.9% uptime, ₹100Cr+ business impact."
+    }
+    </script>
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="assistant.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,6 +78,7 @@
                 <a href="#personal" class="nav-link">Personal</a>
                 <a href="#contact" class="nav-link">Contact</a>
                 <a href="#" class="nav-link" onclick="event.preventDefault();window.assistant&&window.assistant.openPanel()" style="color:#6366f1;font-weight:700">🤖 AI Assistant</a>
+                <a href="admin.html" class="nav-link" id="admin-nav-link" style="display:none;color:#f59e0b;font-weight:700">⚙ Admin</a>
             </div>
             <div class="nav-toggle">
                 <span class="bar"></span>
@@ -65,16 +108,16 @@
                             <span class="stat-label">Years Experience</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number">10TB+</span>
-                            <span class="stat-label">Daily Data Processed</span>
+                            <span class="stat-number" data-dynamic="github-repos">10TB+</span>
+                            <span class="stat-label" data-dynamic-label="github-repos">Daily Data Processed</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-number">99.9%</span>
                             <span class="stat-label">System Uptime</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number">6</span>
-                            <span class="stat-label">Ops Domains</span>
+                            <span class="stat-number" data-dynamic="github-streak">6</span>
+                            <span class="stat-label" data-dynamic-label="github-streak">Ops Domains</span>
                         </div>
                     </div>
                     <div class="hero-buttons">
@@ -1302,6 +1345,8 @@
 
     </div><!-- /assistant-panel -->
 
+    <script src="config.js"></script>
+    <script src="app.js"></script>
     <script src="assistant.js"></script>
 </body>
 </html>

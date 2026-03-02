@@ -496,29 +496,45 @@ class CareerAssistant {
     const el = document.getElementById('githubStats');
     el.innerHTML = '<div class="loading-spinner"></div>';
     try {
-      const [user, repos, events] = await Promise.all([
-        fetch(`https://api.github.com/users/${this.profile.github}`).then(r => r.json()),
-        fetch(`https://api.github.com/users/${this.profile.github}/repos?sort=updated&per_page=5`).then(r => r.json()),
-        fetch(`https://api.github.com/users/${this.profile.github}/events?per_page=10`).then(r => r.json())
-      ]);
+      // Try backend first (cached + authenticated for higher rate limits)
+      let data = null;
+      if (typeof CAREER_CONFIG !== 'undefined') {
+        try {
+          const r = await fetch(`${CAREER_CONFIG.API_BASE}/api/stats/github`);
+          if (r.ok) data = await r.json();
+        } catch (_) { /* fallback to direct */ }
+      }
 
-      const recentCommits = Array.isArray(events) ? events.filter(e => e.type === 'PushEvent').length : 0;
-      const languages = [...new Set(repos.map(r => r.language).filter(Boolean))].slice(0, 5);
+      // Fallback: direct GitHub API (public, 60 req/hr)
+      if (!data || !data.publicRepos) {
+        const [user, repos, events] = await Promise.all([
+          fetch(`https://api.github.com/users/${this.profile.github}`).then(r => r.json()),
+          fetch(`https://api.github.com/users/${this.profile.github}/repos?sort=updated&per_page=6`).then(r => r.json()),
+          fetch(`https://api.github.com/users/${this.profile.github}/events?per_page=10`).then(r => r.json())
+        ]);
+        data = {
+          publicRepos: user.public_repos || 0,
+          followers: user.followers || 0,
+          recentPushes: Array.isArray(events) ? events.filter(e => e.type === 'PushEvent').length : 0,
+          topLanguages: [...new Set((repos || []).map(r => r.language).filter(Boolean))].slice(0, 5),
+          repos: (repos || []).slice(0, 4).map(r => ({ name: r.name, html_url: r.html_url, stargazers_count: r.stargazers_count }))
+        };
+      }
 
-      this.save('githubData', { user, repos: repos.slice(0, 5), fetchedAt: Date.now() });
+      this.save('githubData', { ...data, fetchedAt: Date.now() });
 
       el.innerHTML = `
         <div class="github-stats">
-          <div class="gh-stat"><span class="gh-stat-label">Public Repos</span><span class="gh-stat-value">${user.public_repos || 0}</span></div>
-          <div class="gh-stat"><span class="gh-stat-label">Followers</span><span class="gh-stat-value">${user.followers || 0}</span></div>
-          <div class="gh-stat"><span class="gh-stat-label">Recent Pushes</span><span class="gh-stat-value">${recentCommits}</span></div>
+          <div class="gh-stat"><span class="gh-stat-label">Public Repos</span><span class="gh-stat-value">${data.publicRepos || 0}</span></div>
+          <div class="gh-stat"><span class="gh-stat-label">Followers</span><span class="gh-stat-value">${data.followers || 0}</span></div>
+          <div class="gh-stat"><span class="gh-stat-label">Recent Pushes</span><span class="gh-stat-value">${data.recentPushes || 0}</span></div>
         </div>
-        <div class="gh-langs">${languages.map(l => `<span class="gh-lang-tag">${l}</span>`).join('')}</div>
+        <div class="gh-langs">${(data.topLanguages || []).map(l => `<span class="gh-lang-tag">${l}</span>`).join('')}</div>
         <div class="gh-repos">
-          ${repos.slice(0, 4).map(r => `
+          ${(data.repos || []).slice(0, 4).map(r => `
             <div class="gh-repo">
               <a href="${r.html_url}" target="_blank" class="gh-repo-name">${r.name}</a>
-              <span class="gh-repo-stars">⭐ ${r.stargazers_count}</span>
+              <span class="gh-repo-stars">⭐ ${r.stargazers_count || 0}</span>
             </div>`).join('')}
         </div>
         <a href="https://github.com/${this.profile.github}" target="_blank" style="color:#6366f1;font-size:11px;text-decoration:none;display:block;margin-top:8px">View all on GitHub →</a>`;
@@ -528,8 +544,25 @@ class CareerAssistant {
   }
 
   // ── LeetCode Stats ────────────────────────────────────────────────────────
-  renderLeetCodeStats() {
+  async renderLeetCodeStats() {
     const el = document.getElementById('leetcodeStats');
+    el.innerHTML = '<div class="loading-spinner"></div>';
+
+    // 1. Try backend (uses DB-configured username, cached)
+    if (typeof CAREER_CONFIG !== 'undefined') {
+      try {
+        const r = await fetch(`${CAREER_CONFIG.API_BASE}/api/stats/leetcode`);
+        if (r.ok) {
+          const data = await r.json();
+          if (data.totalSolved !== undefined) {
+            el.innerHTML = this._renderLeetStats(data, data.username || this.s.leetcodeUsername);
+            return;
+          }
+        }
+      } catch (_) { /* fallback */ }
+    }
+
+    // 2. Fallback: local username via open-source proxy
     const user = this.s.leetcodeUsername;
     if (!user) {
       el.innerHTML = `
@@ -540,25 +573,27 @@ class CareerAssistant {
         </div>`;
       return;
     }
-    // Use open-source LeetCode stats API
-    el.innerHTML = '<div class="loading-spinner"></div>';
     fetch(`https://leetcode-stats-api.herokuapp.com/${user}`)
       .then(r => r.json())
       .then(data => {
         if (data.status === 'error') throw new Error('User not found');
-        el.innerHTML = `
-          <div class="leet-stats">
-            <div class="leet-stat"><span class="leet-label">Total Solved</span><span style="color:#a5b4fc;font-weight:700">${data.totalSolved}/${data.totalQuestions}</span></div>
-            <div class="leet-stat"><span class="leet-label">Easy</span><span class="leet-easy">${data.easySolved}</span></div>
-            <div class="leet-stat"><span class="leet-label">Medium</span><span class="leet-medium">${data.mediumSolved}</span></div>
-            <div class="leet-stat"><span class="leet-label">Hard</span><span class="leet-hard">${data.hardSolved}</span></div>
-            <div class="leet-stat"><span class="leet-label">Acceptance</span><span style="color:#94a3b8">${data.acceptanceRate?.toFixed(1)}%</span></div>
-          </div>
-          <a href="https://leetcode.com/${user}" target="_blank" style="color:#6366f1;font-size:11px;text-decoration:none;display:block;margin-top:8px">View LeetCode Profile →</a>`;
+        el.innerHTML = this._renderLeetStats(data, user);
       })
       .catch(() => {
         el.innerHTML = `<p style="color:#64748b;font-size:12px">Could not load LeetCode data for <strong style="color:#a5b4fc">${user}</strong>. <button onclick="assistant.clearLeetcodeUser()" style="background:none;border:none;color:#f87171;cursor:pointer;font-size:11px">Reset</button></p>`;
       });
+  }
+
+  _renderLeetStats(data, user) {
+    return `
+      <div class="leet-stats">
+        <div class="leet-stat"><span class="leet-label">Total Solved</span><span style="color:#a5b4fc;font-weight:700">${data.totalSolved}/${data.totalQuestions || '—'}</span></div>
+        <div class="leet-stat"><span class="leet-label">Easy</span><span class="leet-easy">${data.easySolved}</span></div>
+        <div class="leet-stat"><span class="leet-label">Medium</span><span class="leet-medium">${data.mediumSolved}</span></div>
+        <div class="leet-stat"><span class="leet-label">Hard</span><span class="leet-hard">${data.hardSolved}</span></div>
+        <div class="leet-stat"><span class="leet-label">Acceptance</span><span style="color:#94a3b8">${data.acceptanceRate?.toFixed(1) || '—'}%</span></div>
+      </div>
+      ${user ? `<a href="https://leetcode.com/${user}" target="_blank" style="color:#6366f1;font-size:11px;text-decoration:none;display:block;margin-top:8px">View LeetCode Profile →</a>` : ''}`;
   }
 
   saveLeetcodeUser() {
@@ -575,19 +610,14 @@ class CareerAssistant {
 
   // ── Chat with Claude ──────────────────────────────────────────────────────
   updateApiKeyUI() {
+    // API key is now server-side — hide any legacy config UI
     const config = document.getElementById('apiConfig');
-    if (config) config.style.display = this.s.apiKey ? 'none' : 'block';
+    if (config) config.style.display = 'none';
   }
 
   saveApiKey() {
-    const key = document.getElementById('apiKeyInput')?.value?.trim();
-    if (!key || !key.startsWith('sk-ant-')) {
-      alert('Please enter a valid Anthropic API key (starts with sk-ant-)');
-      return;
-    }
-    this.save('apiKey', key);
-    this.updateApiKeyUI();
-    this.addAssistantMessage('API key saved! I\'m ready to help you land that VP role. Ask me anything — learning paths, interview prep, LinkedIn strategy, or analyze a job description.');
+    // Legacy: redirect user to admin panel to configure API key
+    this.addAssistantMessage('API keys are now managed server-side. Go to <a href="admin.html" target="_blank" style="color:#6366f1">Admin Panel → API Keys</a> to configure your Anthropic key.');
   }
 
   renderSuggestions() {
@@ -645,31 +675,22 @@ BE: Concrete, data-driven, action-oriented. Give specific course names, company 
     const msg = input?.value?.trim();
     if (!msg) return;
 
-    if (!this.s.apiKey) {
-      this.switchTab('chat');
-      document.getElementById('apiConfig').style.display = 'block';
-      return;
-    }
-
     input.value = '';
     this.addUserMessage(msg);
     this.addThinkingMessage();
 
     const history = this.s.chatHistory.slice(-12);
+    const token = localStorage.getItem('career_token');
 
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
+      // Route through backend API (server-side Claude key)
+      const res = await fetch(`${CAREER_CONFIG.API_BASE}/api/ai/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': this.s.apiKey,
-          'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-direct-browser-access': 'true'
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
         },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-6',
-          max_tokens: 1024,
-          system: this.buildSystemPrompt(),
           messages: [
             ...history.map(m => ({ role: m.role, content: m.content })),
             { role: 'user', content: msg }
@@ -678,8 +699,8 @@ BE: Concrete, data-driven, action-oriented. Give specific course names, company 
       });
 
       const data = await res.json();
-      if (data.error) throw new Error(data.error.message);
-      const reply = data.content[0].text;
+      if (!res.ok) throw new Error(data.error || 'AI request failed');
+      const reply = data.content;
 
       const newHistory = [...this.s.chatHistory,
         { role: 'user', content: msg },
@@ -691,7 +712,7 @@ BE: Concrete, data-driven, action-oriented. Give specific course names, company 
       this.addAssistantMessage(reply);
     } catch (err) {
       this.removeThinking();
-      this.addAssistantMessage(`⚠️ API error: ${err.message}. Check your API key in the config above.`);
+      this.addAssistantMessage(`⚠️ ${err.message}. Make sure the backend is running and Anthropic API key is configured in the <a href="admin.html" target="_blank" style="color:#6366f1">Admin Panel</a>.`);
     }
   }
 
@@ -743,7 +764,7 @@ BE: Concrete, data-driven, action-oriented. Give specific course names, company 
             <strong>Welcome, Gurpreet!</strong><br><br>
             I'm your autonomous career assistant. I know your full profile — 11+ years of platform engineering, your CKAD cert, the ₹100Cr RunRun deal, and your goal of landing a <strong>VP of Platform Engineering</strong> role.<br><br>
             I can help you: learn the right skills, craft LinkedIn messages, track job applications, analyze JDs, and train your cognitive performance daily.<br><br>
-            To enable AI chat, save your <strong>Claude API key</strong> above. Or try the Learning, Jobs, and Brain tabs — no API key needed!
+            AI chat runs server-side — no API key needed here. Make sure the backend is running and visit the <a href="admin.html" target="_blank" style="color:#6366f1">Admin Panel</a> to configure integrations.
           </div>
         </div>`;
       return;
@@ -864,37 +885,27 @@ BE: Concrete, data-driven, action-oriented. Give specific course names, company 
   }
 
   async generateLinkedInMessage() {
-    if (!this.s.apiKey) {
-      alert('Add your Claude API key in the Chat tab to generate AI messages.');
-      return;
-    }
-    const type = document.getElementById('messageType')?.value;
-    const role = document.getElementById('recipientRole')?.value || 'engineering leader';
+    const type    = document.getElementById('messageType')?.value;
+    const role    = document.getElementById('recipientRole')?.value || 'engineering leader';
     const company = document.getElementById('recipientCompany')?.value || 'their company';
     const el = document.getElementById('messageTemplate');
     el.textContent = 'Generating...';
 
+    const token = localStorage.getItem('career_token');
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
+      const res = await fetch(`${CAREER_CONFIG.API_BASE}/api/ai/generate-message`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': this.s.apiKey,
-          'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-direct-browser-access': 'true'
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
         },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-6',
-          max_tokens: 400,
-          messages: [{
-            role: 'user',
-            content: `Write a LinkedIn ${type} message from Gurpreet Gandhi (Engineering Manager → VP Platform Engineering, 11+ years, CKAD certified, built 10TB+/day systems, MLOps/LLMOps expert) to a ${role} at ${company}. Keep it under 150 words, genuine, not salesy. Highlight 1-2 specific relevant achievements. No subject line needed.`
-          }]
-        })
+        body: JSON.stringify({ type, recipientRole: role, company })
       });
       const data = await res.json();
-      el.textContent = data.content[0].text;
-    } catch (err) {
+      if (!res.ok) throw new Error(data.error);
+      el.textContent = data.message;
+    } catch (_) {
+      // Graceful fallback to template
       el.textContent = LINKEDIN_TEMPLATES[type] || '';
     }
   }
@@ -1005,52 +1016,41 @@ BE: Concrete, data-driven, action-oriented. Give specific course names, company 
     el.classList.add('visible');
     el.innerHTML = '<div class="loading-spinner"></div>';
 
-    if (!this.s.apiKey) {
-      // Offline analysis
+    const token = localStorage.getItem('career_token');
+    try {
+      // Try backend AI analysis
+      const res = await fetch(`${CAREER_CONFIG.API_BASE}/api/ai/analyze-jd`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
+        },
+        body: JSON.stringify({ jobDescription: jd })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      const text = data.analysis
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n/g, '<br>');
+      el.innerHTML = `<div style="color:#94a3b8;font-size:13px;line-height:1.7">${text}</div>`;
+    } catch (_) {
+      // Offline fallback: keyword-match analysis
       const mySkills = [...this.profile.skills.expert, ...this.profile.skills.advanced];
       const jdLower = jd.toLowerCase();
       const matches = mySkills.filter(s => jdLower.includes(s.toLowerCase()));
       const domainMatches = this.profile.domains.filter(d => jdLower.includes(d.toLowerCase()));
       const score = Math.min(99, 60 + matches.length * 5);
       el.innerHTML = `
-        <div class="match-score">${score}% Profile Match</div>
+        <div class="match-score">${score}% Profile Match (offline)</div>
         <div class="match-section"><h5>Strong Matches</h5>
           <ul class="match-list">${matches.map(m => `<li class="good">${m}</li>`).join('')}${domainMatches.map(d => `<li class="good">${d}</li>`).join('')}</ul>
         </div>
-        <div class="match-section"><h5>Potential Gaps to Address</h5>
+        <div class="match-section"><h5>Potential Gaps</h5>
           <ul class="match-list">
             ${this.profile.skills.growing.filter(s => jdLower.includes(s.toLowerCase())).map(s => `<li class="gap">${s} — growing skill, strengthen before applying</li>`).join('')}
-            <li class="learn">Add Claude API key for detailed AI-powered gap analysis</li>
+            <li class="learn">Connect backend for AI-powered gap analysis</li>
           </ul>
         </div>`;
-      return;
-    }
-
-    try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': this.s.apiKey,
-          'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-direct-browser-access': 'true'
-        },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-6',
-          max_tokens: 600,
-          messages: [{
-            role: 'user',
-            content: `Analyze this JD against Gurpreet Gandhi's profile. Profile: ${JSON.stringify(this.profile)}. JD: ${jd}. Output: 1) A % match score 2) 5 strongest alignment points (prefix with ✅) 3) 3 gaps to address (prefix with 📌) 4) 2 learning recommendations (prefix with 📚). Keep it concise.`
-          }]
-        })
-      });
-      const data = await res.json();
-      const text = data.content[0].text
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\n/g, '<br>');
-      el.innerHTML = `<div style="color:#94a3b8;font-size:13px;line-height:1.7">${text}</div>`;
-    } catch (err) {
-      el.innerHTML = `<p style="color:#f87171">Analysis failed: ${err.message}</p>`;
     }
   }
 
