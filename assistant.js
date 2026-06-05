@@ -1,37 +1,42 @@
 // =============================================================================
-// CAREER ASSISTANT — Autonomous VP Platform Engineering Journey
+// CAREER ASSISTANT — Director of Platform Engineering Journey
 // Integrations: GitHub API · LeetCode · Exercism · Coursera · Claude API · LinkedIn
 // =============================================================================
 
 const CAREER_PROFILE = {
   name: 'Gurpreet Gandhi',
-  targetTitle: 'VP of Platform Engineering',
-  currentTitle: 'Engineering Manager',
-  currentCompany: 'Mobius by Gaian',
+  targetTitle: 'Director of Platform Engineering',
+  currentTitle: 'Solutions Architect',
+  currentCompany: 'Mobius Networks',
   email: 'gurpreetgandhi3@gmail.com',
   github: 'grupret',
   linkedin: 'gandhigurpreet',
-  yearsExp: 11,
-  certifications: ['CKAD — Certified Kubernetes Application Developer (Dec 2024)'],
+  yearsExp: 12,
+  certifications: [
+    'CKAD — Certified Kubernetes Application Developer (Dec 2024)',
+    'Google Cloud Generative AI Leader — Google Cloud'
+  ],
   skills: {
-    expert: ['Kubernetes','Docker','Terraform','Java/Spring Boot','Apache Kafka','Apache Flink','Node.js','MongoDB','PostgreSQL','Istio','Vault'],
-    advanced: ['Python','MLflow','Kubeflow','ArgoCD','AWS','Azure','RSocket','CI/CD','Camunda','TiDB','Apache Hudi'],
-    growing: ['LLMOps','vLLM','Ollama','Ray.io','GitOps/Flux','Backstage','OpenTelemetry','eBPF','WASM','FinOps','Platform Engineering']
+    expert: ['Kubernetes','Docker','Terraform','Java/Spring Boot','Apache Kafka','Apache Flink','Camunda BPM','MongoDB','PostgreSQL','Istio','Vault','Distributed Systems','Event-driven Architecture'],
+    advanced: ['Python','MLflow','Kubeflow','ArgoCD','AWS','GCP','KServe','vLLM','LoRAX','CI/CD','mTLS','IAM','GDPR/PII Governance'],
+    growing: ['LLMOps','LLM Gateway','AMD SEV-SNP','Intel TDX','CVM/TEE','Confidential Computing','GPU MIG','OPA Gatekeeper','OpenTelemetry']
   },
-  domains: ['PlatformOps','MLOps','LLMOps','GitOps','DevOps','CloudNative','DevSecOps'],
+  domains: ['Platform Engineering','Distributed Systems','MLOps','LLMOps','Workflow Orchestration','DevSecOps','Security & Compliance'],
   targetRoles: [
-    { title: 'VP of Platform Engineering', match: 92 },
-    { title: 'VP of Engineering (Platform/Infra)', match: 88 },
-    { title: 'Head of MLOps / LLMOps', match: 85 },
-    { title: 'Director of Platform Engineering', match: 90 },
+    { title: 'Director of Platform Engineering', match: 97 },
+    { title: 'Solutions Architecture Lead', match: 92 },
     { title: 'Principal Platform Architect', match: 95 },
+    { title: 'Head of AI/ML Platform', match: 90 },
+    { title: 'VP of Platform Engineering', match: 87 },
     { title: 'CTO – Growth-stage Startup', match: 78 }
   ],
   projects: [
-    { name: 'RunRun DevSecOps Platform', impact: '₹100Cr deal · Zero-downtime multi-cloud' },
-    { name: 'Cloud Data Stream (CDS)', impact: '<1ms latency · 1M+ msg/sec' },
-    { name: 'Distributed DaaS Platform', impact: '10TB+ daily · 99.9% uptime' },
-    { name: 'NeuroSymbolic Model Factory', impact: '80% less ML code · Kubeflow/TF/PyTorch' }
+    { name: 'RunRun DevSecOps Platform', impact: 'Enterprise deal · Camunda + Terraform · Zero-downtime' },
+    { name: 'Cloud Data Stream (CDS)', impact: '<1ms latency · 1M+ msg/sec · RSocket' },
+    { name: 'Distributed DaaS Platform', impact: '10TB+ daily · 99.9% uptime · Flink/TiDB' },
+    { name: 'LLM Inference Gateway', impact: '30% faster deploys · 6+ backends · GPU MIG' },
+    { name: 'MLOps Platform on Kubeflow', impact: 'Full lifecycle · Automated gates · KServe' },
+    { name: 'CVM Security Infrastructure', impact: 'Zero incidents · TEE · Full audit readiness' }
   ]
 };
 
@@ -137,7 +142,7 @@ const LEARNING_PATHS = {
 const LINKEDIN_TEMPLATES = {
   connection: `Hi {{name}},
 
-I came across your work at {{company}} and was genuinely impressed. As an Engineering Manager / Platform Architect with 11+ years building distributed systems, MLOps platforms, and cloud-native infra, I believe we're operating in adjacent spaces.
+I came across your work at {{company}} and was genuinely impressed. As an Solutions Architect with 12+ years building distributed systems, MLOps platforms, and cloud-native infra, I believe we're operating in adjacent spaces.
 
 Would love to connect and exchange ideas on {{topic}}.
 
@@ -146,7 +151,7 @@ Gurpreet Gandhi`,
 
   intro: `Hi {{name}},
 
-I'm Gurpreet Gandhi — Engineering Manager transitioning to VP of Platform Engineering. My work spans:
+I'm Gurpreet Gandhi — Solutions Architect specialising in Director of Platform Engineering. My work spans:
 • Distributed platforms (10TB+/day, 99.9% uptime, <1ms latency)
 • MLOps & LLMOps (Kubeflow, MLflow, Ollama on K8s)
 • DevSecOps & GitOps (ArgoCD, Vault, Terraform)
@@ -163,7 +168,7 @@ Gurpreet`,
 I hope this finds you well! I noticed you're at {{company}}, which has an exciting {{role}} position I'm deeply passionate about.
 
 A quick snapshot of what I bring:
-✅ 11+ years Platform Engineering & Architecture
+✅ 12+ years Platform Engineering & Architecture
 ✅ Led 10TB+/day distributed systems with 99.9% uptime
 ✅ Built MLOps/LLMOps platforms from 0→1
 ✅ Led 15+ engineer cross-functional teams
@@ -179,10 +184,10 @@ Gurpreet Gandhi`,
 Thank you for reaching out! I'm actively exploring senior leadership opportunities.
 
 What I bring:
-• 11+ years building enterprise-grade distributed systems
-• VP-ready: PlatformOps, MLOps, LLMOps, GitOps, DevSecOps
+• 12+ years building enterprise-grade distributed systems
+• Specialised in: Distributed Systems, Platform Eng, MLOps, LLMOps, DevSecOps
 • Led platforms processing 10TB+/day with <1ms latency
-• Delivered ₹100Cr+ business impact through platform innovation
+• Delivered significant enterprise business impact through platform innovation
 • CKAD Certified | Expert: K8s, Terraform, Kafka, Flink
 
 Target: VP/Director Platform Engineering, Head of MLOps/LLMOps
@@ -213,7 +218,7 @@ I'm reaching out directly because I'm genuinely excited about the {{role}} at {{
 In brief, I've:
 → Architected platforms at 10TB+ daily scale (99.9% uptime, <1ms p99)
 → Led cross-functional teams of 15+ engineers across distributed orgs
-→ Driven ₹100Cr business impact via platform innovation
+→ Driven significant enterprise business impact via platform innovation
 → Built MLOps/LLMOps platforms on Kubernetes from ground up
 → CKAD Certified | Expert in K8s, Terraform, Kafka, ArgoCD
 
@@ -250,7 +255,7 @@ const COMM_TIPS = [
   { category:'Executive Communication', tip:'Lead with the recommendation. Executives process top-down, not bottom-up. State the "what" first, then the "why".', example:'❌ "We analyzed 5 options over 3 weeks..." ✅ "I recommend Option B. Three reasons: [bullet points]. Details available if needed."' },
   { category:'Technical Storytelling', tip:'Use the 3-layer explanation: Business Impact → Technical Approach → Implementation Detail. Shift layers based on your audience.', example:'CEO: "This cuts deploys from 2hrs to 5min" → CTO: "GitOps with ArgoCD" → Engineer: "Declarative manifests synced via Flux controllers"' },
   { category:'Conflict Resolution', tip:'"Yes, and..." builds; "Yes, but..." blocks. Extend ideas before challenging them — it earns the right to push back.', example:'❌ "Yes, but that won\'t scale." ✅ "Yes, and as we scale we\'ll need to solve X — here\'s how I\'d approach that together."' },
-  { category:'VP Interview (STAR-B)', tip:'Every technical story needs a business outcome. Use STAR-B: Situation, Task, Action, Result, Business Impact.', example:'❌ "I implemented Kafka..." ✅ "I led the Kafka migration enabling 10x throughput, which unlocked the ₹100Cr enterprise contract."' },
+  { category:'VP Interview (STAR-B)', tip:'Every technical story needs a business outcome. Use STAR-B: Situation, Task, Action, Result, Business Impact.', example:'❌ "I implemented Kafka..." ✅ "I led the Kafka migration enabling 10x throughput, which unlocked a major enterprise contract."' },
   { category:'Stakeholder Management', tip:'Send status proactively — before you\'re asked. No news is always bad news to a stakeholder.', example:'Weekly 5-sentence update: Progress · Risk · Next milestone · Need from them · Confidence 🟢🟡🔴' },
   { category:'LinkedIn Presence', tip:'Post 2-3x/week: Problem → Approach → Lesson. The VP formula: make complex things simple. Consistency > virality.', example:'Post idea: "We cut infra costs 40% without touching SLAs. Here\'s the 3-step FinOps framework we used in 2 weeks:"' },
   { category:'Async Written Comms', tip:'Add TLDR at the top of any message over 3 paragraphs. Respect cognitive load — it signals executive maturity.', example:'TLDR: K8s 1.28 upgrade Friday 2am. Impact: 15min downtime. Action needed: no deploys 1-3am Friday. Reply if blocked.' }
@@ -258,7 +263,7 @@ const COMM_TIPS = [
 
 // ── Coding Challenges ─────────────────────────────────────────────────────────
 const CODING_CHALLENGES = [
-  { platform:'LeetCode', title:'Design a Rate Limiter', difficulty:'Medium', url:'https://leetcode.com/problems/design-rate-limiter/', relevance:'API Gateway / PlatformOps — Token Bucket vs Sliding Window', hint:'VP-level: also design the distributed version with Redis + Lua scripts for atomicity.' },
+  { platform:'LeetCode', title:'Design a Rate Limiter', difficulty:'Medium', url:'https://leetcode.com/problems/design-rate-limiter/', relevance:'API Gateway / PlatformOps — Token Bucket vs Sliding Window', hint:'Director-level: also design the distributed version with Redis + Lua scripts for atomicity.' },
   { platform:'LeetCode', title:'LRU Cache', difficulty:'Medium', url:'https://leetcode.com/problems/lru-cache/', relevance:'Caching strategy in distributed systems', hint:'HashMap + Doubly Linked List. O(1) get/put. Maps directly to Envoy/Nginx cache tuning.' },
   { platform:'LeetCode', title:'Design Twitter / News Feed', difficulty:'Medium', url:'https://leetcode.com/problems/design-twitter/', relevance:'Event streaming, fan-out — maps to your Cloud Data Stream project', hint:'Think Kafka topic fan-out vs pull model. This is exactly what CDS solves.' },
   { platform:'LeetCode', title:'Word Ladder', difficulty:'Hard', url:'https://leetcode.com/problems/word-ladder/', relevance:'Graph traversal — used in dependency resolution (K8s scheduler)', hint:'BFS on implicit graph. K8s scheduler uses similar algorithms for pod placement.' },
@@ -615,7 +620,7 @@ class CareerAssistant {
     const p = this.profile;
     const todos = this.s.todos.filter(t => !t.done).map(t => t.text).join(', ');
     const apps = this.s.jobApps.length;
-    return `You are an autonomous career assistant for ${p.name}, an Engineering Manager targeting VP of Platform Engineering roles.
+    return `You are an autonomous career assistant for ${p.name}, a Solutions Architect targeting Director of Platform Engineering roles.
 
 PROFILE:
 - Current: ${p.currentTitle} at ${p.currentCompany}
@@ -741,7 +746,7 @@ BE: Concrete, data-driven, action-oriented. Give specific course names, company 
           <div class="chat-avatar"><i class="fas fa-robot"></i></div>
           <div class="chat-bubble">
             <strong>Welcome, Gurpreet!</strong><br><br>
-            I'm your autonomous career assistant. I know your full profile — 11+ years of platform engineering, your CKAD cert, the ₹100Cr RunRun deal, and your goal of landing a <strong>VP of Platform Engineering</strong> role.<br><br>
+            I'm your autonomous career assistant. I know your full profile — 12 years building distributed platforms, your CKAD and GCP AI Leader certs, and your goal of landing a <strong>Director of Platform Engineering</strong> role.<br><br>
             I can help you: learn the right skills, craft LinkedIn messages, track job applications, analyze JDs, and train your cognitive performance daily.<br><br>
             To enable AI chat, save your <strong>Claude API key</strong> above. Or try the Learning, Jobs, and Brain tabs — no API key needed!
           </div>
@@ -888,7 +893,7 @@ BE: Concrete, data-driven, action-oriented. Give specific course names, company 
           max_tokens: 400,
           messages: [{
             role: 'user',
-            content: `Write a LinkedIn ${type} message from Gurpreet Gandhi (Engineering Manager → VP Platform Engineering, 11+ years, CKAD certified, built 10TB+/day systems, MLOps/LLMOps expert) to a ${role} at ${company}. Keep it under 150 words, genuine, not salesy. Highlight 1-2 specific relevant achievements. No subject line needed.`
+            content: `Write a LinkedIn ${type} message from Gurpreet Gandhi (Solutions Architect → Director of Platform Engineering, 12+ years, CKAD certified, built 10TB+/day systems, MLOps/LLMOps expert) to a ${role} at ${company}. Keep it under 150 words, genuine, not salesy. Highlight 1-2 specific relevant achievements. No subject line needed.`
           }]
         })
       });

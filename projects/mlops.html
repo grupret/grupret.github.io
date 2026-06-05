@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLOps Platform — Model Lifecycle on Kubeflow | Gurpreet Gandhi</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Gurpreet Gandhi</span>
+                <span class="logo-title">Director · Platform Engineering</span>
+            </div>
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link">← Back to Portfolio</a>
+                <a href="../index.html#projects" class="nav-link">Other Projects</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="project-hero">
+        <div class="container">
+            <div class="project-header">
+                <div class="project-title-section">
+                    <h1 class="project-title">MLOps Platform</h1>
+                    <p class="project-tagline">End-to-End ML Model Lifecycle Management on Kubeflow</p>
+                    <div class="project-impact">
+                        <div class="impact-stat">
+                            <span class="impact-number">30%</span>
+                            <span class="impact-label">Faster Model Deployment</span>
+                        </div>
+                        <div class="impact-stat">
+                            <span class="impact-number">Full</span>
+                            <span class="impact-label">Lifecycle Automation</span>
+                        </div>
+                        <div class="impact-stat">
+                            <span class="impact-number">99.9%</span>
+                            <span class="impact-label">Pipeline Reliability</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-image-section">
+                    <div class="project-architecture-diagram">
+                        <div class="arch-component"><i class="fas fa-robot"></i><span>Kubeflow</span></div>
+                        <div class="arch-component"><i class="fas fa-code-branch"></i><span>MLflow</span></div>
+                        <div class="arch-component"><i class="fas fa-dharmachakra"></i><span>Kubernetes</span></div>
+                        <div class="arch-component"><i class="fas fa-ship"></i><span>Model Serving</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <nav class="project-nav">
+        <div class="container">
+            <div class="tabs">
+                <button class="tab-button active" onclick="showTab('overview', this)"><i class="fas fa-home"></i> Overview</button>
+                <button class="tab-button" onclick="showTab('architecture', this)"><i class="fas fa-sitemap"></i> Architecture</button>
+                <button class="tab-button" onclick="showTab('tech', this)"><i class="fas fa-cogs"></i> Tech Stack</button>
+                <button class="tab-button" onclick="showTab('impact', this)"><i class="fas fa-chart-line"></i> Impact</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="project-content">
+        <div class="container">
+
+            <div id="overview" class="tab-content content-section">
+                <h2>Project Overview</h2>
+                <div class="overview-grid">
+                    <div class="overview-text">
+                        <h3>Problem Statement</h3>
+                        <p>Data science teams struggled with manual, undocumented model training workflows, no reproducibility across experiments, and no standard path from notebook to production. Model deployment was a high-friction manual process taking days and prone to environment mismatches.</p>
+                        <h3>Solution</h3>
+                        <p>Designed and delivered an enterprise MLOps platform on Kubeflow that automates the full model lifecycle: data ingestion, feature engineering, distributed training, experiment tracking, model registry, automated evaluation, and production serving — all declarative and reproducible.</p>
+                        <p>The platform integrates Kubeflow Pipelines for orchestration, MLflow for experiment tracking and model registry, and KServe for Kubernetes-native model serving with autoscaling and canary deployments.</p>
+                    </div>
+                    <div class="overview-features">
+                        <h3>Key Capabilities</h3>
+                        <div class="achievements">
+                            <div class="achievement-item">
+                                <i class="fas fa-project-diagram"></i>
+                                <div>
+                                    <h4>Pipeline Orchestration</h4>
+                                    <p>Kubeflow Pipelines for reproducible, parameterised ML workflows from data prep to model packaging.</p>
+                                    <div class="metrics">
+                                        <span class="metric">Reproducible</span>
+                                        <span class="metric">Parameterised</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="achievement-item">
+                                <i class="fas fa-flask"></i>
+                                <div>
+                                    <h4>Experiment Tracking</h4>
+                                    <p>MLflow integration for automatic metric, parameter, and artefact logging across all training runs.</p>
+                                    <div class="metrics">
+                                        <span class="metric">Auto-logging</span>
+                                        <span class="metric">Compare runs</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="achievement-item">
+                                <i class="fas fa-archive"></i>
+                                <div>
+                                    <h4>Model Registry</h4>
+                                    <p>Centralised model versioning with stage gates (Staging → Production) and automated evaluation gates.</p>
+                                    <div class="metrics">
+                                        <span class="metric">Versioned</span>
+                                        <span class="metric">Stage gates</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="achievement-item">
+                                <i class="fas fa-ship"></i>
+                                <div>
+                                    <h4>Production Serving</h4>
+                                    <p>KServe for Kubernetes-native model serving with canary rollouts, A/B testing, and auto-scaling.</p>
+                                    <div class="metrics">
+                                        <span class="metric">Canary rollouts</span>
+                                        <span class="metric">Auto-scaling</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="architecture" class="tab-content hidden content-section">
+                <h2>Architecture</h2>
+                <div class="architecture-details">
+                    <div class="arch-layer">
+                        <h3><i class="fas fa-database"></i> Data & Feature Layer</h3>
+                        <div class="layer-content">
+                            <div class="component-card">
+                                <h4>Data Ingestion</h4>
+                                <p>Kubeflow pipeline components for batch and streaming data ingestion with validation and lineage tracking.</p>
+                                <div class="tech-specs"><span>Kubeflow Components</span><span>Data Validation</span><span>Lineage</span></div>
+                            </div>
+                            <div class="component-card">
+                                <h4>Feature Engineering</h4>
+                                <p>Declarative feature transformation pipeline with feature store integration for reusable feature sets.</p>
+                                <div class="tech-specs"><span>Feature Store</span><span>Reusable features</span><span>Versioned</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer">
+                        <h3><i class="fas fa-brain"></i> Training Layer</h3>
+                        <div class="layer-content">
+                            <div class="component-card">
+                                <h4>Distributed Training</h4>
+                                <p>Kubeflow Training Operator for distributed PyTorch and TensorFlow training across GPU nodes.</p>
+                                <div class="tech-specs"><span>PyTorch DDP</span><span>TensorFlow</span><span>Multi-GPU</span></div>
+                            </div>
+                            <div class="component-card">
+                                <h4>Hyperparameter Tuning</h4>
+                                <p>Katib for automated hyperparameter optimisation with Bayesian and random search strategies.</p>
+                                <div class="tech-specs"><span>Katib</span><span>Bayesian search</span><span>Automated</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer">
+                        <h3><i class="fas fa-archive"></i> Registry & Governance</h3>
+                        <div class="layer-content">
+                            <div class="component-card">
+                                <h4>MLflow Model Registry</h4>
+                                <p>Centralised registry with stage lifecycle (None → Staging → Production → Archived) and approval gates.</p>
+                                <div class="tech-specs"><span>Stage lifecycle</span><span>Approval gates</span><span>Audit trail</span></div>
+                            </div>
+                            <div class="component-card">
+                                <h4>Model Evaluation</h4>
+                                <p>Automated evaluation pipelines that gate model promotion based on metric thresholds and drift detection.</p>
+                                <div class="tech-specs"><span>Metric gates</span><span>Drift detection</span><span>Automated promotion</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer">
+                        <h3><i class="fas fa-ship"></i> Serving Layer</h3>
+                        <div class="layer-content">
+                            <div class="component-card">
+                                <h4>KServe</h4>
+                                <p>Kubernetes-native model serving supporting sklearn, XGBoost, TensorFlow, PyTorch, and custom runtimes with scale-to-zero.</p>
+                                <div class="tech-specs"><span>Scale-to-zero</span><span>Multi-framework</span><span>Canary</span></div>
+                            </div>
+                            <div class="component-card">
+                                <h4>Monitoring & Drift</h4>
+                                <p>Production model monitoring with data drift alerts and automatic retraining triggers via Kubeflow Pipelines.</p>
+                                <div class="tech-specs"><span>Data drift</span><span>Auto-retrain</span><span>Alerting</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tech" class="tab-content hidden content-section">
+                <h2>Technology Stack</h2>
+                <div class="technical-grid">
+                    <div class="tech-section">
+                        <h3><i class="fas fa-layer-group"></i> Core Platform</h3>
+                        <div class="tech-stack">
+                            <div class="tech-item">
+                                <div class="tech-icon"><i class="fas fa-robot"></i></div>
+                                <div class="tech-details">
+                                    <h4>Kubeflow</h4>
+                                    <p>End-to-end ML platform on Kubernetes — Pipelines, Training Operator, Katib, KServe, and Notebooks.</p>
+                                    <ul>
+                                        <li>Kubeflow Pipelines for workflow orchestration</li>
+                                        <li>Training Operator for distributed training</li>
+                                        <li>Katib for hyperparameter optimisation</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-icon"><i class="fas fa-code-branch"></i></div>
+                                <div class="tech-details">
+                                    <h4>MLflow</h4>
+                                    <p>Experiment tracking, model registry, and artefact storage with automatic logging integration.</p>
+                                    <ul>
+                                        <li>Experiment tracking with auto-logging</li>
+                                        <li>Model Registry with stage lifecycle</li>
+                                        <li>Artefact store on S3-compatible storage</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-icon"><i class="fas fa-dharmachakra"></i></div>
+                                <div class="tech-details">
+                                    <h4>Kubernetes Platform</h4>
+                                    <p>All MLOps components deployed on Kubernetes with GitOps delivery via ArgoCD.</p>
+                                    <ul>
+                                        <li>GPU node pools with NVIDIA Device Plugin</li>
+                                        <li>ArgoCD for declarative MLOps deployment</li>
+                                        <li>Persistent volumes for model artefacts</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="impact" class="tab-content hidden content-section">
+                <h2>Impact</h2>
+                <div class="performance-dashboard">
+                    <div class="metric-card">
+                        <div class="metric-header"><h3>Model Deployment</h3><i class="fas fa-rocket"></i></div>
+                        <div class="metric-value"><span class="metric-number">30%</span><span class="metric-unit">faster cycles</span></div>
+                        <div class="metric-comparison"><span class="improvement">Automated pipeline</span><span class="baseline">vs manual process</span></div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-header"><h3>Reproducibility</h3><i class="fas fa-redo"></i></div>
+                        <div class="metric-value"><span class="metric-number">100%</span><span class="metric-unit">reproducible</span></div>
+                        <div class="metric-comparison"><span class="improvement">Declarative pipelines</span><span class="baseline">vs ad-hoc notebooks</span></div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-header"><h3>Pipeline Reliability</h3><i class="fas fa-check-circle"></i></div>
+                        <div class="metric-value"><span class="metric-number">99.9%</span><span class="metric-unit">uptime</span></div>
+                        <div class="metric-comparison"><span class="improvement">Production grade</span><span class="baseline">since launch</span></div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-header"><h3>Time to Production</h3><i class="fas fa-clock"></i></div>
+                        <div class="metric-value"><span class="metric-number">Days</span><span class="metric-unit">not weeks</span></div>
+                        <div class="metric-comparison"><span class="improvement">Automated gates</span><span class="baseline">vs manual approval</span></div>
+                    </div>
+                </div>
+                <div class="impact-metrics">
+                    <div class="impact-category">
+                        <h3><i class="fas fa-users-cog"></i> Engineering Impact</h3>
+                        <div class="impact-items">
+                            <div class="impact-item"><h4>Standardised Workflows</h4><p>All teams follow the same reproducible pipeline pattern, eliminating environment mismatches and tribal knowledge.</p></div>
+                            <div class="impact-item"><h4>Governance & Auditability</h4><p>Every model version, training run, and deployment is tracked with full lineage for compliance and debugging.</p></div>
+                            <div class="impact-item"><h4>Self-Service</h4><p>Data scientists deploy models to production via the platform without infra team involvement.</p></div>
+                        </div>
+                    </div>
+                    <div class="impact-category">
+                        <h3><i class="fas fa-chart-line"></i> Business Impact</h3>
+                        <div class="impact-items">
+                            <div class="impact-item"><h4>Faster Experimentation</h4><p>Parallel experiment tracking and comparison accelerates model iteration and hypothesis testing.</p></div>
+                            <div class="impact-item"><h4>Production Confidence</h4><p>Automated evaluation gates and canary deployments reduce production incidents from model changes.</p></div>
+                            <div class="impact-item"><h4>Cost Efficiency</h4><p>Scale-to-zero serving and GPU sharing significantly reduce inference infrastructure costs for intermittent workloads.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <p>&copy; 2025 Gurpreet Gandhi. All rights reserved.</p>
+                    <p>Director · Platform Engineering | CKAD Certified | GCP AI Leader</p>
+                </div>
+                <div class="footer-links">
+                    <a href="../index.html">Portfolio</a>
+                    <a href="https://www.linkedin.com/in/gandhigurpreet/" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/grupret" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showTab(tabId, btn) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.remove('hidden');
+            btn.classList.add('active');
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', function() {
+                navbar.classList.toggle('scrolled', window.scrollY > 50);
+            });
+        });
+    </script>
+</body>
+</html>

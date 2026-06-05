@@ -73,23 +73,32 @@ function initNavigation() {
     });
 }
 
-// Scroll animations
+// Scroll animations with staggered entrance per group
 function initScrollAnimations() {
     const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.08,
+        rootMargin: '0px 0px -40px 0px'
     };
-    
+
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('animate');
+                const el = entry.target;
+                // Stagger siblings within the same parent
+                const siblings = Array.from(el.parentElement.children).filter(
+                    c => c.classList.contains('animate-on-scroll')
+                );
+                const idx = siblings.indexOf(el);
+                el.style.transitionDelay = (idx * 80) + 'ms';
+                el.classList.add('animate');
+                observer.unobserve(el);
             }
         });
     }, observerOptions);
-    
-    // Observe elements for animation
-    const animateElements = document.querySelectorAll('.experience-card, .project-card, .skill-category, .highlight-item');
+
+    const animateElements = document.querySelectorAll(
+        '.experience-card, .project-card, .skill-category, .highlight-item, .role-match-card'
+    );
     animateElements.forEach(el => {
         el.classList.add('animate-on-scroll');
         observer.observe(el);
@@ -132,20 +141,40 @@ function initFormHandling() {
 function initMobileMenu() {
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
-    
+
     if (navToggle && navMenu) {
         navToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            this.classList.toggle('active');
+            const isOpen = navMenu.classList.toggle('open');
+            this.classList.toggle('active', isOpen);
+            // Animate hamburger bars
+            const bars = this.querySelectorAll('.bar');
+            if (isOpen) {
+                bars[0].style.transform = 'rotate(45deg) translate(5px, 6px)';
+                bars[1].style.opacity = '0';
+                bars[2].style.transform = 'rotate(-45deg) translate(5px, -6px)';
+            } else {
+                bars[0].style.transform = '';
+                bars[1].style.opacity = '';
+                bars[2].style.transform = '';
+            }
         });
-        
-        // Close mobile menu when clicking on a link
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                navMenu.classList.remove('active');
+
+        // Close on nav link click
+        navMenu.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('open');
                 navToggle.classList.remove('active');
+                const bars = navToggle.querySelectorAll('.bar');
+                bars.forEach(b => { b.style.transform = ''; b.style.opacity = ''; });
             });
+        });
+
+        // Close on outside click
+        document.addEventListener('click', function(e) {
+            if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('open');
+                navToggle.classList.remove('active');
+            }
         });
     }
 }
@@ -197,67 +226,81 @@ function initScrollToTop() {
     });
 }
 
-// Skill bar animations
+// Skill bar animations — trigger when section scrolls into view
 function initSkillAnimations() {
     const skillBars = document.querySelectorAll('.skill-progress');
-    
+
+    // Store target widths from inline style, then reset to 0
+    skillBars.forEach(bar => {
+        bar.dataset.targetWidth = bar.style.width || '0%';
+        bar.style.width = '0%';
+    });
+
     const skillObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
+        entries.forEach((entry, i) => {
             if (entry.isIntersecting) {
-                const width = entry.target.style.width;
-                entry.target.style.width = '0%';
-                
+                const bar = entry.target;
+                // Stagger within a category
+                const category = bar.closest('.skill-category');
+                const bars = category ? Array.from(category.querySelectorAll('.skill-progress')) : [bar];
+                const idx = bars.indexOf(bar);
                 setTimeout(() => {
-                    entry.target.style.width = width;
-                }, 200);
+                    bar.style.width = bar.dataset.targetWidth;
+                }, idx * 120);
+                skillObserver.unobserve(bar);
             }
         });
-    }, { threshold: 0.5 });
-    
-    skillBars.forEach(bar => {
-        skillObserver.observe(bar);
-    });
+    }, { threshold: 0.3, rootMargin: '0px 0px -30px 0px' });
+
+    skillBars.forEach(bar => skillObserver.observe(bar));
 }
 
-// Project card interactions
+// Project card interactions — hover handled via CSS; add counter animation
 function initProjectCards() {
-    const projectCards = document.querySelectorAll('.project-card');
-    
-    projectCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-15px) scale(1.02)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-    });
-}
-
-// Typewriter effect for hero title
-function initTypewriterEffect() {
-    const titleLines = document.querySelectorAll('.title-line');
-    
-    titleLines.forEach((line, index) => {
-        const text = line.textContent;
-        line.textContent = '';
-        
-        setTimeout(() => {
-            typeWriter(line, text, 100);
-        }, index * 1000);
-    });
-}
-
-function typeWriter(element, text, speed) {
-    let i = 0;
-    function type() {
-        if (i < text.length) {
-            element.textContent += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
+    // Animate stat numbers in hero on page load
+    const statNumbers = document.querySelectorAll('.stat-number');
+    statNumbers.forEach(el => {
+        const raw = el.textContent.trim();
+        const num = parseFloat(raw.replace(/[^0-9.]/g, ''));
+        if (!isNaN(num) && num > 1) {
+            animateCounter(el, 0, num, raw, 1400);
         }
+    });
+}
+
+function animateCounter(el, from, to, original, duration) {
+    const suffix = original.replace(/[0-9.]/g, '');
+    const start = performance.now();
+    function step(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease-out expo
+        const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        const current = from + (to - from) * eased;
+        el.textContent = (Number.isInteger(to) ? Math.round(current) : current.toFixed(1)) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = original;
     }
-    type();
+    requestAnimationFrame(step);
+}
+
+// Smooth title reveal (replaces typewriter)
+function initTypewriterEffect() {
+    // Title lines already animated via CSS slideInLeft — nothing extra needed
+    // Add a subtle word-by-word reveal to the hero subtitle instead
+    const subtitle = document.querySelector('.hero-subtitle');
+    if (!subtitle) return;
+    const text = subtitle.textContent;
+    const words = text.split(' ');
+    subtitle.innerHTML = words.map((w, i) =>
+        `<span style="display:inline-block;opacity:0;transform:translate3d(0,10px,0);transition:opacity 400ms cubic-bezier(0.16,1,0.3,1) ${600 + i * 30}ms, transform 400ms cubic-bezier(0.16,1,0.3,1) ${600 + i * 30}ms">${w}&nbsp;</span>`
+    ).join('');
+    requestAnimationFrame(() => {
+        subtitle.querySelectorAll('span').forEach(s => {
+            s.style.opacity = '0.9';
+            s.style.transform = 'translate3d(0,0,0)';
+        });
+    });
 }
 
 // Utility functions
@@ -277,16 +320,18 @@ function showNotification(message, type = 'success') {
         z-index: 10000;
         opacity: 0;
         transform: translateX(100px);
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: opacity 350ms cubic-bezier(0.16,1,0.3,1), transform 350ms cubic-bezier(0.16,1,0.3,1);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
     `;
-    
+
     document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.style.opacity = '1';
-        notification.style.transform = 'translateX(0)';
-    }, 100);
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            notification.style.opacity = '1';
+            notification.style.transform = 'translateX(0)';
+        });
+    });
     
     setTimeout(() => {
         notification.style.opacity = '0';
