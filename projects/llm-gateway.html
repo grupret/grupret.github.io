@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Inference Gateway | Gurpreet Gandhi</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Gurpreet Gandhi</span>
+                <span class="logo-title">Director · Platform Engineering</span>
+            </div>
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link">← Back to Portfolio</a>
+                <a href="../index.html#projects" class="nav-link">Other Projects</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="project-hero">
+        <div class="container">
+            <div class="project-header">
+                <div class="project-title-section">
+                    <h1 class="project-title">LLM Inference Gateway</h1>
+                    <p class="project-tagline">Unified Gateway for Multi-Provider LLM and On-Premise AI Inference</p>
+                    <div class="project-impact">
+                        <div class="impact-stat">
+                            <span class="impact-number">30%</span>
+                            <span class="impact-label">Faster Deployment Cycles</span>
+                        </div>
+                        <div class="impact-stat">
+                            <span class="impact-number">6+</span>
+                            <span class="impact-label">Inference Backends</span>
+                        </div>
+                        <div class="impact-stat">
+                            <span class="impact-number">3x</span>
+                            <span class="impact-label">GPU Utilisation Gain</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-image-section">
+                    <div class="project-architecture-diagram">
+                        <div class="arch-component"><i class="fas fa-brain"></i><span>LLM Gateway</span></div>
+                        <div class="arch-component"><i class="fas fa-server"></i><span>On-Prem Inference</span></div>
+                        <div class="arch-component"><i class="fas fa-cloud"></i><span>Cloud Providers</span></div>
+                        <div class="arch-component"><i class="fas fa-microchip"></i><span>GPU Infrastructure</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <nav class="project-nav">
+        <div class="container">
+            <div class="tabs">
+                <button class="tab-button active" onclick="showTab('overview', this)"><i class="fas fa-home"></i> Overview</button>
+                <button class="tab-button" onclick="showTab('architecture', this)"><i class="fas fa-sitemap"></i> Architecture</button>
+                <button class="tab-button" onclick="showTab('tech', this)"><i class="fas fa-cogs"></i> Tech Stack</button>
+                <button class="tab-button" onclick="showTab('impact', this)"><i class="fas fa-chart-line"></i> Impact</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="project-content">
+        <div class="container">
+
+            <div id="overview" class="tab-content content-section">
+                <h2>Project Overview</h2>
+                <div class="overview-grid">
+                    <div class="overview-text">
+                        <h3>Problem Statement</h3>
+                        <p>Enterprise teams faced fragmented LLM integrations — each team building bespoke clients for OpenAI, Anthropic, or self-hosted models separately. This created duplicated security controls, inconsistent rate limiting, zero cross-provider observability, and costly GPU underutilisation.</p>
+                        <h3>Solution</h3>
+                        <p>Built a unified LLM Inference Gateway that abstracts all model providers — cloud (Anthropic Claude, OpenAI GPT) and on-premise (Ollama, vLLM, LoRAX for LoRA adapter serving, KServe with ONNX Runtime for in-house model inference) — behind a single OpenAI-compatible API surface.</p>
+                        <p>GPU infrastructure is centrally managed using NVIDIA MIG (Multi-Instance GPU) partitioning and time-slicing, enabling multiple workloads to share expensive GPU capacity efficiently without contention.</p>
+                    </div>
+                    <div class="overview-features">
+                        <h3>Key Capabilities</h3>
+                        <div class="achievements">
+                            <div class="achievement-item">
+                                <i class="fas fa-route"></i>
+                                <div>
+                                    <h4>Multi-Provider Routing</h4>
+                                    <p>Policy-based routing to Anthropic, OpenAI, Ollama, vLLM, LoRAX, and KServe by cost, latency, or model availability.</p>
+                                    <div class="metrics">
+                                        <span class="metric">Dynamic failover</span>
+                                        <span class="metric">Cost optimization</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="achievement-item">
+                                <i class="fas fa-microchip"></i>
+                                <div>
+                                    <h4>GPU Infrastructure Management</h4>
+                                    <p>NVIDIA MIG partitioning and time-slicing for efficient GPU sharing across inference workloads.</p>
+                                    <div class="metrics">
+                                        <span class="metric">MIG partitions</span>
+                                        <span class="metric">Time-slicing</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="achievement-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <div>
+                                    <h4>Centralised Security</h4>
+                                    <p>Single control point for API key management, rate limiting, audit logging, and PII detection before prompts reach providers.</p>
+                                    <div class="metrics">
+                                        <span class="metric">PII scanning</span>
+                                        <span class="metric">Audit logs</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="achievement-item">
+                                <i class="fas fa-chart-bar"></i>
+                                <div>
+                                    <h4>Unified Observability</h4>
+                                    <p>Latency, token usage, cost attribution, and error rates across all providers in a single dashboard.</p>
+                                    <div class="metrics">
+                                        <span class="metric">Per-model costs</span>
+                                        <span class="metric">SLO tracking</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="architecture" class="tab-content hidden content-section">
+                <h2>Architecture</h2>
+                <div class="architecture-details">
+                    <div class="arch-layer">
+                        <h3><i class="fas fa-layer-group"></i> Gateway Layer</h3>
+                        <div class="layer-content">
+                            <div class="component-card">
+                                <h4>API Gateway</h4>
+                                <p>OpenAI-compatible REST/SSE API surface. Clients use a single endpoint regardless of backend provider — zero application changes needed when switching backends.</p>
+                                <div class="tech-specs"><span>OpenAI-compatible</span><span>REST + SSE</span><span>TLS</span></div>
+                            </div>
+                            <div class="component-card">
+                                <h4>Router & Policy Engine</h4>
+                                <p>Routes requests based on model name, cost policy, latency SLO, or explicit provider preference. Supports A/B routing for model evaluation.</p>
+                                <div class="tech-specs"><span>Policy routing</span><span>Cost optimization</span><span>A/B routing</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer">
+                        <h3><i class="fas fa-cloud"></i> Cloud Providers</h3>
+                        <div class="layer-content">
+                            <div class="component-card">
+                                <h4>Anthropic Claude</h4>
+                                <p>Claude Opus, Sonnet, Haiku with streaming support, tool use, and vision passthrough.</p>
+                                <div class="tech-specs"><span>Claude 3.x</span><span>Streaming</span><span>Tool Use</span></div>
+                            </div>
+                            <div class="component-card">
+                                <h4>OpenAI GPT</h4>
+                                <p>GPT-4o, GPT-4 Turbo with function calling, structured output, and vision capabilities.</p>
+                                <div class="tech-specs"><span>GPT-4o</span><span>Function Calling</span><span>Vision</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer">
+                        <h3><i class="fas fa-server"></i> On-Premise Inference</h3>
+                        <div class="layer-content">
+                            <div class="component-card">
+                                <h4>Ollama</h4>
+                                <p>Local model serving for Llama, Mistral, Gemma. Hot-swap model loading and easy pull-based lifecycle.</p>
+                                <div class="tech-specs"><span>Llama 3</span><span>Mistral</span><span>Gemma</span></div>
+                            </div>
+                            <div class="component-card">
+                                <h4>vLLM</h4>
+                                <p>High-throughput inference with PagedAttention for production-scale on-prem workloads with continuous batching.</p>
+                                <div class="tech-specs"><span>PagedAttention</span><span>Continuous batching</span><span>High throughput</span></div>
+                            </div>
+                            <div class="component-card">
+                                <h4>LoRAX — LoRA Adapter Serving</h4>
+                                <p>Dynamic LoRA adapter loading for fine-tuned model variants without full model reload, enabling efficient multi-tenant fine-tuning.</p>
+                                <div class="tech-specs"><span>LoRA adapters</span><span>Dynamic loading</span><span>Multi-tenant</span></div>
+                            </div>
+                            <div class="component-card">
+                                <h4>KServe + ONNX Runtime</h4>
+                                <p>Kubernetes-native model serving for ONNX models enabling efficient in-house model inference with autoscaling to zero.</p>
+                                <div class="tech-specs"><span>ONNX Runtime</span><span>KServe</span><span>Scale-to-zero</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer">
+                        <h3><i class="fas fa-microchip"></i> GPU Infrastructure</h3>
+                        <div class="layer-content">
+                            <div class="component-card">
+                                <h4>NVIDIA MIG (Multi-Instance GPU)</h4>
+                                <p>Hardware-level GPU partitioning isolating compute and memory for multiple concurrent inference workloads with guaranteed resource SLOs.</p>
+                                <div class="tech-specs"><span>A100/H100</span><span>Isolated partitions</span><span>Guaranteed SLO</span></div>
+                            </div>
+                            <div class="component-card">
+                                <h4>GPU Time-Slicing</h4>
+                                <p>Software-level time multiplexing for smaller models, maximising utilisation where full MIG partitions are excessive.</p>
+                                <div class="tech-specs"><span>K8s Device Plugin</span><span>Fractional GPU</span><span>Cost efficient</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tech" class="tab-content hidden content-section">
+                <h2>Technology Stack</h2>
+                <div class="technical-grid">
+                    <div class="tech-section">
+                        <h3><i class="fas fa-dharmachakra"></i> Platform</h3>
+                        <div class="tech-stack">
+                            <div class="tech-item">
+                                <div class="tech-icon"><i class="fas fa-dharmachakra"></i></div>
+                                <div class="tech-details">
+                                    <h4>Kubernetes</h4>
+                                    <p>Gateway and inference backends deployed as K8s workloads with HPA on token throughput and GPU metrics.</p>
+                                    <ul>
+                                        <li>HPA scaling on token throughput</li>
+                                        <li>NVIDIA GPU Operator for device management</li>
+                                        <li>Kubernetes Device Plugin for GPU scheduling</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-icon"><i class="fas fa-shield-alt"></i></div>
+                                <div class="tech-details">
+                                    <h4>Security</h4>
+                                    <p>mTLS between gateway and backends, Vault-managed API keys, PII scanning middleware.</p>
+                                    <ul>
+                                        <li>HashiCorp Vault for API key lifecycle</li>
+                                        <li>Istio mTLS for service mesh encryption</li>
+                                        <li>PII detection before prompt forwarding</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-icon"><i class="fas fa-eye"></i></div>
+                                <div class="tech-details">
+                                    <h4>Observability</h4>
+                                    <p>Per-provider latency, token usage, cost attribution, and error classification in unified dashboards.</p>
+                                    <ul>
+                                        <li>Prometheus + Grafana dashboards</li>
+                                        <li>OpenTelemetry distributed tracing</li>
+                                        <li>Per-model cost attribution and alerts</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="impact" class="tab-content hidden content-section">
+                <h2>Impact</h2>
+                <div class="performance-dashboard">
+                    <div class="metric-card">
+                        <div class="metric-header"><h3>Deployment Cycles</h3><i class="fas fa-rocket"></i></div>
+                        <div class="metric-value"><span class="metric-number">30%</span><span class="metric-unit">faster</span></div>
+                        <div class="metric-comparison"><span class="improvement">Unified pipeline</span><span class="baseline">vs per-team integrations</span></div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-header"><h3>GPU Utilisation</h3><i class="fas fa-microchip"></i></div>
+                        <div class="metric-value"><span class="metric-number">3x</span><span class="metric-unit">improvement</span></div>
+                        <div class="metric-comparison"><span class="improvement">MIG + time-slicing</span><span class="baseline">vs dedicated allocation</span></div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-header"><h3>Provider Coverage</h3><i class="fas fa-network-wired"></i></div>
+                        <div class="metric-value"><span class="metric-number">6+</span><span class="metric-unit">backends</span></div>
+                        <div class="metric-comparison"><span class="improvement">Single API surface</span><span class="baseline">across all providers</span></div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-header"><h3>Security Incidents</h3><i class="fas fa-shield-alt"></i></div>
+                        <div class="metric-value"><span class="metric-number">0</span><span class="metric-unit">incidents</span></div>
+                        <div class="metric-comparison"><span class="improvement">Zero breaches</span><span class="baseline">since deployment</span></div>
+                    </div>
+                </div>
+                <div class="impact-metrics">
+                    <div class="impact-category">
+                        <h3><i class="fas fa-users"></i> Team Impact</h3>
+                        <div class="impact-items">
+                            <div class="impact-item"><h4>Developer Productivity</h4><p>Teams integrate LLMs in hours rather than days — no provider SDK knowledge required beyond the unified API.</p></div>
+                            <div class="impact-item"><h4>Cost Governance</h4><p>Real-time cost attribution per team and project enables FinOps-grade LLM spending control across the organisation.</p></div>
+                            <div class="impact-item"><h4>Compliance</h4><p>Centralised PII scanning and audit logs satisfy enterprise data governance and regulatory requirements.</p></div>
+                        </div>
+                    </div>
+                    <div class="impact-category">
+                        <h3><i class="fas fa-cogs"></i> Operational Impact</h3>
+                        <div class="impact-items">
+                            <div class="impact-item"><h4>GPU Efficiency</h4><p>MIG partitioning and time-slicing dramatically reduce idle GPU time, lowering on-prem inference infrastructure costs.</p></div>
+                            <div class="impact-item"><h4>Resilience</h4><p>Automatic fallback routing to secondary providers on upstream failures maintains availability SLOs.</p></div>
+                            <div class="impact-item"><h4>Observability</h4><p>Unified metrics across all providers enable SLO-based capacity planning and incident response.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <p>&copy; 2025 Gurpreet Gandhi. All rights reserved.</p>
+                    <p>Director · Platform Engineering | CKAD Certified | GCP AI Leader</p>
+                </div>
+                <div class="footer-links">
+                    <a href="../index.html">Portfolio</a>
+                    <a href="https://www.linkedin.com/in/gandhigurpreet/" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/grupret" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showTab(tabId, btn) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.remove('hidden');
+            btn.classList.add('active');
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', function() {
+                navbar.classList.toggle('scrolled', window.scrollY > 50);
+            });
+        });
+    </script>
+</body>
+</html>
