@@ -193,7 +193,7 @@ function initScrollToTop() {
     });
 }
 
-// Skill bar animations — trigger when section scrolls into view
+// Skill bar animations - trigger when section scrolls into view
 function initSkillAnimations() {
     const skillBars = document.querySelectorAll('.skill-progress');
 
@@ -222,7 +222,7 @@ function initSkillAnimations() {
     skillBars.forEach(bar => skillObserver.observe(bar));
 }
 
-// Project card interactions — hover handled via CSS; add counter animation
+// Project card interactions - hover handled via CSS; add counter animation
 function initProjectCards() {
     // Animate stat numbers in hero on page load
     const statNumbers = document.querySelectorAll('.stat-number');
@@ -253,7 +253,7 @@ function animateCounter(el, from, to, original, duration) {
 
 // Smooth title reveal (replaces typewriter)
 function initTypewriterEffect() {
-    // Title lines already animated via CSS slideInLeft — nothing extra needed
+    // Title lines already animated via CSS slideInLeft - nothing extra needed
     // Add a subtle word-by-word reveal to the hero subtitle instead
     const subtitle = document.querySelector('.hero-subtitle');
     if (!subtitle) return;

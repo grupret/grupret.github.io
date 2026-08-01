@@ -1,5 +1,5 @@
 // =============================================================================
-// CAREER ASSISTANT — Engineering Manager & Platform Architect Journey
+// CAREER ASSISTANT: Engineering Manager & Platform Architect Journey
 // Integrations: GitHub API · LeetCode · Exercism · Coursera · Claude API · LinkedIn
 // =============================================================================
 
@@ -21,7 +21,7 @@ const CAREER_PROFILE = {
     mentoring: 'Mentored engineers into lead-role promotions'
   },
   certifications: [
-    'CKAD — Certified Kubernetes Application Developer (The Linux Foundation / CNCF, Dec 2024)',
+    'CKAD: Certified Kubernetes Application Developer (The Linux Foundation / CNCF, Dec 2024)',
     'Google Cloud Generative AI Leader (Feb 2026 – Feb 2029)',
     'SnapLogic Developer Certification'
   ],
@@ -50,7 +50,7 @@ const CAREER_PROFILE = {
   ]
 };
 
-// ── Virtual Gurpreet — recruiter-facing Q&A (no API key required) ──────────
+// ── Virtual Gurpreet: recruiter-facing Q&A (no API key required) ──────────
 // Keyword-matched, first-person answers grounded in CAREER_PROFILE facts.
 // This is the DEFAULT chat mode for anonymous visitors. "Power Mode" (below,
 // requires a visitor-supplied Claude API key) layers on freeform Q&A on top.
@@ -58,22 +58,22 @@ const FAQ_ENTRIES = [
   {
     id: 'greeting',
     keywords: ['who are you','tell me about yourself','introduce yourself','about you','hi','hello','hey'],
-    answer: p => `I'm ${p.name} — an ${p.currentTitle} with ${p.yearsExp}+ years building cloud-native platforms, distributed systems, and enterprise AI infrastructure. I currently lead engineering at ${p.currentCompany}, where I ${p.teamLeadership.builtTeam.charAt(0).toLowerCase() + p.teamLeadership.builtTeam.slice(1)} and ${p.teamLeadership.maxOrg.charAt(0).toLowerCase() + p.teamLeadership.maxOrg.slice(1)}. Ask me about my team leadership, certifications, tech stack, or any of my featured projects.`
+    answer: p => `I'm ${p.name}, an ${p.currentTitle} with ${p.yearsExp}+ years building cloud-native platforms, distributed systems, and enterprise AI infrastructure. I currently lead engineering at ${p.currentCompany}, where I ${p.teamLeadership.builtTeam.charAt(0).toLowerCase() + p.teamLeadership.builtTeam.slice(1)} and ${p.teamLeadership.maxOrg.charAt(0).toLowerCase() + p.teamLeadership.maxOrg.slice(1)}. Ask me about my team leadership, certifications, tech stack, or any of my featured projects.`
   },
   {
     id: 'role',
     keywords: ['current role','what do you do','job title','position','what is your role','current job'],
-    answer: p => `Right now I'm ${p.currentTitle} at ${p.currentCompany}. It's a hybrid role — I own the platform roadmap and lead the people side of engineering, while staying hands-on enough to make the hard architecture calls myself.`
+    answer: p => `Right now I'm ${p.currentTitle} at ${p.currentCompany}. It's a hybrid role: I own the platform roadmap and lead the people side of engineering, while staying hands-on enough to make the hard architecture calls myself.`
   },
   {
     id: 'team',
     keywords: ['team size','how many people','direct reports','manage','managed','leadership experience','led a team','mentoring','mentor','promotion','promoted','people manager'],
-    answer: p => `${p.teamLeadership.builtTeam}. ${p.teamLeadership.maxOrg}. I've also run smaller focused teams — ${p.teamLeadership.aiGatewayTeam} and ${p.teamLeadership.genAiTeam} — and partnered on a ${p.teamLeadership.mlPlatformOrg}. ${p.teamLeadership.mentoring}.`
+    answer: p => `${p.teamLeadership.builtTeam}. ${p.teamLeadership.maxOrg}. I've also run smaller focused teams, including ${p.teamLeadership.aiGatewayTeam} and ${p.teamLeadership.genAiTeam}, and partnered on a ${p.teamLeadership.mlPlatformOrg}. ${p.teamLeadership.mentoring}.`
   },
   {
     id: 'certs',
     keywords: ['certification','certificate','certified','credly','ckad','generative ai leader','snaplogic'],
-    answer: p => `I hold three: ${p.certifications.join('; ')}. All are verifiable on Credly — links are under Personal → Courses & Certifications on this site.`
+    answer: p => `I hold three: ${p.certifications.join('; ')}. All are verifiable on Credly, with links under Personal → Courses & Certifications on this site.`
   },
   {
     id: 'stack',
@@ -83,12 +83,12 @@ const FAQ_ENTRIES = [
   {
     id: 'manager_or_architect',
     keywords: ['manager or architect','em or architect','people manager or ic','hands on','hands-on','still code','still technical'],
-    answer: () => `Both, honestly — my title is Engineering Manager & Platform Architect. I lead the people side (hiring, mentoring, planning, roadmap) but stay hands-on enough to make the hard architecture calls myself. That combination is intentional — it's what I'd bring to a Director or Senior EM seat.`
+    answer: () => `Both, honestly: my title is Engineering Manager & Platform Architect. I lead the people side (hiring, mentoring, planning, roadmap) but stay hands-on enough to make the hard architecture calls myself. That combination is intentional; it's what I'd bring to a Director or Senior EM seat.`
   },
   {
     id: 'target_roles',
     keywords: ['looking for','target role','next role','what role','open to','job search','career goal'],
-    answer: p => `I'm targeting ${p.targetRoles.slice(0,2).map(r => r.title).join(' and ')} roles — open to remote/global opportunities. Happy to talk specifics if you have something in mind.`
+    answer: p => `I'm targeting ${p.targetRoles.slice(0,2).map(r => r.title).join(' and ')} roles, open to remote/global opportunities. Happy to talk specifics if you have something in mind.`
   },
   {
     id: 'contact',
@@ -98,7 +98,7 @@ const FAQ_ENTRIES = [
   {
     id: 'projects_general',
     keywords: ['projects','what have you built','built anything','portfolio','work you have done'],
-    answer: p => `A few I'm proud of: ${p.projects.slice(0,5).map(pr => pr.name).join(', ')}. Ask me about any one of them by name — the AI Gateway, the DaaS platform, RunRun, or the ML platform — and I'll go deeper.`
+    answer: p => `A few I'm proud of: ${p.projects.slice(0,5).map(pr => pr.name).join(', ')}. Ask me about any one of them by name, such as the AI Gateway, the DaaS platform, RunRun, or the ML platform, and I'll go deeper.`
   }
 ];
 
@@ -117,9 +117,9 @@ function matchFAQ(msg) {
     const score = pr.keywords.reduce((n, kw) => n + (lower.includes(kw) ? 1 : 0), 0);
     if (score > bestPScore) { bestPScore = score; bestProject = pr; }
   });
-  if (bestProject) return `**${bestProject.name}** — ${bestProject.impact}. Want details on another project, my team leadership, or how to reach me?`;
+  if (bestProject) return `**${bestProject.name}**: ${bestProject.impact}. Want details on another project, my team leadership, or how to reach me?`;
 
-  return `I didn't quite catch that. I'm best at answering questions about my current role, team leadership, certifications, tech stack, or my featured projects (AI Gateway, DaaS, RunRun, ML Platform). Try one of the quick questions below — or turn on **Power Mode** (paste a Claude API key above) for open-ended questions.`;
+  return `I didn't quite catch that. I'm best at answering questions about my current role, team leadership, certifications, tech stack, or my featured projects (AI Gateway, DaaS, RunRun, ML Platform). Try one of the quick questions below, or turn on **Power Mode** (paste a Claude API key above) for open-ended questions.`;
 }
 
 // ── Learning Paths ──────────────────────────────────────────────────────────
@@ -130,8 +130,8 @@ const LEARNING_PATHS = {
     skillsToGain: ['Backstage','Crossplane','Port','IDP Design','CNCF Toolchain'],
     courses: [
       { title:'Platform Engineering Fundamentals', provider:'CNCF', url:'https://www.cncf.io/online-programs/introduction-to-platform-engineering/', duration:'4h', level:'Intermediate', free:true },
-      { title:'Backstage — Build Your IDP', provider:'Spotify / backstage.io', url:'https://backstage.io/docs/overview/what-is-backstage', duration:'8h', level:'Advanced', free:true },
-      { title:'Crossplane — Universal Control Plane', provider:'CNCF', url:'https://docs.crossplane.io/', duration:'6h', level:'Advanced', free:true },
+      { title:'Backstage: Build Your IDP', provider:'Spotify / backstage.io', url:'https://backstage.io/docs/overview/what-is-backstage', duration:'8h', level:'Advanced', free:true },
+      { title:'Crossplane: Universal Control Plane', provider:'CNCF', url:'https://docs.crossplane.io/', duration:'6h', level:'Advanced', free:true },
       { title:'Platform Engineering on Coursera', provider:'Coursera', url:'https://www.coursera.org/search?query=platform+engineering', duration:'20h', level:'Intermediate', free:false }
     ],
     resources: [
@@ -142,12 +142,12 @@ const LEARNING_PATHS = {
   },
   mlops: {
     icon: '🤖', title: 'MLOps / ML Platform Engineering',
-    description: 'Bridge ML research to production — reliable, scalable, observable ML systems',
+    description: 'Bridge ML research to production, building reliable, scalable, observable ML systems',
     skillsToGain: ['MLflow','Kubeflow','Feature Stores','Model Monitoring','Vertex AI/SageMaker'],
     courses: [
-      { title:'MLOps Specialization', provider:'Coursera — DeepLearning.AI', url:'https://www.coursera.org/specializations/machine-learning-engineering-for-production-mlops', duration:'40h', level:'Advanced', free:false },
-      { title:'MLflow: Experiments → Production', provider:'Databricks', url:'https://www.databricks.com/learn/training', duration:'8h', level:'Intermediate', free:true },
-      { title:'Made With ML — Full MLOps Course', provider:'Made With ML', url:'https://madewithml.com/', duration:'20h', level:'Advanced', free:true },
+      { title:'MLOps Specialization', provider:'Coursera, DeepLearning.AI', url:'https://www.coursera.org/specializations/machine-learning-engineering-for-production-mlops', duration:'40h', level:'Advanced', free:false },
+      { title:'MLflow: Experiments to Production', provider:'Databricks', url:'https://www.databricks.com/learn/training', duration:'8h', level:'Intermediate', free:true },
+      { title:'Made With ML: Full MLOps Course', provider:'Made With ML', url:'https://madewithml.com/', duration:'20h', level:'Advanced', free:true },
       { title:'Practical MLOps', provider:'Educative', url:'https://www.educative.io/courses/practical-mlops', duration:'15h', level:'Intermediate', free:false }
     ],
     resources: [
@@ -164,7 +164,7 @@ const LEARNING_PATHS = {
       { title:'LLMOps (Short Course)', provider:'DeepLearning.AI', url:'https://www.deeplearning.ai/short-courses/llmops/', duration:'4h', level:'Intermediate', free:true },
       { title:'Building RAG Systems', provider:'DeepLearning.AI', url:'https://www.deeplearning.ai/short-courses/building-and-evaluating-advanced-rag/', duration:'3h', level:'Intermediate', free:true },
       { title:'LangChain for LLM Apps', provider:'DeepLearning.AI', url:'https://www.deeplearning.ai/short-courses/langchain-for-llm-application-development/', duration:'3h', level:'Beginner', free:true },
-      { title:'LLM Engineer Full Course', provider:'GitHub — mlabonne', url:'https://github.com/mlabonne/llm-course', duration:'30h', level:'Advanced', free:true }
+      { title:'LLM Engineer Full Course', provider:'GitHub: mlabonne', url:'https://github.com/mlabonne/llm-course', duration:'30h', level:'Advanced', free:true }
     ],
     resources: [
       { name:'Awesome LLMOps', url:'https://github.com/tensorchord/Awesome-LLMOps', type:'github' },
@@ -179,7 +179,7 @@ const LEARNING_PATHS = {
     courses: [
       { title:'GitOps Fundamentals', provider:'Codefresh', url:'https://codefresh.io/learn/gitops/', duration:'5h', level:'Beginner', free:true },
       { title:'ArgoCD for Beginners', provider:'KodeKloud', url:'https://kodekloud.com/courses/argcd-for-beginners/', duration:'6h', level:'Intermediate', free:false },
-      { title:'Flux CD — Getting Started', provider:'Weaveworks', url:'https://fluxcd.io/flux/get-started/', duration:'4h', level:'Intermediate', free:true },
+      { title:'Flux CD: Getting Started', provider:'Weaveworks', url:'https://fluxcd.io/flux/get-started/', duration:'4h', level:'Intermediate', free:true },
       { title:'GitOps with Kubernetes', provider:'Educative', url:'https://www.educative.io/courses/gitops-with-kubernetes', duration:'12h', level:'Advanced', free:false }
     ],
     resources: [
@@ -195,7 +195,7 @@ const LEARNING_PATHS = {
       { title:'SRE Book by Google', provider:'Google (Free)', url:'https://sre.google/sre-book/table-of-contents/', duration:'40h', level:'Advanced', free:true },
       { title:'Observability with OpenTelemetry', provider:'Linux Foundation', url:'https://opentelemetry.io/docs/getting-started/', duration:'6h', level:'Intermediate', free:true },
       { title:'Chaos Engineering', provider:'Chaos Toolkit', url:'https://chaostoolkit.org/tutorials/', duration:'4h', level:'Advanced', free:true },
-      { title:'DevOps on AWS Specialization', provider:'Coursera — AWS', url:'https://www.coursera.org/specializations/aws-devops', duration:'30h', level:'Intermediate', free:false }
+      { title:'DevOps on AWS Specialization', provider:'Coursera, AWS', url:'https://www.coursera.org/specializations/aws-devops', duration:'30h', level:'Intermediate', free:false }
     ],
     resources: [
       { name:'DevOps Roadmap', url:'https://roadmap.sh/devops', type:'reference' },
@@ -233,7 +233,7 @@ Gurpreet Gandhi`,
 
   intro: `Hi {{name}},
 
-I'm Gurpreet Gandhi — Engineering Manager & Platform Architect. My work spans:
+I'm Gurpreet Gandhi, Engineering Manager & Platform Architect. My work spans:
 • Team leadership (built/scaled a 12-member platform team, led 14 engineers/4 squads)
 • Distributed platforms (10TB+/day, 99.5% availability, <1ms latency)
 • MLOps & LLMOps (Kubeflow, MLflow, vLLM/Ollama on K8s)
@@ -286,7 +286,7 @@ gurpreetgandhi3@gmail.com`,
 
 I wanted to follow up on my message about the {{role}} at {{company}}.
 
-I remain very interested — my experience in {{relevant_skill}} directly maps to what you're building. I recently also {{recent_achievement}}, which might be relevant context.
+I remain very interested. My experience in {{relevant_skill}} directly maps to what you're building. I recently also {{recent_achievement}}, which might be relevant context.
 
 Would you have 20 minutes this week to connect?
 
@@ -306,7 +306,7 @@ In brief, I've:
 
 I believe I can accelerate {{company}}'s platform vision significantly.
 
-Happy to share more context — would love to connect at your convenience.
+Happy to share more context, and would love to connect at your convenience.
 
 Gurpreet Gandhi
 gurpreetgandhi3@gmail.com | linkedin.com/in/gandhigurpreet`
@@ -328,7 +328,7 @@ const EQ_EXERCISES = [
   { scenario:'Your team missed a critical deadline. The PM is blaming engineering publicly.', exercise:'Practice non-defensive leadership: Acknowledge facts, protect your team, propose solutions.', prompt:'How do you respond to the PM AND to the client in a way that maintains trust while being honest about what happened?', insight:'High-performing leaders absorb external pressure before it reaches their team. Psychological safety is your performance multiplier.' },
   { scenario:'A senior engineer challenges your architectural decision in front of the whole team.', exercise:'Practice intellectual humility before defending your position.', prompt:'How do you make this disagreement productive rather than a status battle? What would you say to open the floor?', insight:'The best VPs actively invite expert dissent. Psychological safety = innovation. Make yourself the safest person to disagree with.' },
   { scenario:'You need to give tough performance feedback to a top performer who is becoming a bottleneck.', exercise:'Craft SBI (Situation-Behavior-Impact) feedback without judgment.', prompt:'Write the opening 3 sentences of this feedback conversation using SBI + future-focused language.', insight:'Top performers leave when feedback is absent OR delivered poorly. Radical candor (care personally + challenge directly) is the VP superpower.' },
-  { scenario:'Executives are pushing a technical decision you believe will create massive tech debt.', exercise:'Translate technical risk into executive language.', prompt:'Frame your concern as: business impact + probability + mitigation cost. Avoid saying "tech debt" — what is the business equivalent?', insight:'Influence without authority defines the VP role. Business outcomes (revenue risk, speed-to-market, retention) unlock executive alignment, not technical arguments.' },
+  { scenario:'Executives are pushing a technical decision you believe will create massive tech debt.', exercise:'Translate technical risk into executive language.', prompt:'Frame your concern as: business impact + probability + mitigation cost. Avoid saying "tech debt": what is the business equivalent?', insight:'Influence without authority defines the VP role. Business outcomes (revenue risk, speed-to-market, retention) unlock executive alignment, not technical arguments.' },
   { scenario:'Two of your strongest engineers are in open conflict over a technology choice.', exercise:'Facilitate a structured technical debate without taking sides.', prompt:'Design a 45-minute decision-making process that uses both engineers\' strengths and resolves the conflict with a documented outcome.', insight:'Your job is to build systems where smart people resolve conflict productively. Document the decision criteria BEFORE the meeting, not the decision.' }
 ];
 
@@ -336,22 +336,22 @@ const EQ_EXERCISES = [
 const COMM_TIPS = [
   { category:'Executive Communication', tip:'Lead with the recommendation. Executives process top-down, not bottom-up. State the "what" first, then the "why".', example:'❌ "We analyzed 5 options over 3 weeks..." ✅ "I recommend Option B. Three reasons: [bullet points]. Details available if needed."' },
   { category:'Technical Storytelling', tip:'Use the 3-layer explanation: Business Impact → Technical Approach → Implementation Detail. Shift layers based on your audience.', example:'CEO: "This cuts deploys from 2hrs to 5min" → CTO: "GitOps with ArgoCD" → Engineer: "Declarative manifests synced via Flux controllers"' },
-  { category:'Conflict Resolution', tip:'"Yes, and..." builds; "Yes, but..." blocks. Extend ideas before challenging them — it earns the right to push back.', example:'❌ "Yes, but that won\'t scale." ✅ "Yes, and as we scale we\'ll need to solve X — here\'s how I\'d approach that together."' },
+  { category:'Conflict Resolution', tip:'"Yes, and..." builds; "Yes, but..." blocks. Extend ideas before challenging them; it earns the right to push back.', example:'❌ "Yes, but that won\'t scale." ✅ "Yes, and as we scale we\'ll need to solve X, here\'s how I\'d approach that together."' },
   { category:'VP Interview (STAR-B)', tip:'Every technical story needs a business outcome. Use STAR-B: Situation, Task, Action, Result, Business Impact.', example:'❌ "I implemented Kafka..." ✅ "I led the Kafka migration enabling 10x throughput, which unlocked a major enterprise contract."' },
-  { category:'Stakeholder Management', tip:'Send status proactively — before you\'re asked. No news is always bad news to a stakeholder.', example:'Weekly 5-sentence update: Progress · Risk · Next milestone · Need from them · Confidence 🟢🟡🔴' },
+  { category:'Stakeholder Management', tip:'Send status proactively, before you\'re asked. No news is always bad news to a stakeholder.', example:'Weekly 5-sentence update: Progress · Risk · Next milestone · Need from them · Confidence 🟢🟡🔴' },
   { category:'LinkedIn Presence', tip:'Post 2-3x/week: Problem → Approach → Lesson. The VP formula: make complex things simple. Consistency > virality.', example:'Post idea: "We cut infra costs 40% without touching SLAs. Here\'s the 3-step FinOps framework we used in 2 weeks:"' },
-  { category:'Async Written Comms', tip:'Add TLDR at the top of any message over 3 paragraphs. Respect cognitive load — it signals executive maturity.', example:'TLDR: K8s 1.28 upgrade Friday 2am. Impact: 15min downtime. Action needed: no deploys 1-3am Friday. Reply if blocked.' }
+  { category:'Async Written Comms', tip:'Add TLDR at the top of any message over 3 paragraphs. Respect cognitive load; it signals executive maturity.', example:'TLDR: K8s 1.28 upgrade Friday 2am. Impact: 15min downtime. Action needed: no deploys 1-3am Friday. Reply if blocked.' }
 ];
 
 // ── Coding Challenges ─────────────────────────────────────────────────────────
 const CODING_CHALLENGES = [
-  { platform:'LeetCode', title:'Design a Rate Limiter', difficulty:'Medium', url:'https://leetcode.com/problems/design-rate-limiter/', relevance:'API Gateway / PlatformOps — Token Bucket vs Sliding Window', hint:'Director-level: also design the distributed version with Redis + Lua scripts for atomicity.' },
+  { platform:'LeetCode', title:'Design a Rate Limiter', difficulty:'Medium', url:'https://leetcode.com/problems/design-rate-limiter/', relevance:'API Gateway / PlatformOps: Token Bucket vs Sliding Window', hint:'Director-level: also design the distributed version with Redis + Lua scripts for atomicity.' },
   { platform:'LeetCode', title:'LRU Cache', difficulty:'Medium', url:'https://leetcode.com/problems/lru-cache/', relevance:'Caching strategy in distributed systems', hint:'HashMap + Doubly Linked List. O(1) get/put. Maps directly to Envoy/Nginx cache tuning.' },
-  { platform:'LeetCode', title:'Design Twitter / News Feed', difficulty:'Medium', url:'https://leetcode.com/problems/design-twitter/', relevance:'Event streaming, fan-out — maps to your Cloud Data Stream project', hint:'Think Kafka topic fan-out vs pull model. This is exactly what CDS solves.' },
-  { platform:'LeetCode', title:'Word Ladder', difficulty:'Hard', url:'https://leetcode.com/problems/word-ladder/', relevance:'Graph traversal — used in dependency resolution (K8s scheduler)', hint:'BFS on implicit graph. K8s scheduler uses similar algorithms for pod placement.' },
-  { platform:'Exercism', title:'Go Track — Cloud Native', difficulty:'Intermediate', url:'https://exercism.org/tracks/go', relevance:'Go is the language of cloud-native infra (K8s, Terraform, ArgoCD all written in Go)', hint:'Learning Go deepens understanding of K8s controllers, Terraform providers, and ArgoCD internals.' },
-  { platform:'Exercism', title:'Python Track — MLOps Scripts', difficulty:'Beginner', url:'https://exercism.org/tracks/python', relevance:'Python for MLOps automation, data pipelines, Kubeflow components', hint:'Focus on generators, context managers, and async/await — critical for efficient ML pipeline code.' },
-  { platform:'LeetCode', title:'Serialize and Deserialize Binary Tree', difficulty:'Hard', url:'https://leetcode.com/problems/serialize-and-deserialize-binary-tree/', relevance:'Data serialization — Protocol Buffers, Avro (used in your Kafka/Flink stack)', hint:'This maps to schema evolution challenges in your DaaS platform with Apache Hudi.' }
+  { platform:'LeetCode', title:'Design Twitter / News Feed', difficulty:'Medium', url:'https://leetcode.com/problems/design-twitter/', relevance:'Event streaming, fan-out, maps to your Cloud Data Stream project', hint:'Think Kafka topic fan-out vs pull model. This is exactly what CDS solves.' },
+  { platform:'LeetCode', title:'Word Ladder', difficulty:'Hard', url:'https://leetcode.com/problems/word-ladder/', relevance:'Graph traversal, used in dependency resolution (K8s scheduler)', hint:'BFS on implicit graph. K8s scheduler uses similar algorithms for pod placement.' },
+  { platform:'Exercism', title:'Go Track: Cloud Native', difficulty:'Intermediate', url:'https://exercism.org/tracks/go', relevance:'Go is the language of cloud-native infra (K8s, Terraform, ArgoCD all written in Go)', hint:'Learning Go deepens understanding of K8s controllers, Terraform providers, and ArgoCD internals.' },
+  { platform:'Exercism', title:'Python Track: MLOps Scripts', difficulty:'Beginner', url:'https://exercism.org/tracks/python', relevance:'Python for MLOps automation, data pipelines, Kubeflow components', hint:'Focus on generators, context managers, and async/await, critical for efficient ML pipeline code.' },
+  { platform:'LeetCode', title:'Serialize and Deserialize Binary Tree', difficulty:'Hard', url:'https://leetcode.com/problems/serialize-and-deserialize-binary-tree/', relevance:'Data serialization, Protocol Buffers, Avro (used in your Kafka/Flink stack)', hint:'This maps to schema evolution challenges in your DaaS platform with Apache Hudi.' }
 ];
 
 // =============================================================================
@@ -517,7 +517,7 @@ class CareerAssistant {
         </div>
       </div>
       <div class="brief-section">
-        <h5>Today's Focus — ${path ? path.title : 'Platform Engineering'}</h5>
+        <h5>Today's Focus: ${path ? path.title : 'Platform Engineering'}</h5>
         <p>Priority: Complete 1 learning module + 1 LeetCode problem + compose 3 LinkedIn messages.</p>
       </div>
       <div class="brief-section">
@@ -674,7 +674,7 @@ class CareerAssistant {
     }
     this.save('apiKey', key);
     this.updateApiKeyUI();
-    this.addAssistantMessage('**Power Mode on.** I can now go beyond quick facts and answer open-ended questions in depth — feel free to ask anything.');
+    this.addAssistantMessage('**Power Mode on.** I can now go beyond quick facts and answer open-ended questions in depth, feel free to ask anything.');
   }
 
   renderSuggestions() {
@@ -700,9 +700,9 @@ class CareerAssistant {
 
   buildSystemPrompt() {
     const p = this.profile;
-    return `You are Gurpreet Gandhi, speaking in the first person directly to a visitor on your personal site — likely a recruiter, hiring manager, or engineering peer. This is "Power Mode": deeper, freeform Q&A beyond the quick-facts chat.
+    return `You are Gurpreet Gandhi, speaking in the first person directly to a visitor on your personal site, likely a recruiter, hiring manager, or engineering peer. This is "Power Mode": deeper, freeform Q&A beyond the quick-facts chat.
 
-Answer naturally, concretely, and honestly using ONLY the facts below — never invent employers, numbers, dates, or claims that aren't listed. If asked something outside this profile (compensation specifics, opinions unrelated to your work), say so plainly rather than guessing.
+Answer naturally, concretely, and honestly using ONLY the facts below. Never invent employers, numbers, dates, or claims that aren't listed. If asked something outside this profile (compensation specifics, opinions unrelated to your work), say so plainly rather than guessing.
 
 FACTS ABOUT YOU:
 - Current role: ${p.currentTitle} at ${p.currentCompany}
@@ -713,10 +713,10 @@ FACTS ABOUT YOU:
 - Expert skills: ${p.skills.expert.join(', ')}
 - Advanced skills: ${p.skills.advanced.join(', ')}
 - Domains: ${p.domains.join(', ')}
-- Projects: ${p.projects.map(pr => pr.name + ' — ' + pr.impact).join(' | ')}
+- Projects: ${p.projects.map(pr => pr.name + ': ' + pr.impact).join(' | ')}
 - Contact: ${p.email} · linkedin.com/in/${p.linkedin} · github.com/${p.github}
 
-TONE: Confident, warm, concise — not salesy. Format with markdown-style bold for key terms. Keep responses under 250 words unless the visitor explicitly asks for depth.`;
+TONE: Confident, warm, concise, not salesy. Format with markdown-style bold for key terms. Keep responses under 250 words unless the visitor explicitly asks for depth.`;
   }
 
   async sendMessage() {
@@ -728,7 +728,7 @@ TONE: Confident, warm, concise — not salesy. Format with markdown-style bold f
     this.addUserMessage(msg);
 
     if (!this.s.apiKey) {
-      // Default mode: no API key needed — rule-based "virtual Gurpreet" answers instantly.
+      // Default mode: no API key needed, rule-based "virtual Gurpreet" answers instantly.
       this.addThinkingMessage();
       const reply = matchFAQ(msg);
       const newHistory = [...this.s.chatHistory,
@@ -830,8 +830,8 @@ TONE: Confident, warm, concise — not salesy. Format with markdown-style bold f
         <div class="chat-msg">
           <div class="chat-avatar"><i class="fas fa-robot"></i></div>
           <div class="chat-bubble">
-            👋 Hi, I'm <strong>Gurpreet Gandhi</strong> — or rather, a virtual version of me trained on my real profile.<br><br>
-            Ask me about my current role, team leadership experience, certifications, tech stack, or any of my featured projects (AI Gateway, DaaS, RunRun, ML Platform) — I'll answer instantly, no sign-up needed.<br><br>
+            👋 Hi, I'm <strong>Gurpreet Gandhi</strong>, or rather, a virtual version of me trained on my real profile.<br><br>
+            Ask me about my current role, team leadership experience, certifications, tech stack, or any of my featured projects (AI Gateway, DaaS, RunRun, ML Platform). I'll answer instantly, no sign-up needed.<br><br>
             Want deeper, open-ended answers? Turn on <strong>Power Mode</strong> above with a Claude API key.
           </div>
         </div>`;
@@ -927,17 +927,17 @@ TONE: Confident, warm, concise — not salesy. Format with markdown-style bold f
     el.innerHTML = `
       <div class="exercism-content">
         <div class="exercism-track">
-          <h5>Go Track — Cloud Native Infra</h5>
+          <h5>Go Track: Cloud Native Infra</h5>
           <p>Go powers K8s, Terraform, ArgoCD, and Prometheus. Essential for VP Platform Engineering.</p>
           <a href="https://exercism.org/tracks/go" target="_blank"><i class="fas fa-external-link-alt"></i> Start Go Track on Exercism</a>
         </div>
         <div class="exercism-track">
-          <h5>Python Track — MLOps Automation</h5>
-          <p>Python is the lingua franca of MLOps — Kubeflow components, data pipelines, and automation scripts.</p>
+          <h5>Python Track: MLOps Automation</h5>
+          <p>Python is the lingua franca of MLOps: Kubeflow components, data pipelines, and automation scripts.</p>
           <a href="https://exercism.org/tracks/python" target="_blank"><i class="fas fa-external-link-alt"></i> Start Python Track on Exercism</a>
         </div>
         <div class="exercism-track">
-          <h5>Rust Track — Systems Programming</h5>
+          <h5>Rust Track: Systems Programming</h5>
           <p>Rust is emerging in cloud-native tools (Firecracker, Bottlerocket, Linux kernel modules).</p>
           <a href="https://exercism.org/tracks/rust" target="_blank"><i class="fas fa-external-link-alt"></i> Explore Rust Track</a>
         </div>
@@ -1108,7 +1108,7 @@ TONE: Confident, warm, concise — not salesy. Format with markdown-style bold f
         </div>
         <div class="match-section"><h5>Potential Gaps to Address</h5>
           <ul class="match-list">
-            ${this.profile.skills.growing.filter(s => jdLower.includes(s.toLowerCase())).map(s => `<li class="gap">${s} — growing skill, strengthen before applying</li>`).join('')}
+            ${this.profile.skills.growing.filter(s => jdLower.includes(s.toLowerCase())).map(s => `<li class="gap">${s}: growing skill, strengthen before applying</li>`).join('')}
             <li class="learn">Add Claude API key for detailed AI-powered gap analysis</li>
           </ul>
         </div>`;
@@ -1216,7 +1216,7 @@ TONE: Confident, warm, concise — not salesy. Format with markdown-style bold f
   startTimer(minutes) {
     if (this.timerInterval) clearInterval(this.timerInterval);
     this.timerEnd = Date.now() + minutes * 60 * 1000;
-    document.getElementById('timerStatus').textContent = minutes === 5 ? '☕ Break time — relax!' : '🎯 Focus mode — you\'ve got this!';
+    document.getElementById('timerStatus').textContent = minutes === 5 ? '☕ Break time, relax!' : '🎯 Focus mode, you\'ve got this!';
     this.timerInterval = setInterval(() => {
       const left = Math.max(0, this.timerEnd - Date.now());
       const m = Math.floor(left / 60000);
