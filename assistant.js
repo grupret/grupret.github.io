@@ -1,44 +1,126 @@
 // =============================================================================
-// CAREER ASSISTANT — Director of Platform Engineering Journey
+// CAREER ASSISTANT — Engineering Manager & Platform Architect Journey
 // Integrations: GitHub API · LeetCode · Exercism · Coursera · Claude API · LinkedIn
 // =============================================================================
 
 const CAREER_PROFILE = {
   name: 'Gurpreet Gandhi',
-  targetTitle: 'Director of Platform Engineering',
-  currentTitle: 'Solutions Architect',
-  currentCompany: 'Mobius Networks',
+  targetTitle: 'Senior Engineering Manager, Platform / AI',
+  currentTitle: 'Engineering Manager & Platform Architect',
+  currentCompany: 'Mobius Networks, Gaian Solutions',
   email: 'gurpreetgandhi3@gmail.com',
   github: 'grupret',
   linkedin: 'gandhigurpreet',
   yearsExp: 12,
+  teamLeadership: {
+    builtTeam: 'Built and scaled a 12-member Platform Engineering team from the ground up',
+    maxOrg: 'Led 3 Engineering Leads and 14 engineers across 4 Agile squads (RunRun)',
+    aiGatewayTeam: '6 engineers on the Enterprise AI Gateway',
+    genAiTeam: '4 engineers on the Generative AI platform',
+    mlPlatformOrg: '15-person cross-functional ML org at Nesy Factory (3 Eng Leads, 6 ML Engineers, 3 Backend, 2 UI, 1 UX)',
+    mentoring: 'Mentored engineers into lead-role promotions'
+  },
   certifications: [
-    'CKAD — Certified Kubernetes Application Developer (Dec 2024)',
-    'Google Cloud Generative AI Leader — Google Cloud'
+    'CKAD — Certified Kubernetes Application Developer (The Linux Foundation / CNCF, Dec 2024)',
+    'Google Cloud Generative AI Leader (Feb 2026 – Feb 2029)',
+    'SnapLogic Developer Certification'
   ],
   skills: {
     expert: ['Kubernetes','Docker','Terraform','Java/Spring Boot','Apache Kafka','Apache Flink','Camunda BPM','MongoDB','PostgreSQL','Istio','Vault','Distributed Systems','Event-driven Architecture'],
-    advanced: ['Python','MLflow','Kubeflow','ArgoCD','AWS','GCP','KServe','vLLM','LoRAX','CI/CD','mTLS','IAM','GDPR/PII Governance'],
-    growing: ['LLMOps','LLM Gateway','AMD SEV-SNP','Intel TDX','CVM/TEE','Confidential Computing','GPU MIG','OPA Gatekeeper','OpenTelemetry']
+    advanced: ['Python','MLflow','Kubeflow','ArgoCD','AWS','GCP','KServe','vLLM','Ollama','LoRAX','Triton/ONNX','CI/CD','mTLS','IAM','GDPR/PII Governance'],
+    growing: ['LLMOps','Agentic orchestration','AMD SEV-SNP','Intel TDX','CVM/TEE','Confidential Computing','GPU MIG','OPA Gatekeeper','OpenTelemetry']
   },
-  domains: ['Platform Engineering','Distributed Systems','MLOps','LLMOps','Workflow Orchestration','DevSecOps','Security & Compliance'],
+  domains: ['Platform Engineering','Distributed Systems','MLOps','LLMOps','Workflow Orchestration','DevSecOps','Security & Compliance','Team Leadership'],
   targetRoles: [
-    { title: 'Director of Platform Engineering', match: 97 },
-    { title: 'Solutions Architecture Lead', match: 92 },
-    { title: 'Principal Platform Architect', match: 95 },
-    { title: 'Head of AI/ML Platform', match: 90 },
+    { title: 'Senior Engineering Manager, Platform / AI', match: 97 },
+    { title: 'Director of Platform Engineering', match: 96 },
+    { title: 'Engineering Manager, AI/ML Platform', match: 94 },
+    { title: 'Principal / Platform Architect', match: 93 },
     { title: 'VP of Platform Engineering', match: 87 },
     { title: 'CTO – Growth-stage Startup', match: 78 }
   ],
   projects: [
-    { name: 'RunRun DevSecOps Platform', impact: 'Enterprise deal · Camunda + Terraform · Zero-downtime' },
-    { name: 'Cloud Data Stream (CDS)', impact: '<1ms latency · 1M+ msg/sec · RSocket' },
-    { name: 'Distributed DaaS Platform', impact: '10TB+ daily · 99.9% uptime · Flink/TiDB' },
-    { name: 'LLM Inference Gateway', impact: '30% faster deploys · 6+ backends · GPU MIG' },
-    { name: 'MLOps Platform on Kubeflow', impact: 'Full lifecycle · Automated gates · KServe' },
-    { name: 'CVM Security Infrastructure', impact: 'Zero incidents · TEE · Full audit readiness' }
+    { key: 'aigateway', name: 'Enterprise AI Gateway', impact: '6-engineer team · 50+ foundation models · +30–50% GPU utilization · -25–40% inference cost', keywords: ['ai gateway','llm gateway','inference gateway','foundation model','vllm','ollama','lorax','triton','gpu','kv cache','caching','cag','rag'] },
+    { key: 'genai', name: 'Generative AI Platform', impact: '4-engineer team · 1000+ enterprise marketplaces · NVIDIA H100 · 3x throughput', keywords: ['generative ai platform','image studio','video studio','3d studio','h100','genai','scale to zero','keda'] },
+    { key: 'daas', name: 'Distributed Database-as-a-Service Platform', impact: '12+ database technologies · 10TB+ daily · 500K–1M events/sec', keywords: ['daas','database as a service','data platform','flink','postgres','postgresql','mongodb','tidb','hudi','htap','olap'] },
+    { key: 'runrun', name: 'RunRun DevSecOps Platform', impact: '3 Engineering Leads + 14 engineers / 4 squads · Camunda + Terraform · zero-downtime', keywords: ['runrun','devsecops','terraform','camunda','vault','argocd','iac','infrastructure as code'] },
+    { key: 'mlplatform', name: 'ML Platform Engineering (Nesy Factory)', impact: '15-person cross-functional org · 3x delivery speed · 15+ production ML workloads', keywords: ['ml platform','mlops','nesy','kubeflow','mlflow','kserve','pytorch','machine learning platform'] },
+    { key: 'cds', name: 'Cloud Data Stream (CDS)', impact: '<1ms latency · 1M+ msg/sec · RSocket over TCP', keywords: ['cloud data stream','cds','rsocket','pitcher catcher','latency'] },
+    { key: 'cvm', name: 'CVM Confidential Infrastructure', impact: 'Zero incidents · AMD SEV-SNP / Intel TDX · full audit readiness', keywords: ['cvm','confidential comput','tee','sev-snp','tdx','gdpr','mtls','security infrastructure'] }
   ]
 };
+
+// ── Virtual Gurpreet — recruiter-facing Q&A (no API key required) ──────────
+// Keyword-matched, first-person answers grounded in CAREER_PROFILE facts.
+// This is the DEFAULT chat mode for anonymous visitors. "Power Mode" (below,
+// requires a visitor-supplied Claude API key) layers on freeform Q&A on top.
+const FAQ_ENTRIES = [
+  {
+    id: 'greeting',
+    keywords: ['who are you','tell me about yourself','introduce yourself','about you','hi','hello','hey'],
+    answer: p => `I'm ${p.name} — an ${p.currentTitle} with ${p.yearsExp}+ years building cloud-native platforms, distributed systems, and enterprise AI infrastructure. I currently lead engineering at ${p.currentCompany}, where I ${p.teamLeadership.builtTeam.charAt(0).toLowerCase() + p.teamLeadership.builtTeam.slice(1)} and ${p.teamLeadership.maxOrg.charAt(0).toLowerCase() + p.teamLeadership.maxOrg.slice(1)}. Ask me about my team leadership, certifications, tech stack, or any of my featured projects.`
+  },
+  {
+    id: 'role',
+    keywords: ['current role','what do you do','job title','position','what is your role','current job'],
+    answer: p => `Right now I'm ${p.currentTitle} at ${p.currentCompany}. It's a hybrid role — I own the platform roadmap and lead the people side of engineering, while staying hands-on enough to make the hard architecture calls myself.`
+  },
+  {
+    id: 'team',
+    keywords: ['team size','how many people','direct reports','manage','managed','leadership experience','led a team','mentoring','mentor','promotion','promoted','people manager'],
+    answer: p => `${p.teamLeadership.builtTeam}. ${p.teamLeadership.maxOrg}. I've also run smaller focused teams — ${p.teamLeadership.aiGatewayTeam} and ${p.teamLeadership.genAiTeam} — and partnered on a ${p.teamLeadership.mlPlatformOrg}. ${p.teamLeadership.mentoring}.`
+  },
+  {
+    id: 'certs',
+    keywords: ['certification','certificate','certified','credly','ckad','generative ai leader','snaplogic'],
+    answer: p => `I hold three: ${p.certifications.join('; ')}. All are verifiable on Credly — links are under Personal → Courses & Certifications on this site.`
+  },
+  {
+    id: 'stack',
+    keywords: ['tech stack','technology','technologies','skills','what do you use','programming language','tools'],
+    answer: p => `Core stack: ${p.skills.expert.slice(0,8).join(', ')}. On the AI/inference side: ${p.skills.advanced.filter(s => /vLLM|Ollama|LoRAX|KServe|Triton/.test(s)).join(', ')}. Full breakdown is in the Skills section above.`
+  },
+  {
+    id: 'manager_or_architect',
+    keywords: ['manager or architect','em or architect','people manager or ic','hands on','hands-on','still code','still technical'],
+    answer: () => `Both, honestly — my title is Engineering Manager & Platform Architect. I lead the people side (hiring, mentoring, planning, roadmap) but stay hands-on enough to make the hard architecture calls myself. That combination is intentional — it's what I'd bring to a Director or Senior EM seat.`
+  },
+  {
+    id: 'target_roles',
+    keywords: ['looking for','target role','next role','what role','open to','job search','career goal'],
+    answer: p => `I'm targeting ${p.targetRoles.slice(0,2).map(r => r.title).join(' and ')} roles — open to remote/global opportunities. Happy to talk specifics if you have something in mind.`
+  },
+  {
+    id: 'contact',
+    keywords: ['contact','reach you','email','linkedin','get in touch','resume','cv'],
+    answer: p => `Best ways to reach me: email at ${p.email}, LinkedIn at linkedin.com/in/${p.linkedin}, or GitHub at github.com/${p.github}. You can also grab my resume from the "Download Resume" button at the top of this page.`
+  },
+  {
+    id: 'projects_general',
+    keywords: ['projects','what have you built','built anything','portfolio','work you have done'],
+    answer: p => `A few I'm proud of: ${p.projects.slice(0,5).map(pr => pr.name).join(', ')}. Ask me about any one of them by name — the AI Gateway, the DaaS platform, RunRun, or the ML platform — and I'll go deeper.`
+  }
+];
+
+function matchFAQ(msg) {
+  const lower = msg.toLowerCase();
+  let best = null, bestScore = 0;
+  FAQ_ENTRIES.forEach(entry => {
+    const score = entry.keywords.reduce((n, kw) => n + (lower.includes(kw) ? 1 : 0), 0);
+    if (score > bestScore) { bestScore = score; best = entry; }
+  });
+  if (bestScore > 0) return best.answer(CAREER_PROFILE);
+
+  // Try project-specific keyword match
+  let bestProject = null, bestPScore = 0;
+  CAREER_PROFILE.projects.forEach(pr => {
+    const score = pr.keywords.reduce((n, kw) => n + (lower.includes(kw) ? 1 : 0), 0);
+    if (score > bestPScore) { bestPScore = score; bestProject = pr; }
+  });
+  if (bestProject) return `**${bestProject.name}** — ${bestProject.impact}. Want details on another project, my team leadership, or how to reach me?`;
+
+  return `I didn't quite catch that. I'm best at answering questions about my current role, team leadership, certifications, tech stack, or my featured projects (AI Gateway, DaaS, RunRun, ML Platform). Try one of the quick questions below — or turn on **Power Mode** (paste a Claude API key above) for open-ended questions.`;
+}
 
 // ── Learning Paths ──────────────────────────────────────────────────────────
 const LEARNING_PATHS = {
@@ -142,7 +224,7 @@ const LEARNING_PATHS = {
 const LINKEDIN_TEMPLATES = {
   connection: `Hi {{name}},
 
-I came across your work at {{company}} and was genuinely impressed. As an Solutions Architect with 12+ years building distributed systems, MLOps platforms, and cloud-native infra, I believe we're operating in adjacent spaces.
+I came across your work at {{company}} and was genuinely impressed. As an Engineering Manager & Platform Architect with 12+ years leading teams and building distributed systems, MLOps platforms, and cloud-native infra, I believe we're operating in adjacent spaces.
 
 Would love to connect and exchange ideas on {{topic}}.
 
@@ -151,11 +233,11 @@ Gurpreet Gandhi`,
 
   intro: `Hi {{name}},
 
-I'm Gurpreet Gandhi — Solutions Architect specialising in Director of Platform Engineering. My work spans:
-• Distributed platforms (10TB+/day, 99.9% uptime, <1ms latency)
-• MLOps & LLMOps (Kubeflow, MLflow, Ollama on K8s)
+I'm Gurpreet Gandhi — Engineering Manager & Platform Architect. My work spans:
+• Team leadership (built/scaled a 12-member platform team, led 14 engineers/4 squads)
+• Distributed platforms (10TB+/day, 99.5% availability, <1ms latency)
+• MLOps & LLMOps (Kubeflow, MLflow, vLLM/Ollama on K8s)
 • DevSecOps & GitOps (ArgoCD, Vault, Terraform)
-• Cloud-native (CKAD certified, Kubernetes expert)
 
 I'm exploring leadership opportunities in Platform/ML Engineering and would value your perspective on {{company_domain}}.
 
@@ -592,17 +674,17 @@ class CareerAssistant {
     }
     this.save('apiKey', key);
     this.updateApiKeyUI();
-    this.addAssistantMessage('API key saved! I\'m ready to help you land that VP role. Ask me anything — learning paths, interview prep, LinkedIn strategy, or analyze a job description.');
+    this.addAssistantMessage('**Power Mode on.** I can now go beyond quick facts and answer open-ended questions in depth — feel free to ask anything.');
   }
 
   renderSuggestions() {
     const suggestions = [
-      'What should I learn for VP roles?',
-      'Optimize my LinkedIn headline',
-      'Prep me for system design interview',
-      'Analyze this job description',
-      'Draft LinkedIn post about LLMOps',
-      'What gaps do I have for VP roles?'
+      'Tell me about yourself',
+      'How big a team have you led?',
+      'What certifications do you hold?',
+      'Tell me about the AI Gateway project',
+      'Are you a manager or an architect?',
+      'How do I reach you?'
     ];
     const el = document.getElementById('chatSuggestions');
     if (!el) return;
@@ -618,31 +700,23 @@ class CareerAssistant {
 
   buildSystemPrompt() {
     const p = this.profile;
-    const todos = this.s.todos.filter(t => !t.done).map(t => t.text).join(', ');
-    const apps = this.s.jobApps.length;
-    return `You are an autonomous career assistant for ${p.name}, a Solutions Architect targeting Director of Platform Engineering roles.
+    return `You are Gurpreet Gandhi, speaking in the first person directly to a visitor on your personal site — likely a recruiter, hiring manager, or engineering peer. This is "Power Mode": deeper, freeform Q&A beyond the quick-facts chat.
 
-PROFILE:
-- Current: ${p.currentTitle} at ${p.currentCompany}
-- Target roles: ${p.targetRoles.map(r => r.title + ' (' + r.match + '% match)').join(', ')}
-- Experience: ${p.yearsExp}+ years
-- Certifications: ${p.certifications.join(', ')}
+Answer naturally, concretely, and honestly using ONLY the facts below — never invent employers, numbers, dates, or claims that aren't listed. If asked something outside this profile (compensation specifics, opinions unrelated to your work), say so plainly rather than guessing.
+
+FACTS ABOUT YOU:
+- Current role: ${p.currentTitle} at ${p.currentCompany}
+- Years of experience: ${p.yearsExp}+
+- Target roles: ${p.targetRoles.map(r => r.title).join(', ')}
+- Team leadership: ${p.teamLeadership.builtTeam}. ${p.teamLeadership.maxOrg}. ${p.teamLeadership.aiGatewayTeam}. ${p.teamLeadership.genAiTeam}. ${p.teamLeadership.mlPlatformOrg}. ${p.teamLeadership.mentoring}.
+- Certifications: ${p.certifications.join('; ')}
 - Expert skills: ${p.skills.expert.join(', ')}
-- Advanced: ${p.skills.advanced.join(', ')}
-- Growing: ${p.skills.growing.join(', ')}
+- Advanced skills: ${p.skills.advanced.join(', ')}
 - Domains: ${p.domains.join(', ')}
 - Projects: ${p.projects.map(pr => pr.name + ' — ' + pr.impact).join(' | ')}
-- Achievements: ${p.achievements?.join(' | ') || 'See projects above'}
+- Contact: ${p.email} · linkedin.com/in/${p.linkedin} · github.com/${p.github}
 
-CURRENT CONTEXT:
-- Open todos: ${todos || 'none'}
-- Job applications tracked: ${apps}
-- IQ score: ${this.s.iqScore}
-- Day streak: ${this.s.streakDays}
-
-MISSION: Maximize Gurpreet's cognitive power, EQ, communication skills, and help him land a VP Platform Engineering role through LinkedIn networking, skill-building, and strategic career moves.
-
-BE: Concrete, data-driven, action-oriented. Give specific course names, company names, LinkedIn strategies. Format responses with markdown-style bold for key terms. Keep responses under 300 words unless code is required.`;
+TONE: Confident, warm, concise — not salesy. Format with markdown-style bold for key terms. Keep responses under 250 words unless the visitor explicitly asks for depth.`;
   }
 
   async sendMessage() {
@@ -650,14 +724,25 @@ BE: Concrete, data-driven, action-oriented. Give specific course names, company 
     const msg = input?.value?.trim();
     if (!msg) return;
 
+    input.value = '';
+    this.addUserMessage(msg);
+
     if (!this.s.apiKey) {
-      this.switchTab('chat');
-      document.getElementById('apiConfig').style.display = 'block';
+      // Default mode: no API key needed — rule-based "virtual Gurpreet" answers instantly.
+      this.addThinkingMessage();
+      const reply = matchFAQ(msg);
+      const newHistory = [...this.s.chatHistory,
+        { role: 'user', content: msg },
+        { role: 'assistant', content: reply }
+      ].slice(-30);
+      this.save('chatHistory', newHistory);
+      setTimeout(() => {
+        this.removeThinking();
+        this.addAssistantMessage(reply);
+      }, 350);
       return;
     }
 
-    input.value = '';
-    this.addUserMessage(msg);
     this.addThinkingMessage();
 
     const history = this.s.chatHistory.slice(-12);
@@ -745,10 +830,9 @@ BE: Concrete, data-driven, action-oriented. Give specific course names, company 
         <div class="chat-msg">
           <div class="chat-avatar"><i class="fas fa-robot"></i></div>
           <div class="chat-bubble">
-            <strong>Welcome, Gurpreet!</strong><br><br>
-            I'm your autonomous career assistant. I know your full profile — 12 years building distributed platforms, your CKAD and GCP AI Leader certs, and your goal of landing a <strong>Director of Platform Engineering</strong> role.<br><br>
-            I can help you: learn the right skills, craft LinkedIn messages, track job applications, analyze JDs, and train your cognitive performance daily.<br><br>
-            To enable AI chat, save your <strong>Claude API key</strong> above. Or try the Learning, Jobs, and Brain tabs — no API key needed!
+            👋 Hi, I'm <strong>Gurpreet Gandhi</strong> — or rather, a virtual version of me trained on my real profile.<br><br>
+            Ask me about my current role, team leadership experience, certifications, tech stack, or any of my featured projects (AI Gateway, DaaS, RunRun, ML Platform) — I'll answer instantly, no sign-up needed.<br><br>
+            Want deeper, open-ended answers? Turn on <strong>Power Mode</strong> above with a Claude API key.
           </div>
         </div>`;
       return;
@@ -893,7 +977,7 @@ BE: Concrete, data-driven, action-oriented. Give specific course names, company 
           max_tokens: 400,
           messages: [{
             role: 'user',
-            content: `Write a LinkedIn ${type} message from Gurpreet Gandhi (Solutions Architect → Director of Platform Engineering, 12+ years, CKAD certified, built 10TB+/day systems, MLOps/LLMOps expert) to a ${role} at ${company}. Keep it under 150 words, genuine, not salesy. Highlight 1-2 specific relevant achievements. No subject line needed.`
+            content: `Write a LinkedIn ${type} message from Gurpreet Gandhi (Engineering Manager & Platform Architect, 12+ years, built/scaled a 12-member platform team, led 14 engineers across 4 squads, CKAD + Google Cloud Generative AI Leader certified, built 10TB+/day systems, MLOps/LLMOps expert) to a ${role} at ${company}. Keep it under 150 words, genuine, not salesy. Highlight 1-2 specific relevant achievements. No subject line needed.`
           }]
         })
       });
