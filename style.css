@@ -808,6 +808,59 @@ section {
     background: white;
 }
 
+.domain-skill-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+}
+
+.domain-skill-card {
+    background: #f8fafc;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    transition: transform var(--dur-base) var(--ease-out-expo), box-shadow var(--dur-base) var(--ease-out-cubic);
+}
+
+.domain-skill-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.domain-skill-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 0.6rem;
+}
+
+.domain-skill-bar {
+    height: 8px;
+    background: rgba(99, 102, 241, 0.12);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.domain-skill-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+    border-radius: 10px;
+}
+
+.domain-skill-pct {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #6366f1;
+    margin-bottom: 0.4rem;
+}
+
+.domain-skill-sub {
+    font-size: 0.8rem;
+    color: #64748b;
+    line-height: 1.5;
+}
+
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
