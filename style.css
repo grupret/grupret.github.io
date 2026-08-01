@@ -380,7 +380,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1.25rem;
+    gap: 1.75rem;
 }
 
 .cert-chip {
@@ -397,8 +397,8 @@ body {
 }
 
 .cert-chip-img {
-    width: 60px;
-    height: 60px;
+    width: 84px;
+    height: 84px;
     flex-shrink: 0;
     border-radius: 50%;
     overflow: hidden;
@@ -422,7 +422,7 @@ body {
 }
 
 .cert-chip-label {
-    font-size: 0.72rem;
+    font-size: 0.8rem;
     font-weight: 600;
     color: #fff;
     opacity: 0.92;
