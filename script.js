@@ -400,47 +400,9 @@ function showTab(tabId) {
     }
 }
 
-// Animate statistics on scroll
-function animateStats() {
-    const stats = document.querySelectorAll('.stat-number');
-    
-    const statsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const target = entry.target;
-                const text = target.textContent;
-                const isNumber = text.match(/\d+/);
-                
-                if (isNumber) {
-                    const number = parseInt(isNumber[0]);
-                    animateNumber(target, number, text);
-                }
-            }
-        });
-    });
-    
-    stats.forEach(stat => statsObserver.observe(stat));
-}
-
-function animateNumber(element, target, originalText) {
-    const increment = target / 100;
-    let current = 0;
-    
-    const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-            element.textContent = originalText;
-            clearInterval(timer);
-        } else {
-            element.textContent = originalText.replace(/\d+/, Math.floor(current));
-        }
-    }, 20);
-}
-
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
     initLazyLoading();
-    animateStats();
 });
 
 // Performance monitoring
