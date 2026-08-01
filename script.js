@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize all functionality
     initNavigation();
     initScrollAnimations();
-    initFormHandling();
     initMobileMenu();
     initScrollToTop();
     initSkillAnimations();
@@ -103,38 +102,6 @@ function initScrollAnimations() {
         el.classList.add('animate-on-scroll');
         observer.observe(el);
     });
-}
-
-// Form handling
-function initFormHandling() {
-    const contactForm = document.getElementById('contactForm');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const button = this.querySelector('button[type="submit"]');
-            const originalText = button.textContent;
-            
-            // Show loading state
-            button.innerHTML = '<span class="loading"></span> Sending...';
-            button.disabled = true;
-            
-            // Simulate form submission (replace with actual endpoint)
-            setTimeout(() => {
-                // Show success message
-                showNotification('Message sent successfully!', 'success');
-                
-                // Reset form
-                this.reset();
-                
-                // Reset button
-                button.textContent = originalText;
-                button.disabled = false;
-            }, 2000);
-        });
-    }
 }
 
 // Mobile menu toggle
@@ -301,45 +268,6 @@ function initTypewriterEffect() {
             s.style.transform = 'translate3d(0,0,0)';
         });
     });
-}
-
-// Utility functions
-function showNotification(message, type = 'success') {
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.textContent = message;
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 15px 25px;
-        background: ${type === 'success' ? '#10b981' : '#ef4444'};
-        color: white;
-        border-radius: 8px;
-        font-weight: 600;
-        z-index: 10000;
-        opacity: 0;
-        transform: translateX(100px);
-        transition: opacity 350ms cubic-bezier(0.16,1,0.3,1), transform 350ms cubic-bezier(0.16,1,0.3,1);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
-    `;
-
-    document.body.appendChild(notification);
-
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            notification.style.opacity = '1';
-            notification.style.transform = 'translateX(0)';
-        });
-    });
-    
-    setTimeout(() => {
-        notification.style.opacity = '0';
-        notification.style.transform = 'translateX(100px)';
-        setTimeout(() => {
-            document.body.removeChild(notification);
-        }, 300);
-    }, 3000);
 }
 
 // Performance optimization
