@@ -840,20 +840,13 @@ section {
     background: rgba(99, 102, 241, 0.12);
     border-radius: 10px;
     overflow: hidden;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .domain-skill-fill {
     height: 100%;
     background: linear-gradient(90deg, #6366f1, #8b5cf6);
     border-radius: 10px;
-}
-
-.domain-skill-pct {
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: #6366f1;
-    margin-bottom: 0.4rem;
 }
 
 .domain-skill-sub {
