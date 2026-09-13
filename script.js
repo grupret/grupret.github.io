@@ -96,7 +96,7 @@ function initScrollAnimations() {
     }, observerOptions);
 
     const animateElements = document.querySelectorAll(
-        '.experience-card, .project-card, .skill-category, .highlight-item, .role-match-card'
+        '.experience-card, .work-card, .domain-skill-card, .highlight-item, .role-match-card'
     );
     animateElements.forEach(el => {
         el.classList.add('animate-on-scroll');
